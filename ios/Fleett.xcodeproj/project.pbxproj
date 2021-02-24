@@ -18,6 +18,11 @@
 		39B3E2F965890D61A2AE5A72 /* libPods-Fleett-FleettTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771ADA7238A625A4B0B8652 /* libPods-Fleett-FleettTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		BADBF33B96B929255F36949E /* libPods-Fleett.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EADCB7E1320CBED40E4AA4A /* libPods-Fleett.a */; };
+		D33B114C25E5BB9F00839306 /* TTNormsPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D33B114725E5BB9F00839306 /* TTNormsPro-Regular.otf */; };
+		D33B114D25E5BB9F00839306 /* TTNormsPro-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D33B114825E5BB9F00839306 /* TTNormsPro-Bold.otf */; };
+		D33B114E25E5BB9F00839306 /* TTNormsPro-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D33B114925E5BB9F00839306 /* TTNormsPro-ExtraBold.otf */; };
+		D33B114F25E5BB9F00839306 /* TTNormsPro-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D33B114A25E5BB9F00839306 /* TTNormsPro-Light.otf */; };
+		D33B115025E5BB9F00839306 /* TTNormsPro-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D33B114B25E5BB9F00839306 /* TTNormsPro-Medium.otf */; };
 		E1526F43D227E0ECEA592481 /* libPods-Fleett-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5640A393032D44E64EE8801 /* libPods-Fleett-tvOSTests.a */; };
 		ECB41857757793E68818FC2B /* libPods-Fleett-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2642D5D12AEFE6C0BBB4B366 /* libPods-Fleett-tvOS.a */; };
 /* End PBXBuildFile section */
@@ -63,6 +68,11 @@
 		A9F28D3FD87550CF8F3D9549 /* Pods-Fleett-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Fleett-tvOSTests/Pods-Fleett-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		BCCFFA1A620B995214D7662B /* Pods-Fleett-FleettTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett-FleettTests.release.xcconfig"; path = "Target Support Files/Pods-Fleett-FleettTests/Pods-Fleett-FleettTests.release.xcconfig"; sourceTree = "<group>"; };
 		C5640A393032D44E64EE8801 /* libPods-Fleett-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Fleett-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D33B114725E5BB9F00839306 /* TTNormsPro-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TTNormsPro-Regular.otf"; path = "../assets/fonts/TTNormsPro-Regular.otf"; sourceTree = "<group>"; };
+		D33B114825E5BB9F00839306 /* TTNormsPro-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TTNormsPro-Bold.otf"; path = "../assets/fonts/TTNormsPro-Bold.otf"; sourceTree = "<group>"; };
+		D33B114925E5BB9F00839306 /* TTNormsPro-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TTNormsPro-ExtraBold.otf"; path = "../assets/fonts/TTNormsPro-ExtraBold.otf"; sourceTree = "<group>"; };
+		D33B114A25E5BB9F00839306 /* TTNormsPro-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TTNormsPro-Light.otf"; path = "../assets/fonts/TTNormsPro-Light.otf"; sourceTree = "<group>"; };
+		D33B114B25E5BB9F00839306 /* TTNormsPro-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TTNormsPro-Medium.otf"; path = "../assets/fonts/TTNormsPro-Medium.otf"; sourceTree = "<group>"; };
 		DAF70F3E634C753F07C0970C /* Pods-Fleett-FleettTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett-FleettTests.debug.xcconfig"; path = "Target Support Files/Pods-Fleett-FleettTests/Pods-Fleett-FleettTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E3EF60443D4F472E35EFE721 /* Pods-Fleett.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett.debug.xcconfig"; path = "Target Support Files/Pods-Fleett/Pods-Fleett.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -159,12 +169,18 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D33B114825E5BB9F00839306 /* TTNormsPro-Bold.otf */,
+				D33B114925E5BB9F00839306 /* TTNormsPro-ExtraBold.otf */,
+				D33B114A25E5BB9F00839306 /* TTNormsPro-Light.otf */,
+				D33B114B25E5BB9F00839306 /* TTNormsPro-Medium.otf */,
+				D33B114725E5BB9F00839306 /* TTNormsPro-Regular.otf */,
 				13B07FAE1A68108700A75B9A /* Fleett */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* FleettTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				9B89323FFF39D986E9B49153 /* Pods */,
+				AAECED5D6CD1438197D26089 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -194,8 +210,14 @@
 				9BEE2C8787BB8E2A9DD18362 /* Pods-Fleett-tvOSTests.debug.xcconfig */,
 				A9F28D3FD87550CF8F3D9549 /* Pods-Fleett-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		AAECED5D6CD1438197D26089 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -340,6 +362,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D33B114C25E5BB9F00839306 /* TTNormsPro-Regular.otf in Resources */,
+				D33B114D25E5BB9F00839306 /* TTNormsPro-Bold.otf in Resources */,
+				D33B114E25E5BB9F00839306 /* TTNormsPro-ExtraBold.otf in Resources */,
+				D33B114F25E5BB9F00839306 /* TTNormsPro-Light.otf in Resources */,
+				D33B115025E5BB9F00839306 /* TTNormsPro-Medium.otf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
@@ -375,7 +402,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		02BDDBF9A8801FC7048D043C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
