@@ -7,7 +7,7 @@ const { width } = Dimensions.get('screen');
 export const styles = StyleSheet.create({
   safeview: {
     flex: 1,
-    backgroundColor: Colors.Woodsmoke,
+    backgroundColor: Colors.White,
   },
   container: {
     flex: 1,
@@ -87,5 +87,28 @@ export const styles = StyleSheet.create({
     borderRadius: 6,
     paddingHorizontal: wp(18),
     paddingVertical: hp(15),
+    height: hp(109),
+    marginBottom: hp(27),
+  },
+  itemTitle: {
+    fontSize: hp(16),
+    marginBottom: hp(10),
+  },
+  itemText: {
+    color: Colors.ScarpaFlow,
+    fontSize: hp(14),
+    width: '60%',
+    lineHeight: hp(16),
+  },
+  itemBtn: {
+    backgroundColor: Colors.MountainMeadow,
+    width: wp(26),
+    height: hp(26),
+    borderRadius: 13,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    right: 10,
+    bottom: 0,
   },
 });

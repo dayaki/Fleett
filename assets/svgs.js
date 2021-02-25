@@ -112,3 +112,20 @@ export const Search = (props) => (
     />
   </Svg>
 );
+
+export const ForwardArrow = (props) => (
+  <Svg
+    width={6}
+    height={10}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}>
+    <Path
+      d="M1 9l4-4-4-4"
+      stroke="#fff"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
