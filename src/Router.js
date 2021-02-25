@@ -5,6 +5,7 @@ import { Router, Scene, Stack } from 'react-native-router-flux';
 import Onboarding from './screens/onboarding/';
 import SignIn from './screens/authentication/SignIn';
 import Register from './screens/authentication/Register';
+import ForgotPass from './screens/authentication/ForgotPass';
 
 const Routing = () => (
   <Router>
@@ -12,6 +13,7 @@ const Routing = () => (
       <Scene key="onboarding" component={Onboarding} />
       <Scene key="sign_in" component={SignIn} initial />
       <Scene key="register" component={Register} />
+      <Scene key="forgot_pass" component={ForgotPass} />
     </Stack>
   </Router>
 );

@@ -64,6 +64,6 @@ const styles = StyleSheet.create({
     fontFamily: 'TTNormsPro-Bold',
     fontSize: hp(16),
     lineHeight: hp(37),
-    paddingLeft: wp(20),
+    paddingLeft: wp(10),
   },
 });

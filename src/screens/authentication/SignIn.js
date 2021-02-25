@@ -33,7 +33,11 @@ const SignIn = ({}) => {
         <View style={styles.formInput}>
           <Input placeholder="Password" icon={<Password />} />
         </View>
-        <RegularText title="Trouble logging in?" style={styles.forgotPass} />
+        <RegularText
+          title="Trouble logging in?"
+          style={styles.forgotPass}
+          onPress={() => Actions.forgot_pass()}
+        />
         <Button title="Sign In" style={styles.formButton} />
         <DoubleText
           title="Don’t have an account yet?"
