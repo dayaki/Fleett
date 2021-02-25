@@ -36,4 +36,38 @@ export const styles = StyleSheet.create({
     marginTop: hp(74),
     marginBottom: hp(44),
   },
+  registerTexts: {
+    marginTop: hp(40),
+  },
+  registerInput: {
+    marginBottom: hp(41),
+  },
+  registerform: {
+    marginTop: hp(61),
+  },
+});
+
+export const registerStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: hp(20),
+  },
+  text: {
+    marginTop: hp(9),
+  },
+  formButton: {
+    width: '100%',
+    marginTop: hp(50),
+    marginBottom: hp(42),
+  },
+  texts: {
+    marginTop: hp(40),
+  },
+  input: {
+    marginBottom: hp(41),
+  },
+  form: {
+    marginTop: hp(61),
+  },
 });

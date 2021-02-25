@@ -5,7 +5,7 @@ import { hp, wp } from './utils';
 
 export const Input = ({ placeholder, icon }) => (
   <View style={styles.input}>
-    {icon}
+    <View style={styles.icon}>{icon}</View>
     <TextInput
       placeholder={placeholder}
       placeholderTextColor={Colors.SilverGray}
@@ -23,11 +23,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: hp(7),
   },
+  icon: {
+    marginTop: hp(3),
+  },
   textInput: {
     fontFamily: 'TTNormsPro-Regular',
     fontSize: hp(16),
     lineHeight: hp(21),
     color: Colors.SilverChalice,
-    paddingLeft: wp(3),
+    paddingLeft: wp(8),
   },
 });

@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Image } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import {
   NormalView,
   RegularText,
@@ -34,7 +35,11 @@ const SignIn = ({}) => {
         </View>
         <RegularText title="Trouble logging in?" style={styles.forgotPass} />
         <Button title="Sign In" style={styles.formButton} />
-        <DoubleText title="Don’t have an account yet?" text="Sign Up" />
+        <DoubleText
+          title="Don’t have an account yet?"
+          text="Sign Up"
+          onPress={() => Actions.register()}
+        />
       </View>
     </NormalView>
   );
