@@ -8,8 +8,9 @@ import {
   Text,
   TextInput,
 } from 'react-native';
-import { ActiveBell, Search, ForwardArrow } from '../../../assets/svgs';
-import { RegularText, TitleText, Woodsmoke } from '../../common';
+import { Actions } from 'react-native-router-flux';
+import { ActiveBell, Search, ForwardArrow } from '../../../../assets/svgs';
+import { RegularText, TitleText, Woodsmoke } from '../../../common';
 import { styles } from './styles';
 
 const Home = () => {
@@ -20,7 +21,9 @@ const Home = () => {
         <View style={styles.container}>
           <View style={styles.header}>
             <View style={styles.topHeader}>
-              <TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => Actions.drawerOpen()}>
                 <Image
                   source={{
                     uri:

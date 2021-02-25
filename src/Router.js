@@ -1,13 +1,15 @@
 import React from 'react';
-import { Router, Scene, Stack } from 'react-native-router-flux';
+import { Router, Scene, Stack, Drawer } from 'react-native-router-flux';
 // import { checkAuth } from './utils/helpers';
 
 import Onboarding from './screens/onboarding/';
 import SignIn from './screens/authentication/SignIn';
 import Register from './screens/authentication/Register';
 import ForgotPass from './screens/authentication/ForgotPass';
+import Home from './screens/dashboard/home';
+import DrawerMenu from './screens/dashboard/drawer';
 
-import Home from './screens/home';
+import { wp } from './common';
 
 const Routing = () => (
   <Router>
@@ -16,7 +18,16 @@ const Routing = () => (
       <Scene key="sign_in" component={SignIn} />
       <Scene key="register" component={Register} />
       <Scene key="forgot_pass" component={ForgotPass} />
-      <Scene key="home" component={Home} initial />
+      <Scene key="home" component={Home} />
+      <Drawer
+        initial
+        hideNavBar
+        key="drawer"
+        headerMode="none"
+        contentComponent={DrawerMenu}
+        drawerWidth={wp(268)}>
+        <Scene key="home" component={Home} />
+      </Drawer>
     </Stack>
   </Router>
 );
