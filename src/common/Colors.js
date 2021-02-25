@@ -5,3 +5,6 @@ export const SilverGray = '#C6C6C6';
 export const SuvaGray = '#817F80';
 export const ScarpaFlow = '#5F5E60';
 export const SilverChalice = '#AEAEAE';
+export const MountainMeadow = '#17B0A3';
+export const Woodsmoke = '#08090A';
+export const WildSand = '#F4F4F4';

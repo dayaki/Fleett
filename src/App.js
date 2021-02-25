@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
-import { setCustomText } from 'react-native-global-props';
+import { setCustomText, setCustomImage } from 'react-native-global-props';
 import Router from './Router';
-// import { persistor, store } from './store';
-// import { pingDevice } from './ble';
 
-// const { BASE_URL } = Config;
-
+// Setting default styles for all Text components.
 const customTextProps = {
   style: {
     fontFamily: 'TTNormsPro-Regular',
@@ -13,7 +10,13 @@ const customTextProps = {
   },
 };
 
+// Makes every image resize mode cover by default.
+const customImageProps = {
+  resizeMode: 'cover',
+};
+
 setCustomText(customTextProps);
+setCustomImage(customImageProps);
 
 const App = () => {
   useEffect(() => {

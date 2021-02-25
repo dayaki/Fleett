@@ -7,13 +7,16 @@ import SignIn from './screens/authentication/SignIn';
 import Register from './screens/authentication/Register';
 import ForgotPass from './screens/authentication/ForgotPass';
 
+import Home from './screens/home';
+
 const Routing = () => (
   <Router>
     <Stack key="root" hideNavBar>
       <Scene key="onboarding" component={Onboarding} />
-      <Scene key="sign_in" component={SignIn} initial />
+      <Scene key="sign_in" component={SignIn} />
       <Scene key="register" component={Register} />
       <Scene key="forgot_pass" component={ForgotPass} />
+      <Scene key="home" component={Home} initial />
     </Stack>
   </Router>
 );
