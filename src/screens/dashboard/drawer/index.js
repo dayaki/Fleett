@@ -40,7 +40,10 @@ const DrawerMenu = () => {
             </View>
             <RegularText title="Tracking" style={styles.navItemText} />
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.8} style={styles.navItem}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.navItem}
+            onPress={() => Actions.history()}>
             <View style={styles.navIcon}>
               <MenuHistory />
             </View>

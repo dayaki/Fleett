@@ -6,8 +6,9 @@ import Onboarding from './screens/onboarding/';
 import SignIn from './screens/authentication/SignIn';
 import Register from './screens/authentication/Register';
 import ForgotPass from './screens/authentication/ForgotPass';
-import Home from './screens/dashboard/home';
 import DrawerMenu from './screens/dashboard/drawer';
+import Home from './screens/dashboard/home';
+import History from './screens/dashboard/order/History';
 
 import { wp } from './common';
 
@@ -18,7 +19,6 @@ const Routing = () => (
       <Scene key="sign_in" component={SignIn} />
       <Scene key="register" component={Register} />
       <Scene key="forgot_pass" component={ForgotPass} />
-      <Scene key="home" component={Home} />
       <Drawer
         initial
         hideNavBar
@@ -27,6 +27,7 @@ const Routing = () => (
         contentComponent={DrawerMenu}
         drawerWidth={wp(268)}>
         <Scene key="home" component={Home} />
+        <Scene key="history" component={History} />
       </Drawer>
     </Stack>
   </Router>
