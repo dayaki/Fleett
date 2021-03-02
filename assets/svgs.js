@@ -209,3 +209,28 @@ export const MenuTracking = (props) => (
     />
   </Svg>
 );
+
+export const BoxIcon = (props) => (
+  <Svg
+    width={23}
+    height={25}
+    viewBox="0 0 23 25"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}>
+    <Path
+      d="M16.525 9.475L6.175 3.529M21.7 17.035V7.871a2.285 2.285 0 00-1.15-1.982L12.5 1.307a2.307 2.307 0 00-2.3 0L2.15 5.889A2.296 2.296 0 001 7.871v9.164a2.285 2.285 0 001.15 1.982l8.05 4.582a2.307 2.307 0 002.3 0l8.05-4.582a2.295 2.295 0 001.15-1.982z"
+      stroke="silver"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M1.31 6.68l10.04 5.784L21.39 6.68M11.35 24V12.453"
+      stroke="silver"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);

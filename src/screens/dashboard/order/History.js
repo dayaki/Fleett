@@ -8,9 +8,20 @@ import {
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { RegularText, TitleText } from '../../../common';
-import { ActiveBellBlack } from '../../../../assets/svgs';
+import { RegularText, NoContentView } from '../../../common';
+import { ActiveBellBlack, BoxIcon } from '../../../../assets/svgs';
 import { historyStyles as styles } from './styles';
+
+const HistoryItem = () => (
+  <View style={styles.historyItem}>
+    <BoxIcon />
+    <View style={styles.historyItemTexts}>
+      <RegularText title="Mary Akinlapa" style={styles.itemName} />
+      <RegularText title="In Progress" style={styles.itemStatus} />
+    </View>
+    <RegularText title="10-01-2021" style={styles.itemDate} />
+  </View>
+);
 
 const History = () => {
   return (
@@ -39,9 +50,11 @@ const History = () => {
           <Text style={styles.headerText}>See your order history</Text>
         </View>
       </View>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={styles.content}></ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
+        <NoContentView title="No order history here yet" />
+        {/* <HistoryItem />
+        <HistoryItem /> */}
+      </ScrollView>
     </View>
   );
 };

@@ -57,7 +57,31 @@ export const historyStyles = StyleSheet.create({
     backgroundColor: Colors.Woodsmoke,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    paddingHorizontal: wp(22),
+    paddingHorizontal: wp(39),
     paddingTop: hp(56),
+  },
+  historyItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: hp(30),
+  },
+  historyItemTexts: {
+    marginLeft: wp(25),
+  },
+  itemName: {
+    fontSize: hp(17),
+    lineHeight: hp(29),
+    color: Colors.White,
+  },
+  itemStatus: {
+    fontSize: hp(13),
+    lineHeight: hp(29),
+    color: Colors.White,
+    opacity: 0.4,
+    marginTop: -6,
+  },
+  itemDate: {
+    position: 'absolute',
+    right: 0,
   },
 });

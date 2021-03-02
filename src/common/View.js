@@ -6,15 +6,21 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
-  Touchable,
 } from 'react-native';
 import { BackArrow } from '../../assets/svgs';
 import { wp, hp } from './utils';
+import { RegularText, White } from './index';
 
 export const NormalView = ({ children }) => (
   <SafeAreaView style={styles.safeview}>
     <View style={styles.normalView}>{children}</View>
   </SafeAreaView>
+);
+
+export const NoContentView = ({ title }) => (
+  <View style={styles.noContent}>
+    <RegularText title={title} style={styles.noContentText} />
+  </View>
 );
 
 export const BackView = ({ children, isScroll }) => (
@@ -60,5 +66,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(20),
     paddingVertical: hp(10),
     backgroundColor: 'pink',
+  },
+  noContent: {
+    alignSelf: 'center',
+    marginTop: hp(60),
+  },
+  noContentText: {
+    fontSize: hp(17),
+    lineHeight: hp(29),
+    color: White,
   },
 });
