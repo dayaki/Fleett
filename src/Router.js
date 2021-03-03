@@ -11,6 +11,7 @@ import Home from './screens/dashboard/home';
 import Order from './screens/dashboard/order';
 import History from './screens/dashboard/order/History';
 import About from './screens/dashboard/about';
+import OrderTwo from './screens/dashboard/order/Step2';
 
 import { wp } from './common';
 
@@ -33,6 +34,7 @@ const Routing = () => (
         <Scene key="about" component={About} />
       </Drawer>
       <Scene key="order" component={Order} />
+      <Scene key="order_two" component={OrderTwo} />
     </Stack>
   </Router>
 );

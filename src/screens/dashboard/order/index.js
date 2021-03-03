@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -7,56 +7,17 @@ import {
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { BackIcon, Plus, Minus, DeliverySwitch } from '../../../../assets/svgs';
+import { BackIcon, Plus, Minus } from '../../../../assets/svgs';
 import {
   TitleText,
   Woodsmoke,
   ScarpaFlow,
   Button,
-  RegularText,
   BottomSheet,
 } from '../../../common';
 import { styles } from './styles';
 
 const Order = () => {
-  const orderBottomSheet = useRef();
-
-  const OrderReview = () => (
-    <View style={styles.order}>
-      <RegularText title="10 January 2021" style={styles.orderTitle} />
-      <View style={styles.doubleView}>
-        <View style={styles.orderSection}>
-          <TitleText title="Pick up" style={styles.doubleViewTitle} />
-          <RegularText
-            title="14 Kogberegbe street, Ikorodu, Lagos"
-            style={styles.doubleViewText}
-          />
-        </View>
-        <DeliverySwitch style={{ marginTop: 13 }} />
-        <View style={styles.orderSection}>
-          <TitleText title="Delivery" style={styles.doubleViewTitle} />
-          <RegularText
-            title="4 Adebayo cresent, Ijora, Lagos"
-            style={styles.doubleViewText}
-          />
-        </View>
-      </View>
-      <View style={styles.divider} />
-      <View style={styles.doubleView}>
-        <View style={styles.orderSection}>
-          <TitleText title="Sending" style={styles.doubleViewTitle} />
-          <RegularText title="Parcels  X 2" style={styles.doubleViewText} />
-        </View>
-      </View>
-      <View style={styles.divider} />
-      <View style={styles.total}>
-        <TitleText title="Total" style={styles.totalText} />
-        <RegularText title="₦1,500" style={styles.totalAmount} />
-      </View>
-      <Button title="Continue With Payment" style={styles.orderBtn} />
-    </View>
-  );
-
   return (
     <>
       <SafeAreaView style={{ backgroundColor: Woodsmoke }}></SafeAreaView>
@@ -128,25 +89,20 @@ const Order = () => {
                   </TouchableOpacity>
                 </View>
               </View>
-              <View style={styles.input}>
+              {/* <View style={styles.input}>
                 <TitleText title="Notes" style={styles.label} />
                 <TextInput
                   placeholder="Additional notes"
                   placeholderTextColor={ScarpaFlow}
                   style={styles.textInput}
                 />
-              </View>
+              </View> */}
               <Button
                 title="Continue"
                 style={styles.button}
-                onPress={() => orderBottomSheet.current.open()}
+                onPress={() => Actions.order_two()}
               />
             </View>
-            <BottomSheet
-              openRef={orderBottomSheet}
-              height={520}
-              render={<OrderReview />}
-            />
           </ScrollView>
         </View>
       </SafeAreaView>

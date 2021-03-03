@@ -65,12 +65,13 @@ export const styles = StyleSheet.create({
   contentTitle: {
     alignSelf: 'center',
     fontSize: hp(20),
+    marginBottom: hp(30),
   },
   form: {
     marginTop: hp(30),
   },
   input: {
-    marginBottom: hp(16),
+    marginBottom: hp(25),
   },
   label: {
     fontSize: hp(14),
