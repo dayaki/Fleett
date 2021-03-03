@@ -98,6 +98,57 @@ export const styles = StyleSheet.create({
   button: {
     marginTop: hp(30),
   },
+  order: {
+    // paddingTop: hp(50),
+    backgroundColor: Colors.White,
+  },
+  orderTitle: {
+    fontSize: hp(16),
+    color: Colors.Woodsmoke,
+  },
+  doubleView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: hp(23),
+  },
+  orderSection: {
+    width: '40%',
+  },
+  doubleViewTitle: {
+    color: Colors.SilverGray,
+    fontSize: hp(12),
+    lineHeight: hp(37),
+  },
+  doubleViewText: {
+    fontSize: hp(14),
+    lineHeight: hp(20),
+    color: Colors.Woodsmoke,
+  },
+  divider: {
+    height: 1,
+    width: '100%',
+    backgroundColor: '#E4E4E4',
+    marginTop: hp(20),
+  },
+  total: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: hp(28),
+  },
+  totalText: {
+    color: Colors.Woodsmoke,
+    fontSize: hp(16),
+    lineHeight: hp(20),
+  },
+  totalAmount: {
+    color: Colors.Woodsmoke,
+    fontSize: hp(26),
+    lineHeight: hp(50),
+  },
+  orderBtn: {
+    marginTop: hp(40),
+  },
 });
 
 export const historyStyles = StyleSheet.create({

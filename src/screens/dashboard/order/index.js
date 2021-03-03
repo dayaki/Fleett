@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -7,18 +7,56 @@ import {
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { BackIcon, Plus, Minus } from '../../../../assets/svgs';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import { BackIcon, Plus, Minus, DeliverySwitch } from '../../../../assets/svgs';
 import {
-  Input,
-  RegularText,
   TitleText,
   Woodsmoke,
   ScarpaFlow,
   Button,
+  RegularText,
 } from '../../../common';
 import { styles } from './styles';
 
 const Order = () => {
+  const bottomSheet = useRef(null);
+
+  const OrderReview = () => (
+    <View style={styles.order}>
+      <RegularText title="10 January 2021" style={styles.orderTitle} />
+      <View style={styles.doubleView}>
+        <View style={styles.orderSection}>
+          <TitleText title="Pick up" style={styles.doubleViewTitle} />
+          <RegularText
+            title="14 Kogberegbe street, Ikorodu, Lagos"
+            style={styles.doubleViewText}
+          />
+        </View>
+        <DeliverySwitch style={{ marginTop: 13 }} />
+        <View style={styles.orderSection}>
+          <TitleText title="Delivery" style={styles.doubleViewTitle} />
+          <RegularText
+            title="4 Adebayo cresent, Ijora, Lagos"
+            style={styles.doubleViewText}
+          />
+        </View>
+      </View>
+      <View style={styles.divider} />
+      <View style={styles.doubleView}>
+        <View style={styles.orderSection}>
+          <TitleText title="Sending" style={styles.doubleViewTitle} />
+          <RegularText title="Parcels  X 2" style={styles.doubleViewText} />
+        </View>
+      </View>
+      <View style={styles.divider} />
+      <View style={styles.total}>
+        <TitleText title="Total" style={styles.totalText} />
+        <RegularText title="₦1,500" style={styles.totalAmount} />
+      </View>
+      <Button title="Continue With Payment" style={styles.orderBtn} />
+    </View>
+  );
+
   return (
     <>
       <SafeAreaView style={{ backgroundColor: Woodsmoke }}></SafeAreaView>
@@ -98,8 +136,32 @@ const Order = () => {
                   style={styles.textInput}
                 />
               </View>
-              <Button title="Continue" style={styles.button} />
+              <Button
+                title="Continue"
+                style={styles.button}
+                onPress={() => bottomSheet.current.open()}
+              />
             </View>
+            <RBSheet
+              ref={bottomSheet}
+              height={520}
+              closeOnDragDown={true}
+              customStyles={{
+                wrapper: {
+                  backgroundColor: 'rgba(20,20,20,0.87)',
+                },
+                container: {
+                  borderTopRightRadius: 20,
+                  borderTopLeftRadius: 20,
+                  paddingHorizontal: 20,
+                  paddingTop: 20,
+                },
+                draggableIcon: {
+                  backgroundColor: '#fff',
+                },
+              }}>
+              <OrderReview />
+            </RBSheet>
           </ScrollView>
         </View>
       </SafeAreaView>
