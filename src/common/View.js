@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import { BackArrow } from '../../assets/svgs';
 import { wp, hp } from './utils';
 import { RegularText, White, Black } from './index';
@@ -45,6 +46,29 @@ export const BackView = ({ children, isScroll, title }) => (
   </SafeAreaView>
 );
 
+export const BottomSheet = ({ openRef, height, render }) => (
+  <RBSheet
+    ref={openRef}
+    height={height}
+    closeOnDragDown={true}
+    customStyles={{
+      wrapper: {
+        backgroundColor: 'rgba(20,20,20,0.87)',
+      },
+      container: {
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
+        paddingHorizontal: 20,
+        paddingTop: 20,
+      },
+      draggableIcon: {
+        backgroundColor: '#fff',
+      },
+    }}>
+    <View>{render}</View>
+  </RBSheet>
+);
+
 const styles = StyleSheet.create({
   safeview: {
     flex: 1,
@@ -81,5 +105,8 @@ const styles = StyleSheet.create({
     fontSize: hp(17),
     lineHeight: hp(29),
     color: White,
+  },
+  bottomSheet: {
+    backgroundColor: White,
   },
 });

@@ -7,7 +7,6 @@ import {
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import RBSheet from 'react-native-raw-bottom-sheet';
 import { BackIcon, Plus, Minus, DeliverySwitch } from '../../../../assets/svgs';
 import {
   TitleText,
@@ -15,11 +14,12 @@ import {
   ScarpaFlow,
   Button,
   RegularText,
+  BottomSheet,
 } from '../../../common';
 import { styles } from './styles';
 
 const Order = () => {
-  const bottomSheet = useRef(null);
+  const orderBottomSheet = useRef();
 
   const OrderReview = () => (
     <View style={styles.order}>
@@ -139,29 +139,14 @@ const Order = () => {
               <Button
                 title="Continue"
                 style={styles.button}
-                onPress={() => bottomSheet.current.open()}
+                onPress={() => orderBottomSheet.current.open()}
               />
             </View>
-            <RBSheet
-              ref={bottomSheet}
+            <BottomSheet
+              openRef={orderBottomSheet}
               height={520}
-              closeOnDragDown={true}
-              customStyles={{
-                wrapper: {
-                  backgroundColor: 'rgba(20,20,20,0.87)',
-                },
-                container: {
-                  borderTopRightRadius: 20,
-                  borderTopLeftRadius: 20,
-                  paddingHorizontal: 20,
-                  paddingTop: 20,
-                },
-                draggableIcon: {
-                  backgroundColor: '#fff',
-                },
-              }}>
-              <OrderReview />
-            </RBSheet>
+              render={<OrderReview />}
+            />
           </ScrollView>
         </View>
       </SafeAreaView>
