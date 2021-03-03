@@ -9,6 +9,7 @@ import ForgotPass from './screens/authentication/ForgotPass';
 import DrawerMenu from './screens/dashboard/drawer';
 import Home from './screens/dashboard/home';
 import History from './screens/dashboard/order/History';
+import About from './screens/dashboard/about';
 
 import { wp } from './common';
 
@@ -28,6 +29,7 @@ const Routing = () => (
         drawerWidth={wp(268)}>
         <Scene key="home" component={Home} />
         <Scene key="history" component={History} />
+        <Scene key="about" component={About} />
       </Drawer>
     </Stack>
   </Router>

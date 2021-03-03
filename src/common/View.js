@@ -9,7 +9,8 @@ import {
 } from 'react-native';
 import { BackArrow } from '../../assets/svgs';
 import { wp, hp } from './utils';
-import { RegularText, White } from './index';
+import { RegularText, White, Black } from './index';
+import { TitleText } from './Text';
 
 export const NormalView = ({ children }) => (
   <SafeAreaView style={styles.safeview}>
@@ -23,7 +24,7 @@ export const NoContentView = ({ title }) => (
   </View>
 );
 
-export const BackView = ({ children, isScroll }) => (
+export const BackView = ({ children, isScroll, title }) => (
   <SafeAreaView style={styles.safeview}>
     <View style={styles.backView}>
       <View style={styles.header}>
@@ -33,6 +34,7 @@ export const BackView = ({ children, isScroll }) => (
           style={styles.backBtn}>
           <BackArrow />
         </TouchableOpacity>
+        <TitleText title={title} style={styles.headerTitle} />
       </View>
       {isScroll ? (
         <ScrollView showsVerticalScrollIndicator={false}>{children}</ScrollView>
@@ -59,13 +61,17 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     width: '100%',
-    height: hp(90),
+    marginBottom: hp(10),
   },
   backBtn: {
-    paddingHorizontal: wp(20),
     paddingVertical: hp(10),
-    backgroundColor: 'pink',
+    position: 'absolute',
+    left: 0,
+  },
+  headerTitle: {
+    color: Black,
   },
   noContent: {
     alignSelf: 'center',

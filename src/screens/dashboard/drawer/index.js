@@ -34,7 +34,10 @@ const DrawerMenu = () => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.navList}>
-          <TouchableOpacity activeOpacity={0.8} style={styles.navItem}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.navItem}
+            onPress={() => Actions.drawer()}>
             <View style={styles.navIcon}>
               <MenuTracking />
             </View>
@@ -55,7 +58,10 @@ const DrawerMenu = () => {
             </View>
             <RegularText title="Help & Support" style={styles.navItemText} />
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.8} style={styles.navItem}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.navItem}
+            onPress={() => Actions.about()}>
             <View style={styles.navIcon}>
               <MenuHelp />
             </View>
