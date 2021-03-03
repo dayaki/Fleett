@@ -4,6 +4,102 @@ import { wp, hp } from '../../../common/utils';
 
 const { width } = Dimensions.get('screen');
 
+export const styles = StyleSheet.create({
+  safeview: {
+    flex: 1,
+    backgroundColor: Colors.White,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: Colors.White,
+  },
+  header: {
+    backgroundColor: Colors.Woodsmoke,
+    paddingHorizontal: wp(22),
+    paddingTop: hp(10),
+    height: hp(156),
+  },
+  topHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerBtn: {
+    position: 'absolute',
+    left: 0,
+  },
+  headerTitle: {
+    color: Colors.White,
+    fontSize: hp(18),
+    lineHeight: hp(21),
+  },
+  pagination: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginTop: hp(35),
+  },
+  paginationDot: {
+    width: wp(6),
+    height: hp(6),
+    borderRadius: 3,
+    backgroundColor: Colors.White,
+    marginLeft: wp(5),
+  },
+  paginationActive: {
+    width: wp(15),
+    height: hp(15),
+    borderRadius: 10,
+    backgroundColor: 'transparent',
+    borderColor: Colors.White,
+    borderWidth: 1,
+  },
+  content: {
+    backgroundColor: Colors.White,
+    borderTopLeftRadius: wp(30),
+    borderTopRightRadius: 30,
+    marginTop: -30,
+    paddingTop: hp(50),
+    paddingHorizontal: wp(25),
+  },
+  contentTitle: {
+    alignSelf: 'center',
+    fontSize: hp(20),
+  },
+  form: {
+    marginTop: hp(30),
+  },
+  input: {
+    marginBottom: hp(16),
+  },
+  label: {
+    fontSize: hp(14),
+  },
+  textInput: {
+    backgroundColor: Colors.WildSand,
+    height: hp(41),
+    borderRadius: 6,
+    paddingVertical: hp(6),
+    paddingLeft: wp(20),
+    marginTop: hp(9),
+    fontSize: hp(12),
+    color: Colors.ScarpaFlow,
+  },
+  inputBtn: {
+    backgroundColor: Colors.WildSand,
+    width: wp(42),
+    height: hp(41),
+    borderRadius: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: wp(10),
+    marginTop: hp(5),
+  },
+  button: {
+    marginTop: hp(30),
+  },
+});
+
 export const historyStyles = StyleSheet.create({
   safeview: {
     flex: 1,

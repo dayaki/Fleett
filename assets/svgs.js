@@ -234,3 +234,57 @@ export const BoxIcon = (props) => (
     />
   </Svg>
 );
+
+export const BackIcon = (props) => (
+  <Svg
+    width={8}
+    height={14}
+    viewBox="0 0 8 14"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}>
+    <Path
+      d="M7 13L1 7l6-6"
+      stroke="#fff"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+export const Minus = (props) => (
+  <Svg
+    width={16}
+    height={2}
+    viewBox="0 0 16 2"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}>
+    <Path
+      d="M1 1h14"
+      stroke="#5F5E60"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+export const Plus = (props) => (
+  <Svg
+    width={16}
+    height={16}
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}>
+    <Path
+      d="M8 1v14M1 8h14"
+      stroke="#5F5E60"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);

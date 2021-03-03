@@ -61,7 +61,9 @@ const Home = () => {
             style={styles.content}>
             <RegularText title="Services" style={styles.title} />
             <View style={styles.item}>
-              <TouchableOpacity activeOpacity={0.8}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => Actions.order()}>
                 <TitleText title="Send a Package" style={styles.itemTitle} />
                 <RegularText
                   title="Send or receive items such as documents, parcels, keys, etc."
@@ -73,7 +75,9 @@ const Home = () => {
               </TouchableOpacity>
             </View>
             <View style={styles.item}>
-              <TouchableOpacity activeOpacity={0.8}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => Actions.order()}>
                 <TitleText title="I am a Recipient" style={styles.itemTitle} />
                 <RegularText
                   title="Schedule a pickup yourself, package will be delivered to you."

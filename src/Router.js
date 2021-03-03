@@ -8,6 +8,7 @@ import Register from './screens/authentication/Register';
 import ForgotPass from './screens/authentication/ForgotPass';
 import DrawerMenu from './screens/dashboard/drawer';
 import Home from './screens/dashboard/home';
+import Order from './screens/dashboard/order';
 import History from './screens/dashboard/order/History';
 import About from './screens/dashboard/about';
 
@@ -31,6 +32,7 @@ const Routing = () => (
         <Scene key="history" component={History} />
         <Scene key="about" component={About} />
       </Drawer>
+      <Scene key="order" component={Order} />
     </Stack>
   </Router>
 );
