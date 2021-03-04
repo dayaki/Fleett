@@ -233,3 +233,36 @@ export const historyStyles = StyleSheet.create({
     right: 0,
   },
 });
+
+export const detailStyles = StyleSheet.create({
+  safeview: {
+    flex: 1,
+    backgroundColor: Colors.White,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: Colors.White,
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  content: {
+    backgroundColor: Colors.White,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingHorizontal: wp(26),
+    paddingBottom: hp(30),
+    // height: hp(380),
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+  },
+});

@@ -10,8 +10,8 @@ import {
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { BackArrow } from '../../assets/svgs';
 import { wp, hp } from './utils';
-import { RegularText, White, Black } from './index';
-import { TitleText } from './Text';
+import { White, Black } from './Colors';
+import { TitleText, RegularText } from './Text';
 
 export const NormalView = ({ children }) => (
   <SafeAreaView style={styles.safeview}>
