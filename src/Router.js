@@ -14,30 +14,40 @@ import About from './screens/dashboard/about';
 import OrderTwo from './screens/dashboard/order/Step2';
 import OrderDetail from './screens/dashboard/order/Detail';
 
+// Rider
+import Login from './screens/rider/Login';
+import Dashboard from './screens/rider/Dashboard';
+
 import { wp } from './common';
 
 const Routing = () => (
   <Router>
-    <Stack key="root" hideNavBar>
-      <Scene key="onboarding" component={Onboarding} />
-      <Scene key="sign_in" component={SignIn} />
-      <Scene key="register" component={Register} />
-      <Scene key="forgot_pass" component={ForgotPass} />
-      <Drawer
-        initial
-        hideNavBar
-        key="drawer"
-        headerMode="none"
-        contentComponent={DrawerMenu}
-        drawerWidth={wp(268)}>
-        <Scene key="home" component={Home} />
-        <Scene key="history" component={History} />
-        <Scene key="about" component={About} />
-      </Drawer>
-      <Scene key="order" component={Order} />
-      <Scene key="order_two" component={OrderTwo} />
-      <Scene key="order_detail" component={OrderDetail} initial />
-    </Stack>
+    <Scene key="root" hideNavBar>
+      <Stack key="user" hideNavBar>
+        <Scene key="onboarding" component={Onboarding} />
+        <Scene key="sign_in" component={SignIn} />
+        <Scene key="register" component={Register} />
+        <Scene key="forgot_pass" component={ForgotPass} />
+        <Drawer
+          initial
+          hideNavBar
+          key="drawer"
+          headerMode="none"
+          contentComponent={DrawerMenu}
+          drawerWidth={wp(268)}>
+          <Scene key="home" component={Home} />
+          <Scene key="history" component={History} />
+          <Scene key="about" component={About} />
+        </Drawer>
+        <Scene key="order" component={Order} />
+        <Scene key="order_two" component={OrderTwo} />
+        <Scene key="order_detail" component={OrderDetail} initial />
+      </Stack>
+      <Stack key="rider" hideNavBar initial>
+        <Scene key="rider_login" component={Login} />
+        <Scene key="rider_dashboard" component={Dashboard} initial />
+      </Stack>
+    </Scene>
   </Router>
 );
 
