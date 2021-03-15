@@ -9,7 +9,9 @@ export const Input = ({
   value,
   onChange,
   onBlur,
-  error,
+  error = false,
+  capitalize = 'words',
+  password = false,
 }) => (
   <View style={styles.input}>
     <View style={styles.icon}>{icon}</View>
@@ -20,6 +22,8 @@ export const Input = ({
       placeholder={placeholder}
       placeholderTextColor={Colors.SilverGray}
       style={styles.textInput}
+      autoCapitalize={capitalize}
+      secureTextEntry={password}
     />
     {error && <Text style={styles.error}>{error}</Text>}
   </View>
@@ -32,10 +36,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: hp(1),
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom: hp(7),
+    paddingBottom: hp(3),
+    // paddingBottom: hp(7),
   },
   icon: {
-    marginTop: hp(3),
+    marginTop: hp(5),
   },
   textInput: {
     fontFamily: 'TTNormsPro-Regular',
@@ -43,11 +48,15 @@ const styles = StyleSheet.create({
     lineHeight: hp(21),
     color: Colors.SilverChalice,
     paddingLeft: wp(8),
+    // backgroundColor: 'pink',
+    width: '100%',
   },
   error: {
     fontFamily: 'TTNormsPro-Regular',
     fontSize: hp(14),
     lineHeight: hp(21),
     color: 'red',
+    position: 'absolute',
+    bottom: -20,
   },
 });

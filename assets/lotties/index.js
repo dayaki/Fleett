@@ -1,1 +1,1 @@
-export const loading = require('./loading.json');
+export const loadingBar = require('./5768-time.json');

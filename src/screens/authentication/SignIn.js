@@ -12,7 +12,7 @@ import {
 import { Email, Password } from '../../../assets/svgs';
 import { styles } from './styles';
 
-const SignIn = ({}) => {
+const SignIn = () => {
   return (
     <NormalView>
       <Image

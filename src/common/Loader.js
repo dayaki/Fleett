@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import LottieView from 'lottie-react-native';
-import { loading } from '../../assets/lotties';
+import { loading, loadingBar } from '../../assets/lotties';
 import { hp, wp } from './utils';
 
 export const Loader = ({}) => (
   <View style={styles.container}>
-    <LottieView source={loading} autoPlay loop style={styles.lottieView} />
+    <LottieView source={loadingBar} autoPlay loop style={styles.lottieView} />
   </View>
 );
 
@@ -14,9 +14,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: 'absolute',
-    top: hp(0),
-    left: wp(0),
-    backgroundColor: 'rgba(255,255,255,0.6)',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(40, 58, 92,0.3)',
+    zIndex: 1000,
+    paddingTop: '60%',
   },
   lottieView: {
     width: wp(254),

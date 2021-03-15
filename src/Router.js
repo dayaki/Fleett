@@ -23,13 +23,12 @@ import { wp } from './common';
 const Routing = () => (
   <Router>
     <Scene key="root" hideNavBar>
-      <Stack key="user" hideNavBar>
+      <Stack key="user" hideNavBar initial>
         <Scene key="onboarding" component={Onboarding} />
         <Scene key="sign_in" component={SignIn} />
         <Scene key="register" component={Register} />
         <Scene key="forgot_pass" component={ForgotPass} />
         <Drawer
-          initial
           hideNavBar
           key="drawer"
           headerMode="none"
@@ -41,11 +40,11 @@ const Routing = () => (
         </Drawer>
         <Scene key="order" component={Order} />
         <Scene key="order_two" component={OrderTwo} />
-        <Scene key="order_detail" component={OrderDetail} initial />
+        <Scene key="order_detail" component={OrderDetail} />
       </Stack>
-      <Stack key="rider" hideNavBar initial>
+      <Stack key="rider" hideNavBar>
         <Scene key="rider_login" component={Login} />
-        <Scene key="rider_dashboard" component={Dashboard} initial />
+        <Scene key="rider_dashboard" component={Dashboard} />
       </Stack>
     </Scene>
   </Router>

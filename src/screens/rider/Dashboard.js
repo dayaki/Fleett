@@ -16,6 +16,7 @@ const Dashboard = () => {
           longitudeDelta: 0.0421,
         }}
       />
+      <View style={styles.header}></View>
     </View>
   );
 };
