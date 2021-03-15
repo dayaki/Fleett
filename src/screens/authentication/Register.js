@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text } from 'react-native';
-import { Actions } from 'react-native-router-flux';
-// import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -20,7 +19,7 @@ import { registerStyles as styles } from './styles';
 const SignupSchema = Yup.object().shape({
   fname: Yup.string().required('Your first name is required'),
   lname: Yup.string().required('Your last name is required'),
-  phone: Yup.string().min(10).max(11).required('Your phone number is needed.'),
+  phone: Yup.string().min(11).max(11).required('Your phone number is needed.'),
   email: Yup.string()
     .email('Please enter a valid email')
     .required('Email address is required'),
@@ -28,16 +27,17 @@ const SignupSchema = Yup.object().shape({
 });
 
 const Register = ({}) => {
-  // const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
-  const register = () => {
-    const userData = {};
-    // dispatch(createAccount(userData));
+  const register = (data) => {
+    console.log('data', data);
+    dispatch(createAccount(data));
   };
 
   return (
     <>
-      <Loader />
+      {loading && <Loader />}
       <BackView isScroll>
         <View style={styles.texts}>
           <TitleText title="Let’s Get Started!" />
@@ -55,7 +55,7 @@ const Register = ({}) => {
             email: '',
             password: '',
           }}
-          onSubmit={(values) => console.log('values', values)}>
+          onSubmit={(values) => register(values)}>
           {({
             handleChange,
             handleBlur,
@@ -65,6 +65,14 @@ const Register = ({}) => {
             touched,
           }) => (
             <View style={styles.form}>
+              {error !== '' && (
+                <View style={styles.errorView}>
+                  <RegularText
+                    title={error.email ? error.email[0] : error.phone[0]}
+                    style={styles.errorText}
+                  />
+                </View>
+              )}
               <View style={styles.input}>
                 <Input
                   placeholder="First Name"

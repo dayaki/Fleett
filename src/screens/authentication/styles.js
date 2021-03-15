@@ -70,4 +70,11 @@ export const registerStyles = StyleSheet.create({
   form: {
     marginTop: hp(61),
   },
+  errorView: {
+    marginBottom: hp(30),
+  },
+  errorText: {
+    color: 'red',
+    fontSize: hp(14),
+  },
 });

@@ -11,14 +11,8 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  user: {},
-  forgotPassword: {
-    loading: false,
-    error: '',
-    success: false,
-    operationType: '',
-  },
-  message: '',
+  profile: {},
+  orders: {},
   error: '',
   loading: false,
   isAuthenticated: false,
@@ -31,12 +25,12 @@ export default (state = initialState, action) => {
         ...state,
         loading: true,
         error: '',
-        message: '',
       };
     case CREATE_ACCOUNT_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        profile: action.payload,
+        isAuthenticated: true,
         loading: false,
         error: '',
       };
@@ -44,7 +38,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        message: action.payload,
         error: action.payload,
       };
     case LOGIN_USER:
@@ -52,12 +45,11 @@ export default (state = initialState, action) => {
         ...state,
         loading: true,
         error: '',
-        message: '',
       };
     case LOGIN_USER_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        profile: action.payload,
         isAuthenticated: true,
         loading: false,
         error: '',
@@ -72,36 +64,26 @@ export default (state = initialState, action) => {
     case LOGOUT_USER:
       return {
         ...state,
-        user: {},
+        profile: {},
         isAuthenticated: false,
         loading: false,
         error: null,
-        forgotPassword: {
-          loading: false,
-          error: '',
-          success: false,
-          operationType: '',
-        },
       };
     case RESET_LOADER:
       return {
         ...state,
         loading: false,
-        forgotPassword: {
-          ...state.forgotPassword,
-          loading: false,
-        },
+        error: '',
       };
     case CANCEL_REQUEST:
       return {
         ...state,
         loading: false,
-        forgotPassword: {
-          ...state.forgotPassword,
-          loading: false,
-        },
+        error: '',
       };
     default:
-      break;
+      return {
+        ...state,
+      };
   }
 };
