@@ -19,12 +19,13 @@ export const userLogin = (user) => (dispatch) => {
         type: LOGIN_USER_SUCCESS,
         payload: res.data,
       });
+      Actions.home();
     })
     .catch((error) => {
       console.log('login err', error);
       dispatch({
         type: LOGIN_USER_ERROR,
-        payload: error.error,
+        payload: error.message,
       });
     });
 };
@@ -37,6 +38,7 @@ export const createAccount = (user) => (dispatch) => {
         type: CREATE_ACCOUNT_SUCCESS,
         payload: res.data,
       });
+      Actions.home();
     })
     .catch((error) => {
       console.log('signuop err', error.error);

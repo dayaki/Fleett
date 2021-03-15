@@ -16,16 +16,8 @@ const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   transforms: [JSOGTransform],
-  whitelist: ['user', 'rider'],
+  //   whitelist: ['user', 'rider'],
 };
-
-// function getMiddlewares() {
-//   if (__DEV__) {
-//     return applyMiddleware(ReduxThunk, logger);
-//   }
-
-//   return applyMiddleware(ReduxThunk);
-// }
 
 const middleware = [ReduxThunk, logger];
 

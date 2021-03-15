@@ -16,6 +16,8 @@ const initialState = {
   error: '',
   loading: false,
   isAuthenticated: false,
+  loginError: '',
+  registerError: '',
 };
 
 export default (state = initialState, action) => {
@@ -25,6 +27,8 @@ export default (state = initialState, action) => {
         ...state,
         loading: true,
         error: '',
+        loginError: '',
+        registerError: '',
       };
     case CREATE_ACCOUNT_SUCCESS:
       return {
@@ -33,18 +37,24 @@ export default (state = initialState, action) => {
         isAuthenticated: true,
         loading: false,
         error: '',
+        loginError: '',
+        registerError: '',
       };
     case CREATE_ACCOUNT_ERROR:
       return {
         ...state,
         loading: false,
-        error: action.payload,
+        error: '',
+        loginError: '',
+        registerError: action.payload,
       };
     case LOGIN_USER:
       return {
         ...state,
         loading: true,
         error: '',
+        loginError: '',
+        registerError: '',
       };
     case LOGIN_USER_SUCCESS:
       return {
@@ -53,12 +63,16 @@ export default (state = initialState, action) => {
         isAuthenticated: true,
         loading: false,
         error: '',
+        loginError: '',
+        registerError: '',
       };
     case LOGIN_USER_ERROR:
       return {
         ...state,
         loading: false,
-        error: action.payload,
+        error: '',
+        loginError: action.payload,
+        registerError: '',
       };
 
     case LOGOUT_USER:

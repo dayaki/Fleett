@@ -45,6 +45,13 @@ export const styles = StyleSheet.create({
   registerform: {
     marginTop: hp(61),
   },
+  errorView: {
+    marginBottom: hp(30),
+  },
+  errorText: {
+    color: 'red',
+    fontSize: hp(14),
+  },
 });
 
 export const registerStyles = StyleSheet.create({
