@@ -5,8 +5,11 @@ import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import axios from 'axios';
+import Config from 'react-native-config';
 import Router from './Router';
 import { persistor, store } from './store';
+
+const { BASE_URL } = Config;
 
 // Setting default styles for all Text components.
 const customTextProps = {
@@ -24,11 +27,25 @@ const customImageProps = {
 setCustomText(customTextProps);
 setCustomImage(customImageProps);
 
-//  axios request interceptor
+// Add a request interceptor
+axios.interceptors.request.use(function (config) {
+  const token = store.getState().user.profile?.auth_token;
+  console.log('token', token);
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+  //   const token = store.getState().user.profile?.auth_token;
+  //   config.headers.Authorization = token ? `Bearer ${token}` : '';
+  //   return config;
+});
+
 // axios.interceptors.request.use(
 //   (config) => {
-//     if (!config.url.includes('/login') || !config.url.includes('/signup')) {
-//       const token = store.getState().auth.user?.auth_token;
+//     console.log('config-------', config.url, BASE_URL);
+//     if (config.url !== `${BASE_URL}/user/login`) {
+//       const token = store.getState().user.profile?.auth_token;
 //       if (token) {
 //         config.headers.Authorization = `Bearer ${token}`;
 //       }

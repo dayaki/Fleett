@@ -3,6 +3,7 @@ import { Router, Scene, Stack, Drawer } from 'react-native-router-flux';
 import { checkAuth } from './utils/helpers';
 
 import Onboarding from './screens/onboarding/';
+import Launch from './screens/onboarding/launch';
 import SignIn from './screens/authentication/SignIn';
 import Register from './screens/authentication/Register';
 import ForgotPass from './screens/authentication/ForgotPass';
@@ -22,13 +23,16 @@ import { wp } from './common';
 
 const Routing = () => (
   <Router>
-    <Scene
-      key="root"
-      hideNavBar
-      on={() => checkAuth()}
-      success="home"
-      failure="onboarding">
-      <Stack key="user" hideNavBar initial>
+    <Scene key="root">
+      <Stack key="user" hideNavBar>
+        <Scene
+          key="launch"
+          component={Launch}
+          on={() => checkAuth()}
+          success="home"
+          failure="onboarding"
+          initial
+        />
         <Scene key="onboarding" component={Onboarding} />
         <Scene key="sign_in" component={SignIn} />
         <Scene key="register" component={Register} />

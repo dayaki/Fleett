@@ -7,6 +7,9 @@ import {
   LOGOUT_USER,
   LOGIN_USER,
   LOGIN_USER_SUCCESS,
+  TRACK_SHIPMENT,
+  TRACK_SHIPMENT_SUCCESS,
+  TRACK_SHIPMENT_ERROR,
   LOGIN_USER_ERROR,
 } from './types';
 
@@ -49,7 +52,27 @@ export const createAccount = (user) => (dispatch) => {
     });
 };
 
-export const logout = () => (dispatch) => {
+export const trackOrder = (trackNumber) => (dispatch) => {
+  dispatch({ type: TRACK_SHIPMENT });
+  apiService('user/orders/track', 'POST', { track_number: trackNumber })
+    .then((res) => {
+      console.log('tracking', res);
+      dispatch({
+        type: TRACK_SHIPMENT_SUCCESS,
+        payload: res.data,
+      });
+      Actions.home();
+    })
+    .catch((error) => {
+      console.log('tracking err', error);
+      dispatch({
+        type: TRACK_SHIPMENT_ERROR,
+        payload: error,
+      });
+    });
+};
+
+export const userLogout = () => (dispatch) => {
   dispatch({ type: LOGOUT_USER });
-  Actions.reset('sign_in');
+  Actions.sign_in();
 };

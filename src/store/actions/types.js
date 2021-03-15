@@ -10,4 +10,8 @@ export const LOGIN_USER_SUCCESS = 'login_user_success';
 export const LOGIN_USER_ERROR = 'login_user_error';
 export const LOGOUT_USER = 'logout_user';
 
+export const TRACK_SHIPMENT = 'track_shipment';
+export const TRACK_SHIPMENT_SUCCESS = 'track_shipment_success';
+export const TRACK_SHIPMENT_ERROR = 'track_shipment_error';
+
 export const MAKE_PAYMENT = 'make_payment';

@@ -9,17 +9,26 @@ import {
   TextInput,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { ActiveBell, Search, ForwardArrow } from '../../../../assets/svgs';
-import { RegularText, TitleText, Woodsmoke } from '../../../common';
+import { RegularText, TitleText, Woodsmoke, Loader } from '../../../common';
+import { trackOrder } from '../../../store/actions/userActions';
 import { styles } from './styles';
 
 const Home = () => {
   const {
+    loading,
     profile: { fname, photo },
   } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const handleTracking = (trackNumber) => {
+    console.log('tracking', trackNumber);
+    dispatch(trackOrder(trackNumber));
+  };
   return (
     <>
+      {loading && <Loader />}
       <SafeAreaView style={{ backgroundColor: Woodsmoke }}></SafeAreaView>
       <SafeAreaView style={styles.safeview}>
         <View style={styles.container}>
@@ -57,6 +66,12 @@ const Home = () => {
                 placeholderTextColor={'rgba(129,127,128,0.84)'}
                 placeholder="Tracking number"
                 style={styles.searchInput}
+                returnKeyType="search"
+                maxLength={11}
+                autoCapitalize="words"
+                onSubmitEditing={(event) =>
+                  handleTracking(event.nativeEvent.text)
+                }
               />
             </View>
           </View>

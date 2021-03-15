@@ -7,7 +7,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { TitleText, RegularText } from '../../../common';
 import {
   MenuHelp,
@@ -16,11 +16,18 @@ import {
   MenuTracking,
 } from '../../../../assets/svgs';
 import { styles } from './styles';
+import { userLogout } from '../../../store/actions/userActions';
 
 const DrawerMenu = () => {
   const {
     profile: { fname, lname, photo },
   } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(userLogout());
+  };
+
   return (
     <SafeAreaView style={styles.safeview}>
       <View style={styles.container}>
@@ -76,7 +83,11 @@ const DrawerMenu = () => {
             <View style={styles.navIcon}>
               <MenuLock />
             </View>
-            <RegularText title="Logout" style={styles.navItemText} />
+            <RegularText
+              title="Logout"
+              style={styles.navItemText}
+              onPress={handleLogout}
+            />
           </TouchableOpacity>
         </ScrollView>
       </View>

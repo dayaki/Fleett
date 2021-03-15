@@ -96,8 +96,6 @@ export default (state = initialState, action) => {
         error: '',
       };
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };
