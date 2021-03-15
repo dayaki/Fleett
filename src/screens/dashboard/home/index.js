@@ -9,11 +9,15 @@ import {
   TextInput,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { useSelector } from 'react-redux';
 import { ActiveBell, Search, ForwardArrow } from '../../../../assets/svgs';
 import { RegularText, TitleText, Woodsmoke } from '../../../common';
 import { styles } from './styles';
 
 const Home = () => {
+  const {
+    profile: { fname, photo },
+  } = useSelector((state) => state.user);
   return (
     <>
       <SafeAreaView style={{ backgroundColor: Woodsmoke }}></SafeAreaView>
@@ -26,8 +30,9 @@ const Home = () => {
                 onPress={() => Actions.drawerOpen()}>
                 <Image
                   source={{
-                    uri:
-                      'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
+                    uri: photo
+                      ? photo
+                      : 'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
                   }}
                   style={styles.avatar}
                 />
@@ -38,7 +43,7 @@ const Home = () => {
             </View>
 
             <View style={styles.headerTexts}>
-              <Text style={styles.headerName}>Hi Dayo,</Text>
+              <Text style={styles.headerName}>Hi {fname},</Text>
               <Text style={styles.headerText}>Track your Shipment</Text>
               <RegularText
                 title="Please enter your tracking number"

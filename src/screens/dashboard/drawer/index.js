@@ -7,6 +7,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { useSelector } from 'react-redux';
 import { TitleText, RegularText } from '../../../common';
 import {
   MenuHelp,
@@ -17,19 +18,23 @@ import {
 import { styles } from './styles';
 
 const DrawerMenu = () => {
+  const {
+    profile: { fname, lname, photo },
+  } = useSelector((state) => state.user);
   return (
     <SafeAreaView style={styles.safeview}>
       <View style={styles.container}>
         <View style={styles.profile}>
           <Image
             source={{
-              uri:
-                'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
+              uri: photo
+                ? photo
+                : 'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
             }}
             style={styles.profileImage}
           />
-          <TitleText title="Dayo" style={styles.profileText} />
-          <TitleText title="Aderibegbe" style={styles.profileText} />
+          <TitleText title={fname} style={styles.profileText} />
+          <TitleText title={lname} style={styles.profileText} />
         </View>
         <ScrollView
           showsVerticalScrollIndicator={false}
