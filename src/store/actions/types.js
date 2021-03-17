@@ -14,4 +14,7 @@ export const TRACK_SHIPMENT = 'track_shipment';
 export const TRACK_SHIPMENT_SUCCESS = 'track_shipment_success';
 export const TRACK_SHIPMENT_ERROR = 'track_shipment_error';
 
+export const PREPARE_ORDER = 'prepare_order';
+export const RESET_TEMP_ORDER = 'reset_temp_order';
+
 export const MAKE_PAYMENT = 'make_payment';

@@ -8,10 +8,13 @@ import {
   LOGOUT_USER,
   RESET_LOADER,
   CANCEL_REQUEST,
+  PREPARE_ORDER,
+  RESET_TEMP_ORDER,
 } from '../actions/types';
 
 const initialState = {
   profile: {},
+  tempOrder: {},
   orders: {},
   error: '',
   loading: false,
@@ -22,6 +25,17 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case PREPARE_ORDER:
+      return {
+        ...state,
+        tempOrder: { ...state.tempOrder, ...action.payload },
+      };
+    case RESET_TEMP_ORDER:
+      return {
+        ...state,
+        tempOrder: {},
+        loading: false,
+      };
     case CREATE_ACCOUNT:
       return {
         ...state,
@@ -74,7 +88,6 @@ export default (state = initialState, action) => {
         loginError: action.payload,
         registerError: '',
       };
-
     case LOGOUT_USER:
       return {
         ...state,
