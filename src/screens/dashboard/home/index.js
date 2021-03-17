@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   ScrollView,
@@ -20,6 +20,7 @@ const Home = () => {
     loading,
     profile: { fname, photo },
   } = useSelector((state) => state.user);
+  const [trackingNumber, setTrackingNumber] = useState('');
   const dispatch = useDispatch();
 
   const handleTracking = (trackNumber) => {
@@ -65,10 +66,12 @@ const Home = () => {
               <TextInput
                 placeholderTextColor={'rgba(129,127,128,0.84)'}
                 placeholder="Tracking number"
+                value={trackingNumber}
                 style={styles.searchInput}
+                onChangeText={(text) => setTrackingNumber(text.toUpperCase())}
                 returnKeyType="search"
                 maxLength={11}
-                autoCapitalize="words"
+                autoCapitalize="characters"
                 onSubmitEditing={(event) =>
                   handleTracking(event.nativeEvent.text)
                 }

@@ -3,6 +3,7 @@ import { Platform, StatusBar } from 'react-native';
 import { setCustomText, setCustomImage } from 'react-native-global-props';
 import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'react-redux';
+import { RootSiblingParent } from 'react-native-root-siblings';
 import { PersistGate } from 'redux-persist/integration/react';
 import axios from 'axios';
 import Config from 'react-native-config';
@@ -65,9 +66,11 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <Router />
-      </PersistGate>
+      <RootSiblingParent>
+        <PersistGate persistor={persistor}>
+          <Router />
+        </PersistGate>
+      </RootSiblingParent>
     </Provider>
     //   {Platform.OS === 'ios' && <StatusBar barStyle="light-content" />}
     //   <Router />

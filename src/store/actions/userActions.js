@@ -12,6 +12,7 @@ import {
   TRACK_SHIPMENT_ERROR,
   LOGIN_USER_ERROR,
 } from './types';
+import { showToast } from '../../common';
 
 export const userLogin = (user) => (dispatch) => {
   dispatch({ type: LOGIN_USER });
@@ -65,6 +66,7 @@ export const trackOrder = (trackNumber) => (dispatch) => {
     })
     .catch((error) => {
       console.log('tracking err', error);
+      showToast(error.message, 'error');
       dispatch({
         type: TRACK_SHIPMENT_ERROR,
         payload: error,
