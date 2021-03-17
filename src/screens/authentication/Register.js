@@ -19,7 +19,10 @@ import { registerStyles as styles } from './styles';
 const SignupSchema = Yup.object().shape({
   fname: Yup.string().required('Your first name is required'),
   lname: Yup.string().required('Your last name is required'),
-  phone: Yup.string().min(11).max(11).required('Your phone number is needed.'),
+  phone: Yup.string()
+    .min(11, ({ min }) => `Phone number must be ${min} numbers`)
+    .max(11)
+    .required('Your phone number is needed.'),
   email: Yup.string()
     .email('Please enter a valid email')
     .required('Email address is required'),
