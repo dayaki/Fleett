@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import LottieView from 'lottie-react-native';
-import { loading, loadingBar } from '../../assets/lotties';
-import { hp, wp } from './utils';
+import { loadingBar } from '../../assets/lotties';
+import { wp } from './utils';
 
 export const Loader = ({}) => (
   <View style={styles.container}>

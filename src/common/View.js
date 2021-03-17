@@ -46,11 +46,12 @@ export const BackView = ({ children, isScroll, title }) => (
   </SafeAreaView>
 );
 
-export const BottomSheet = ({ openRef, height, render }) => (
+export const BottomSheet = ({ openRef, height, render, lock }) => (
   <RBSheet
     ref={openRef}
     height={height}
-    closeOnDragDown={true}
+    closeOnPressMask={lock ? false : true}
+    closeOnPressBack={lock ? false : true}
     customStyles={{
       wrapper: {
         backgroundColor: 'rgba(20,20,20,0.87)',

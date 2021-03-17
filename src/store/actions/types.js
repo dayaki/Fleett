@@ -16,5 +16,8 @@ export const TRACK_SHIPMENT_ERROR = 'track_shipment_error';
 
 export const PREPARE_ORDER = 'prepare_order';
 export const RESET_TEMP_ORDER = 'reset_temp_order';
+export const INITIATE_ORDER = 'initiate_order';
+export const INITIATE_ORDER_SUCESS = 'initiate_order_success';
+export const INITIATE_ORDER_ERROR = 'initiate_order_error';
 
 export const MAKE_PAYMENT = 'make_payment';

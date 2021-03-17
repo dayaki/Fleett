@@ -24,6 +24,8 @@ import {
 } from '../../../common';
 import { styles } from './styles';
 import { PREPARE_ORDER } from '../../../store/actions/types';
+import { initiateOrder } from '../../../store/actions/userActions';
+import { useEffect } from 'react';
 
 const FormSchema = Yup.object().shape({
   recipient_name: Yup.string().required('Name of recipient is required.'),
@@ -33,16 +35,39 @@ const FormSchema = Yup.object().shape({
 });
 
 const OrderTwo = () => {
-  const { tempOrder } = useSelector((state) => state.user);
-  // const [delivery]
+  const { profile, tempOrder, loading, closeBottomSheet } = useSelector(
+    (state) => state.user,
+  );
+  const [bottomLock, setBottomLock] = useState(false);
   const dispatch = useDispatch();
   const orderBottomSheet = useRef();
 
   const prepareOrder = (data) => {
-    console.log('dataaa', data);
-    dispatch({ type: PREPARE_ORDER, payload: data });
+    let payload = data;
+    payload.amount = 1500;
+    dispatch({ type: PREPARE_ORDER, payload });
     orderBottomSheet.current.open();
   };
+
+  const processOrder = () => {
+    const payload = {
+      name: `${profile.fname} ${profile.lname}`,
+      phone: profile.phone,
+      email: profile.email,
+      amount: tempOrder.amount,
+    };
+    dispatch(initiateOrder(payload));
+  };
+
+  useEffect(() => {
+    if (closeBottomSheet) {
+      orderBottomSheet.current.close();
+    }
+  }, [closeBottomSheet]);
+
+  useEffect(() => {
+    setBottomLock(loading);
+  }, [loading]);
 
   const OrderReview = () => (
     <View style={styles.order}>
@@ -82,7 +107,12 @@ const OrderTwo = () => {
         <TitleText title="Total" style={styles.totalText} />
         <RegularText title="₦1,500" style={styles.totalAmount} />
       </View>
-      <Button title="Continue With Payment" style={styles.orderBtn} />
+      <Button
+        title="Continue With Payment"
+        style={styles.orderBtn}
+        onPress={processOrder}
+        isLoading={loading}
+      />
     </View>
   );
 
@@ -199,6 +229,7 @@ const OrderTwo = () => {
                 openRef={orderBottomSheet}
                 height={520}
                 render={<OrderReview />}
+                lock={bottomLock}
               />
             </ScrollView>
           </View>

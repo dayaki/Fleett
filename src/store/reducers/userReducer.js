@@ -10,6 +10,9 @@ import {
   CANCEL_REQUEST,
   PREPARE_ORDER,
   RESET_TEMP_ORDER,
+  INITIATE_ORDER,
+  INITIATE_ORDER_SUCESS,
+  INITIATE_ORDER_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -21,6 +24,7 @@ const initialState = {
   isAuthenticated: false,
   loginError: '',
   registerError: '',
+  closeBottomSheet: false,
 };
 
 export default (state = initialState, action) => {
@@ -29,6 +33,25 @@ export default (state = initialState, action) => {
       return {
         ...state,
         tempOrder: { ...state.tempOrder, ...action.payload },
+      };
+    case INITIATE_ORDER:
+      return {
+        ...state,
+        loading: true,
+        error: '',
+      };
+    case INITIATE_ORDER_SUCESS:
+      return {
+        ...state,
+        loading: false,
+        closeBottomSheet: true,
+      };
+    case INITIATE_ORDER_ERROR:
+      return {
+        ...state,
+        loading: false,
+        closeBottomSheet: false,
+        // tempOrder: {},
       };
     case RESET_TEMP_ORDER:
       return {
@@ -101,6 +124,7 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         error: '',
+        tempOrder: {},
       };
     case CANCEL_REQUEST:
       return {

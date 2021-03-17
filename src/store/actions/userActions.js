@@ -11,6 +11,9 @@ import {
   TRACK_SHIPMENT_SUCCESS,
   TRACK_SHIPMENT_ERROR,
   LOGIN_USER_ERROR,
+  INITIATE_ORDER,
+  INITIATE_ORDER_SUCESS,
+  INITIATE_ORDER_ERROR,
 } from './types';
 import { showToast } from '../../common';
 
@@ -69,6 +72,30 @@ export const trackOrder = (trackNumber) => (dispatch) => {
       showToast(error.message, 'error');
       dispatch({
         type: TRACK_SHIPMENT_ERROR,
+        payload: error,
+      });
+    });
+};
+
+export const initiateOrder = (data) => (dispatch) => {
+  dispatch({ type: INITIATE_ORDER });
+  apiService('user/orders/initiate', 'POST', data)
+    .then((res) => {
+      console.log('initiate', res);
+      dispatch({
+        type: INITIATE_ORDER_SUCESS,
+        payload: res.data,
+      });
+      const params = {
+        uri: res.data,
+      };
+      Actions.webview({ params });
+    })
+    .catch((error) => {
+      console.log('initiate err', error);
+      showToast(error.message, 'error');
+      dispatch({
+        type: INITIATE_ORDER_ERROR,
         payload: error,
       });
     });
