@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import {
-  ScrollView,
+  StatusBar,
   View,
   Image,
   SafeAreaView,
@@ -62,48 +62,55 @@ const Pagination = ({ scrollX }) => {
 const Onboarding = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
   return (
-    <SafeAreaView style={styles.safeView}>
-      <View style={styles.container}>
-        <Image
-          source={require('../../../assets/images/logo.png')}
-          style={styles.logo}
-        />
-        <Pagination scrollX={scrollX} />
-        <Animated.ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          bounces
-          pagingEnabled
-          scrollEventThrottle={16}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-            { useNativeDriver: true },
-          )}>
-          {slides.map((slide, index) => (
-            <View style={styles.texts} key={index}>
-              {/* <View style={styles.paginations}>
+    <>
+      <StatusBar
+        backgroundColor="white"
+        barStyle="dark-content"
+        animated={true}
+      />
+      <SafeAreaView style={styles.safeView}>
+        <View style={styles.container}>
+          <Image
+            source={require('../../../assets/images/logo.png')}
+            style={styles.logo}
+          />
+          <Pagination scrollX={scrollX} />
+          <Animated.ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            bounces
+            pagingEnabled
+            scrollEventThrottle={16}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+              { useNativeDriver: true },
+            )}>
+            {slides.map((slide, index) => (
+              <View style={styles.texts} key={index}>
+                {/* <View style={styles.paginations}>
                 <View style={[styles.paginationDot, styles.current]} />
                 <View style={styles.paginationDot} />
                 <View style={styles.paginationDot} />
               </View> */}
-              <HeaderText title={slide.title} style={styles.sliderHeader} />
-              <Text style={styles.sliderText}>{slide.text}</Text>
-              <Button
-                title="Get Started"
-                style={{ marginTop: 64 }}
-                onPress={() => Actions.sign_in()}
-              />
-              <View style={styles.sliderFooter}>
-                <Text style={styles.sliderFooterText}>
-                  Are you a dispatch rider?
-                </Text>
-                <Text style={styles.sliderFooterButton}>Sign In</Text>
+                <HeaderText title={slide.title} style={styles.sliderHeader} />
+                <Text style={styles.sliderText}>{slide.text}</Text>
+                <Button
+                  title="Get Started"
+                  style={{ marginTop: 64 }}
+                  onPress={() => Actions.sign_in()}
+                />
+                <View style={styles.sliderFooter}>
+                  <Text style={styles.sliderFooterText}>
+                    Are you a dispatch rider?
+                  </Text>
+                  <Text style={styles.sliderFooterButton}>Sign In</Text>
+                </View>
               </View>
-            </View>
-          ))}
-        </Animated.ScrollView>
-      </View>
-    </SafeAreaView>
+            ))}
+          </Animated.ScrollView>
+        </View>
+      </SafeAreaView>
+    </>
   );
 };
 

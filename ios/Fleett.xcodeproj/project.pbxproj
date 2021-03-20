@@ -11,20 +11,15 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1C7955DEBD11C8B397EECDAD /* libPods-Fleett.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F14833EC3D36FCCF1A136C4F /* libPods-Fleett.a */; };
+		253228E47448EB893A960BB3 /* libPods-Fleett-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10856EA968BCBBD4A43583B6 /* libPods-Fleett-tvOSTests.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* FleettTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FleettTests.m */; };
-		39B3E2F965890D61A2AE5A72 /* libPods-Fleett-FleettTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771ADA7238A625A4B0B8652 /* libPods-Fleett-FleettTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		BADBF33B96B929255F36949E /* libPods-Fleett.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EADCB7E1320CBED40E4AA4A /* libPods-Fleett.a */; };
-		D33B114C25E5BB9F00839306 /* TTNormsPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D33B114725E5BB9F00839306 /* TTNormsPro-Regular.otf */; };
-		D33B114D25E5BB9F00839306 /* TTNormsPro-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D33B114825E5BB9F00839306 /* TTNormsPro-Bold.otf */; };
-		D33B114E25E5BB9F00839306 /* TTNormsPro-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D33B114925E5BB9F00839306 /* TTNormsPro-ExtraBold.otf */; };
-		D33B114F25E5BB9F00839306 /* TTNormsPro-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D33B114A25E5BB9F00839306 /* TTNormsPro-Light.otf */; };
-		D33B115025E5BB9F00839306 /* TTNormsPro-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D33B114B25E5BB9F00839306 /* TTNormsPro-Medium.otf */; };
-		E1526F43D227E0ECEA592481 /* libPods-Fleett-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5640A393032D44E64EE8801 /* libPods-Fleett-tvOSTests.a */; };
-		ECB41857757793E68818FC2B /* libPods-Fleett-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2642D5D12AEFE6C0BBB4B366 /* libPods-Fleett-tvOS.a */; };
+		B080EE5331953D9D99B7A861 /* libPods-Fleett-FleettTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D063055129FBF785809C20 /* libPods-Fleett-FleettTests.a */; };
+		FF601F8F48E99DAEE03189BC /* libPods-Fleett-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7B4F933763C7D3ABF43AEA1 /* libPods-Fleett-tvOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,34 +44,29 @@
 		00E356EE1AD99517003FC87E /* FleettTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FleettTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* FleettTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FleettTests.m; sourceTree = "<group>"; };
+		068BE4BD51C1C9112D236604 /* Pods-Fleett-FleettTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett-FleettTests.release.xcconfig"; path = "Target Support Files/Pods-Fleett-FleettTests/Pods-Fleett-FleettTests.release.xcconfig"; sourceTree = "<group>"; };
+		10856EA968BCBBD4A43583B6 /* libPods-Fleett-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Fleett-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* Fleett.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fleett.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Fleett/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Fleett/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Fleett/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Fleett/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Fleett/main.m; sourceTree = "<group>"; };
-		2642D5D12AEFE6C0BBB4B366 /* libPods-Fleett-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Fleett-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		26ABCE976940247D7A92ECE4 /* Pods-Fleett.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett.release.xcconfig"; path = "Target Support Files/Pods-Fleett/Pods-Fleett.release.xcconfig"; sourceTree = "<group>"; };
+		24F1D0507A719F75C4B85147 /* Pods-Fleett.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett.debug.xcconfig"; path = "Target Support Files/Pods-Fleett/Pods-Fleett.debug.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Fleett-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fleett-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Fleett-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fleett-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2EADCB7E1320CBED40E4AA4A /* libPods-Fleett.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Fleett.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		382E1999CA3E9A12319561E3 /* Pods-Fleett-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Fleett-tvOS/Pods-Fleett-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		5771ADA7238A625A4B0B8652 /* libPods-Fleett-FleettTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Fleett-FleettTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		64EF26985807CA8EF9CDCC54 /* Pods-Fleett-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Fleett-tvOS/Pods-Fleett-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		2FF27130A6E9CCD9A3512D13 /* Pods-Fleett-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Fleett-tvOSTests/Pods-Fleett-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		3F2410E2DE6729795815ADE5 /* Pods-Fleett-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Fleett-tvOS/Pods-Fleett-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		4470A1183F00AC72A7DDA56C /* Pods-Fleett-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Fleett-tvOS/Pods-Fleett-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		75197A93B57CB029CC79E5F0 /* Pods-Fleett.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett.release.xcconfig"; path = "Target Support Files/Pods-Fleett/Pods-Fleett.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Fleett/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9BEE2C8787BB8E2A9DD18362 /* Pods-Fleett-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Fleett-tvOSTests/Pods-Fleett-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		A9F28D3FD87550CF8F3D9549 /* Pods-Fleett-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Fleett-tvOSTests/Pods-Fleett-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		BCCFFA1A620B995214D7662B /* Pods-Fleett-FleettTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett-FleettTests.release.xcconfig"; path = "Target Support Files/Pods-Fleett-FleettTests/Pods-Fleett-FleettTests.release.xcconfig"; sourceTree = "<group>"; };
-		C5640A393032D44E64EE8801 /* libPods-Fleett-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Fleett-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D33B114725E5BB9F00839306 /* TTNormsPro-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TTNormsPro-Regular.otf"; path = "../assets/fonts/TTNormsPro-Regular.otf"; sourceTree = "<group>"; };
-		D33B114825E5BB9F00839306 /* TTNormsPro-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TTNormsPro-Bold.otf"; path = "../assets/fonts/TTNormsPro-Bold.otf"; sourceTree = "<group>"; };
-		D33B114925E5BB9F00839306 /* TTNormsPro-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TTNormsPro-ExtraBold.otf"; path = "../assets/fonts/TTNormsPro-ExtraBold.otf"; sourceTree = "<group>"; };
-		D33B114A25E5BB9F00839306 /* TTNormsPro-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TTNormsPro-Light.otf"; path = "../assets/fonts/TTNormsPro-Light.otf"; sourceTree = "<group>"; };
-		D33B114B25E5BB9F00839306 /* TTNormsPro-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TTNormsPro-Medium.otf"; path = "../assets/fonts/TTNormsPro-Medium.otf"; sourceTree = "<group>"; };
-		DAF70F3E634C753F07C0970C /* Pods-Fleett-FleettTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett-FleettTests.debug.xcconfig"; path = "Target Support Files/Pods-Fleett-FleettTests/Pods-Fleett-FleettTests.debug.xcconfig"; sourceTree = "<group>"; };
-		E3EF60443D4F472E35EFE721 /* Pods-Fleett.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett.debug.xcconfig"; path = "Target Support Files/Pods-Fleett/Pods-Fleett.debug.xcconfig"; sourceTree = "<group>"; };
+		A8CFAA2E776826A23D6B123F /* Pods-Fleett-FleettTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett-FleettTests.debug.xcconfig"; path = "Target Support Files/Pods-Fleett-FleettTests/Pods-Fleett-FleettTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C88E8828669C83B2D3DE556B /* Pods-Fleett-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Fleett-tvOSTests/Pods-Fleett-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E7B4F933763C7D3ABF43AEA1 /* libPods-Fleett-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Fleett-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7D063055129FBF785809C20 /* libPods-Fleett-FleettTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Fleett-FleettTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		F14833EC3D36FCCF1A136C4F /* libPods-Fleett.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Fleett.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				39B3E2F965890D61A2AE5A72 /* libPods-Fleett-FleettTests.a in Frameworks */,
+				B080EE5331953D9D99B7A861 /* libPods-Fleett-FleettTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BADBF33B96B929255F36949E /* libPods-Fleett.a in Frameworks */,
+				1C7955DEBD11C8B397EECDAD /* libPods-Fleett.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECB41857757793E68818FC2B /* libPods-Fleett-tvOS.a in Frameworks */,
+				FF601F8F48E99DAEE03189BC /* libPods-Fleett-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1526F43D227E0ECEA592481 /* libPods-Fleett-tvOSTests.a in Frameworks */,
+				253228E47448EB893A960BB3 /* libPods-Fleett-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +122,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		01CAAF7F39D1C4B042E324E8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				24F1D0507A719F75C4B85147 /* Pods-Fleett.debug.xcconfig */,
+				75197A93B57CB029CC79E5F0 /* Pods-Fleett.release.xcconfig */,
+				A8CFAA2E776826A23D6B123F /* Pods-Fleett-FleettTests.debug.xcconfig */,
+				068BE4BD51C1C9112D236604 /* Pods-Fleett-FleettTests.release.xcconfig */,
+				4470A1183F00AC72A7DDA56C /* Pods-Fleett-tvOS.debug.xcconfig */,
+				3F2410E2DE6729795815ADE5 /* Pods-Fleett-tvOS.release.xcconfig */,
+				C88E8828669C83B2D3DE556B /* Pods-Fleett-tvOSTests.debug.xcconfig */,
+				2FF27130A6E9CCD9A3512D13 /* Pods-Fleett-tvOSTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* Fleett */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,10 +157,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				2EADCB7E1320CBED40E4AA4A /* libPods-Fleett.a */,
-				5771ADA7238A625A4B0B8652 /* libPods-Fleett-FleettTests.a */,
-				2642D5D12AEFE6C0BBB4B366 /* libPods-Fleett-tvOS.a */,
-				C5640A393032D44E64EE8801 /* libPods-Fleett-tvOSTests.a */,
+				F14833EC3D36FCCF1A136C4F /* libPods-Fleett.a */,
+				E7D063055129FBF785809C20 /* libPods-Fleett-FleettTests.a */,
+				E7B4F933763C7D3ABF43AEA1 /* libPods-Fleett-tvOS.a */,
+				10856EA968BCBBD4A43583B6 /* libPods-Fleett-tvOSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -169,18 +175,12 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				D33B114825E5BB9F00839306 /* TTNormsPro-Bold.otf */,
-				D33B114925E5BB9F00839306 /* TTNormsPro-ExtraBold.otf */,
-				D33B114A25E5BB9F00839306 /* TTNormsPro-Light.otf */,
-				D33B114B25E5BB9F00839306 /* TTNormsPro-Medium.otf */,
-				D33B114725E5BB9F00839306 /* TTNormsPro-Regular.otf */,
 				13B07FAE1A68108700A75B9A /* Fleett */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* FleettTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				9B89323FFF39D986E9B49153 /* Pods */,
-				AAECED5D6CD1438197D26089 /* Resources */,
+				01CAAF7F39D1C4B042E324E8 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -198,28 +198,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9B89323FFF39D986E9B49153 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E3EF60443D4F472E35EFE721 /* Pods-Fleett.debug.xcconfig */,
-				26ABCE976940247D7A92ECE4 /* Pods-Fleett.release.xcconfig */,
-				DAF70F3E634C753F07C0970C /* Pods-Fleett-FleettTests.debug.xcconfig */,
-				BCCFFA1A620B995214D7662B /* Pods-Fleett-FleettTests.release.xcconfig */,
-				64EF26985807CA8EF9CDCC54 /* Pods-Fleett-tvOS.debug.xcconfig */,
-				382E1999CA3E9A12319561E3 /* Pods-Fleett-tvOS.release.xcconfig */,
-				9BEE2C8787BB8E2A9DD18362 /* Pods-Fleett-tvOSTests.debug.xcconfig */,
-				A9F28D3FD87550CF8F3D9549 /* Pods-Fleett-tvOSTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		AAECED5D6CD1438197D26089 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -227,11 +205,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "FleettTests" */;
 			buildPhases = (
-				FB39B878221B6243C9F0FBEE /* [CP] Check Pods Manifest.lock */,
+				FD0E29A8A1F5C96F9409BF79 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				38EFD4489A7101EEECCB173B /* [CP] Copy Pods Resources */,
+				93BF93F8E201EC1DCD5A772A /* [CP] Embed Pods Frameworks */,
+				FE0C793F8C91EF166AC8A245 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -247,13 +226,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Fleett" */;
 			buildPhases = (
-				02BDDBF9A8801FC7048D043C /* [CP] Check Pods Manifest.lock */,
+				64CD7E747DC5A2DFAAA62B0C /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				DE6B5001E7B889DC1D6B0185 /* [CP] Copy Pods Resources */,
+				AF808BBC302BF2E8DA727190 /* [CP] Embed Pods Frameworks */,
+				D2987E4D0364AC44D0F114D2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -268,7 +248,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Fleett-tvOS" */;
 			buildPhases = (
-				562F4DEBE34988CC1C4C9325 /* [CP] Check Pods Manifest.lock */,
+				B3657F8D880C34B6A3AD441D /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -288,7 +268,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Fleett-tvOSTests" */;
 			buildPhases = (
-				E151AEB6FF568C891A407285 /* [CP] Check Pods Manifest.lock */,
+				0982893F2CD6E9FE8C5E8DA6 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -362,11 +342,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D33B114C25E5BB9F00839306 /* TTNormsPro-Regular.otf in Resources */,
-				D33B114D25E5BB9F00839306 /* TTNormsPro-Bold.otf in Resources */,
-				D33B114E25E5BB9F00839306 /* TTNormsPro-ExtraBold.otf in Resources */,
-				D33B114F25E5BB9F00839306 /* TTNormsPro-Light.otf in Resources */,
-				D33B115025E5BB9F00839306 /* TTNormsPro-Medium.otf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
@@ -402,103 +377,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
-		};
-		02BDDBF9A8801FC7048D043C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Fleett-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Bundle React Native Code And Images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		38EFD4489A7101EEECCB173B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Fleett-FleettTests/Pods-Fleett-FleettTests-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fleett-FleettTests/Pods-Fleett-FleettTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		562F4DEBE34988CC1C4C9325 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Fleett-tvOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DE6B5001E7B889DC1D6B0185 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Fleett/Pods-Fleett-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fleett/Pods-Fleett-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E151AEB6FF568C891A407285 /* [CP] Check Pods Manifest.lock */ = {
+		0982893F2CD6E9FE8C5E8DA6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -520,7 +401,119 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FB39B878221B6243C9F0FBEE /* [CP] Check Pods Manifest.lock */ = {
+		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native Code And Images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		64CD7E747DC5A2DFAAA62B0C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Fleett-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		93BF93F8E201EC1DCD5A772A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fleett-FleettTests/Pods-Fleett-FleettTests-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fleett-FleettTests/Pods-Fleett-FleettTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AF808BBC302BF2E8DA727190 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fleett/Pods-Fleett-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fleett/Pods-Fleett-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B3657F8D880C34B6A3AD441D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Fleett-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D2987E4D0364AC44D0F114D2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fleett/Pods-Fleett-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fleett/Pods-Fleett-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD0E29A8A1F5C96F9409BF79 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -580,6 +573,24 @@
 			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		FE0C793F8C91EF166AC8A245 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fleett-FleettTests/Pods-Fleett-FleettTests-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fleett-FleettTests/Pods-Fleett-FleettTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -635,7 +646,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DAF70F3E634C753F07C0970C /* Pods-Fleett-FleettTests.debug.xcconfig */;
+			baseConfigurationReference = A8CFAA2E776826A23D6B123F /* Pods-Fleett-FleettTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -658,7 +669,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BCCFFA1A620B995214D7662B /* Pods-Fleett-FleettTests.release.xcconfig */;
+			baseConfigurationReference = 068BE4BD51C1C9112D236604 /* Pods-Fleett-FleettTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -678,7 +689,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E3EF60443D4F472E35EFE721 /* Pods-Fleett.debug.xcconfig */;
+			baseConfigurationReference = 24F1D0507A719F75C4B85147 /* Pods-Fleett.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -701,7 +712,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 26ABCE976940247D7A92ECE4 /* Pods-Fleett.release.xcconfig */;
+			baseConfigurationReference = 75197A93B57CB029CC79E5F0 /* Pods-Fleett.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -722,7 +733,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64EF26985807CA8EF9CDCC54 /* Pods-Fleett-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 4470A1183F00AC72A7DDA56C /* Pods-Fleett-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -750,7 +761,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 382E1999CA3E9A12319561E3 /* Pods-Fleett-tvOS.release.xcconfig */;
+			baseConfigurationReference = 3F2410E2DE6729795815ADE5 /* Pods-Fleett-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -778,7 +789,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9BEE2C8787BB8E2A9DD18362 /* Pods-Fleett-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = C88E8828669C83B2D3DE556B /* Pods-Fleett-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -805,7 +816,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A9F28D3FD87550CF8F3D9549 /* Pods-Fleett-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 2FF27130A6E9CCD9A3512D13 /* Pods-Fleett-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;

@@ -14,6 +14,7 @@ import {
   MenuHistory,
   MenuLock,
   MenuTracking,
+  MenuNewOrder,
 } from '../../../../assets/svgs';
 import { styles } from './styles';
 import { userLogout } from '../../../store/actions/userActions';
@@ -54,6 +55,15 @@ const DrawerMenu = () => {
               <MenuTracking />
             </View>
             <RegularText title="Tracking" style={styles.navItemText} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.navItem}
+            onPress={() => Actions.order()}>
+            <View style={styles.navIcon}>
+              <MenuTracking />
+            </View>
+            <RegularText title="New Order" style={styles.navItemText} />
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}

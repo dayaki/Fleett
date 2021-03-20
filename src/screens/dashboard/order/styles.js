@@ -1,8 +1,6 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as Colors from '../../../common/Colors';
 import { wp, hp } from '../../../common/utils';
-
-const { width } = Dimensions.get('screen');
 
 export const styles = StyleSheet.create({
   safeview: {
@@ -16,7 +14,7 @@ export const styles = StyleSheet.create({
   header: {
     backgroundColor: Colors.Woodsmoke,
     paddingHorizontal: wp(22),
-    paddingTop: hp(10),
+    paddingTop: hp(30),
     height: hp(156),
   },
   topHeader: {
@@ -27,6 +25,8 @@ export const styles = StyleSheet.create({
   headerBtn: {
     position: 'absolute',
     left: 0,
+    paddingHorizontal: wp(20),
+    paddingVertical: hp(20),
   },
   headerTitle: {
     color: Colors.White,
@@ -160,7 +160,7 @@ export const historyStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.White,
-    paddingTop: hp(50),
+    paddingTop: hp(20),
   },
   header: {
     backgroundColor: Colors.White,

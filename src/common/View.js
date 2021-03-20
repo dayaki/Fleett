@@ -38,9 +38,13 @@ export const BackView = ({ children, isScroll, title }) => (
         <TitleText title={title} style={styles.headerTitle} />
       </View>
       {isScroll ? (
-        <ScrollView showsVerticalScrollIndicator={false}>{children}</ScrollView>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.backViewContent}>
+          {children}
+        </ScrollView>
       ) : (
-        <View>{children}</View>
+        <View style={styles.backViewContent}>{children}</View>
       )}
     </View>
   </SafeAreaView>
@@ -82,13 +86,17 @@ const styles = StyleSheet.create({
   backView: {
     flex: 1,
     paddingHorizontal: wp(30),
+    paddingTop: hp(30),
+  },
+  backViewContent: {
+    // paddingTop: hp(50),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    marginBottom: hp(10),
+    marginBottom: hp(20),
   },
   backBtn: {
     paddingVertical: hp(10),

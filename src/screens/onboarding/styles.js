@@ -7,6 +7,7 @@ const { width } = Dimensions.get('screen');
 export const styles = StyleSheet.create({
   safeView: {
     flex: 1,
+    backgroundColor: 'white',
   },
   container: {
     flex: 1,

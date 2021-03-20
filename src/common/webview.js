@@ -16,18 +16,19 @@ const Web = ({ params }) => {
 
   const onNavigationStateChange = (event) => {
     const { url } = event;
+    console.log('webview url', url);
 
     // successful payment
-    // if (url.includes('payment-status=success')) {
-    //   Actions.transaction_status({
-    //     type: 'reset',
-    //     status: 'success',
-    //     title: 'Hank Purchase Successful',
-    //     message:
-    //       'You have successfully placed an order for hank. Your hank will be delivered within 14 working days',
-    //     isOrder: true,
-    //   });
-    // }
+    if (url.includes('payment-status')) {
+      Actions.transaction_status({
+        type: 'reset',
+        status: 'success',
+        title: 'Hank Purchase Successful',
+        message:
+          'You have successfully placed an order for hank. Your hank will be delivered within 14 working days',
+        isOrder: true,
+      });
+    }
 
     // failed payment
     // if (url.includes('payment-status=error')) {

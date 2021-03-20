@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Text,
   TextInput,
+  StatusBar,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { useSelector, useDispatch } from 'react-redux';
@@ -30,8 +31,9 @@ const Home = () => {
   return (
     <>
       {loading && <Loader />}
-      <SafeAreaView style={{ backgroundColor: Woodsmoke }}></SafeAreaView>
+      {/* <SafeAreaView style={{ backgroundColor: Woodsmoke }}></SafeAreaView> */}
       <SafeAreaView style={styles.safeview}>
+        <StatusBar backgroundColor="black" barStyle="light-content" />
         <View style={styles.container}>
           <View style={styles.header}>
             <View style={styles.topHeader}>

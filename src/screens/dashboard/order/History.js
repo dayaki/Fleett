@@ -1,13 +1,15 @@
 import React from 'react';
 import {
-  SafeAreaView,
   ScrollView,
   TouchableOpacity,
   Image,
   Text,
   View,
+  StatusBar,
+  SafeAreaView,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { useSelector } from 'react-redux';
 import { RegularText, NoContentView } from '../../../common';
 import { ActiveBellBlack, BoxIcon } from '../../../../assets/svgs';
 import { historyStyles as styles } from './styles';
@@ -24,38 +26,44 @@ const HistoryItem = () => (
 );
 
 const History = () => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.topHeader}>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => Actions.drawerOpen()}>
-            <Image
-              source={{
-                uri:
-                  'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
-              }}
-              style={styles.avatar}
-            />
-          </TouchableOpacity>
-          <RegularText title="History" style={styles.headerTitle} />
-          <TouchableOpacity>
-            <ActiveBellBlack />
-          </TouchableOpacity>
-        </View>
+  const { fname, photo } = useSelector((state) => state.user.profile);
 
-        <View style={styles.headerTexts}>
-          <Text style={styles.headerName}>Hi Dayo,</Text>
-          <Text style={styles.headerText}>See your order history</Text>
+  return (
+    <SafeAreaView style={styles.safeview}>
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <View style={styles.topHeader}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => Actions.drawerOpen()}>
+              <Image
+                source={{
+                  uri: photo
+                    ? photo
+                    : 'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
+                }}
+                style={styles.avatar}
+              />
+            </TouchableOpacity>
+            <RegularText title="History" style={styles.headerTitle} />
+            <TouchableOpacity>
+              <ActiveBellBlack />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.headerTexts}>
+            <Text style={styles.headerName}>Hi {fname},</Text>
+            <Text style={styles.headerText}>See your order history</Text>
+          </View>
         </View>
-      </View>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
-        <NoContentView title="No order history here yet" />
-        {/* <HistoryItem />
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
+          <NoContentView title="No order history here yet" />
+          {/* <HistoryItem />
         <HistoryItem /> */}
-      </ScrollView>
-    </View>
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 };
 

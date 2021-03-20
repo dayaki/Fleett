@@ -55,6 +55,7 @@ const OrderTwo = () => {
       phone: profile.phone,
       email: profile.email,
       amount: tempOrder.amount,
+      user_id: profile.id,
     };
     dispatch(initiateOrder(payload));
   };

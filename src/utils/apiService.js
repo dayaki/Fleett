@@ -8,7 +8,7 @@ import { store } from '../store';
 const { BASE_URL } = Config;
 
 const apiService = (url, type, data, headers) => {
-  console.log(BASE_URL, url);
+  console.log('configssss', Config.BASE_URL, url);
 
   if (!url || typeof url !== 'string') {
     store.dispatch({ type: CANCEL_REQUEST });
@@ -49,7 +49,7 @@ const apiService = (url, type, data, headers) => {
         resolve(res.data || res);
       })
       .catch((error) => {
-        // console.log(error, error.config);
+        console.log(error, error.config);
         if (error && !error.response) {
           // showToast(
           //   'Could not connect to the server, please check your internet connection',

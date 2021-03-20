@@ -15,6 +15,8 @@ import About from './screens/dashboard/about';
 import OrderTwo from './screens/dashboard/order/Step2';
 import OrderDetail from './screens/dashboard/order/Detail';
 import Web from './common/webview';
+import TransactionStatus from './screens/transaction/TransactionStatus';
+import FindRider from './screens/transaction/FindRider';
 
 // Rider
 import Login from './screens/rider/Login';
@@ -52,6 +54,8 @@ const Routing = () => (
         <Scene key="order_two" component={OrderTwo} />
         <Scene key="order_detail" component={OrderDetail} />
         <Scene key="webview" component={Web} />
+        <Scene key="transaction_status" component={TransactionStatus} />
+        <Scene key="find_rider" component={FindRider} />
       </Stack>
       <Stack key="rider" hideNavBar>
         <Scene key="rider_login" component={Login} />
