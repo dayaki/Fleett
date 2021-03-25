@@ -38,7 +38,15 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Your location is needed to show nearest dispatch rider to you</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>TTNormsPro-Bold.otf</string>
+		<string>TTNormsPro-ExtraBold.otf</string>
+		<string>TTNormsPro-Light.otf</string>
+		<string>TTNormsPro-Medium.otf</string>
+		<string>TTNormsPro-Regular.otf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>SplashScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

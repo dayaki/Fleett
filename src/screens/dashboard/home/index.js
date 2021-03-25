@@ -1,120 +1,122 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
-  ScrollView,
-  Image,
   SafeAreaView,
   TouchableOpacity,
   Text,
-  TextInput,
   StatusBar,
+  useWindowDimensions,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { useSelector, useDispatch } from 'react-redux';
-import { ActiveBell, Search, ForwardArrow } from '../../../../assets/svgs';
-import { RegularText, TitleText, Woodsmoke, Loader } from '../../../common';
-import { trackOrder } from '../../../store/actions/userActions';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import Modal from 'react-native-modal';
+import Geolocation from '@react-native-community/geolocation';
+import Geocoder from 'react-native-geocoding';
+import { MenuIcon, Scooter, Search } from '../../../../assets/svgs';
+import { RegularText, TitleText } from '../../../common';
+import Address from './Address';
 import { styles } from './styles';
 
-const Home = () => {
-  const {
-    loading,
-    profile: { fname, photo },
-  } = useSelector((state) => state.user);
-  const [trackingNumber, setTrackingNumber] = useState('');
-  const dispatch = useDispatch();
+// Geocoder.init('AIzaSyCK_4fZKdjxO7wy6nv2EQaEXOp1_So5rlU', { language: 'en' });
 
-  const handleTracking = (trackNumber) => {
-    console.log('tracking', trackNumber);
-    dispatch(trackOrder(trackNumber));
+const Home = () => {
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
+  const [showModal, setShowModal] = useState(false);
+  // const [location, setLocation] = useState('');
+  const [region, setRegion] = useState({
+    latitude: 6.524379,
+    longitude: 3.379206,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
+
+  useEffect(() => {
+    const options = {
+      timeout: 2000,
+      enableHighAccuracy: true,
+      maximumAge: 1000,
+    };
+
+    Geolocation.getCurrentPosition(
+      async ({ coords: { latitude, longitude } }) => {
+        console.log('latlng', latitude, longitude);
+        // const response = await Geocoder.from({ latitude, longitude });
+        // const address = response.results[0].formatted_address;
+        // const shortAddress = address.substring(0, address.indexOf(','));
+        setRegion({
+          ...region,
+          latitude,
+          longitude,
+        });
+      },
+      (error) => {
+        console.log('errrrr', error);
+        // alert(error.message)
+      },
+      options,
+    );
+  }, []);
+
+  const chooseAddress = (address) => {
+    console.log('selected address', address);
+    setShowModal(false);
   };
+
   return (
     <>
-      {loading && <Loader />}
-      {/* <SafeAreaView style={{ backgroundColor: Woodsmoke }}></SafeAreaView> */}
       <SafeAreaView style={styles.safeview}>
-        <StatusBar backgroundColor="black" barStyle="light-content" />
-        <View style={styles.container}>
-          <View style={styles.header}>
-            <View style={styles.topHeader}>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => Actions.drawerOpen()}>
-                <Image
-                  source={{
-                    uri: photo
-                      ? photo
-                      : 'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
-                  }}
-                  style={styles.avatar}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <ActiveBell />
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.headerTexts}>
-              <Text style={styles.headerName}>Hi {fname},</Text>
-              <Text style={styles.headerText}>Track your Shipment</Text>
-              <RegularText
-                title="Please enter your tracking number"
-                style={styles.headerPrint}
-              />
-            </View>
-
-            <View style={styles.search}>
-              <Search />
-              <TextInput
-                placeholderTextColor={'rgba(129,127,128,0.84)'}
-                placeholder="Tracking number"
-                value={trackingNumber}
-                style={styles.searchInput}
-                onChangeText={(text) => setTrackingNumber(text.toUpperCase())}
-                returnKeyType="search"
-                maxLength={11}
-                autoCapitalize="characters"
-                onSubmitEditing={(event) =>
-                  handleTracking(event.nativeEvent.text)
-                }
-              />
-            </View>
+        <StatusBar backgroundColor="black" barStyle="dark-content" />
+        <MapView
+          provider={PROVIDER_GOOGLE}
+          style={styles.map}
+          initialRegion={region}
+          showsUserLocation={true}
+          followsUserLocation={true}
+          loadingEnabled={true}
+        />
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={styles.menu}
+          onPress={() => Actions.drawerOpen()}>
+          <MenuIcon />
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.8} style={styles.search}>
+          <View style={styles.searchIcon}>
+            <Scooter />
           </View>
+          <Text style={styles.searchText}>Where to deliver?</Text>
+        </TouchableOpacity>
 
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={styles.content}>
-            <RegularText title="Services" style={styles.title} />
-            <View style={styles.item}>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => Actions.order()}>
-                <TitleText title="Send a Package" style={styles.itemTitle} />
-                <RegularText
-                  title="Send or receive items such as documents, parcels, keys, etc."
-                  style={styles.itemText}
-                />
-                <View style={styles.itemBtn}>
-                  <ForwardArrow />
-                </View>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.item}>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => Actions.order()}>
-                <TitleText title="I am a Recipient" style={styles.itemTitle} />
-                <RegularText
-                  title="Schedule a pickup yourself, package will be delivered to you."
-                  style={styles.itemText}
-                />
-                <View style={styles.itemBtn}>
-                  <ForwardArrow />
-                </View>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
+        <View style={styles.content}>
+          <RegularText title="Nice to see you!" style={styles.contentText} />
+          <TitleText
+            title="Where do you want to deliver?"
+            style={styles.contentTitle}
+          />
+          <TouchableOpacity
+            activeOpacity={0.9}
+            style={styles.contentSearch}
+            onPress={() => setShowModal(true)}>
+            <Search fill="#AEAEAE" />
+            <RegularText
+              title="Search destination"
+              style={styles.contentSearchText}
+            />
+          </TouchableOpacity>
         </View>
+        <Modal
+          isVisible={showModal}
+          hasBackdrop={false}
+          deviceWidth={windowWidth}
+          deviceHeight={windowHeight}
+          animationIn="fadeInDownBig"
+          style={styles.modal}>
+          <Address
+            onClose={() => setShowModal(!showModal)}
+            onSelect={chooseAddress}
+          />
+        </Modal>
       </SafeAreaView>
     </>
   );
