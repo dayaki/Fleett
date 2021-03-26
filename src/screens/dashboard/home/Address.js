@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -6,6 +6,8 @@ import {
   TextInput,
   ScrollView,
 } from 'react-native';
+import Config from 'react-native-config';
+import debounce from 'lodash/debounce';
 // import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import {
   Close,
@@ -17,8 +19,46 @@ import {
 import { RegularText, TitleText } from '../../../common';
 import { modalStyles as styles } from './styles';
 
-const Address = ({ onClose, onSelect }) => {
+const { GOOGLE_API_KEY } = Config;
+
+const Address = ({ onClose, onSelect, latlng }) => {
   const [title, setTitle] = useState('Select destination');
+  const [destination, setDestination] = useState('');
+  const [predictions, setPredictions] = useState([]);
+
+  const updateQuery = async () => {
+    const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${GOOGLE_API_KEY}&input=${destination}&location=${latlng}&radius=2000`;
+    try {
+      const result = await fetch(apiUrl);
+      const json = await result.json();
+      console.log('result', json);
+      setPredictions(json.predictions);
+    } catch (error) {
+      console.error('errr', error);
+    }
+  };
+
+  const delayedQuery = useCallback(debounce(updateQuery, 1000), [destination]);
+
+  useEffect(() => {
+    delayedQuery();
+    return delayedQuery.cancel;
+  }, [destination, delayedQuery]);
+
+  const changeDestination = async (dest) => {
+    setDestination(dest);
+    console.log('dest', dest);
+    // const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${GOOGLE_API_KEY}&input=${destination}&location=${latlng}&radius=2000`;
+    // try {
+    //   const result = await fetch(apiUrl);
+    //   const json = await result.json();
+    //   console.log('result', json);
+    //   setPredictions(json.predictions);
+    // } catch (error) {
+    //   console.error('errr', error);
+    // }
+  };
+
   const handleFocus = (type) => {
     if (type === 'pickup') {
       setTitle('Select pick-up location');
@@ -51,6 +91,8 @@ const Address = ({ onClose, onSelect }) => {
                 placeholder="Search destination"
                 placeholderTextColor="rgba(127,129,142,1)"
                 style={styles.addressInput}
+                value={destination}
+                onChangeText={changeDestination}
                 autoFocus
                 onFocus={() => handleFocus('destination')}
               />
@@ -64,21 +106,28 @@ const Address = ({ onClose, onSelect }) => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={styles.searchAddresses}>
-          <TouchableOpacity
-            activeOpacity={0.9}
-            onPress={() => onSelect('hello world')}
-            style={styles.addressView}>
-            <View style={styles.addressViewIcon}>
-              <MapPin />
-            </View>
-            <View style={styles.addressViewInfo}>
-              <RegularText
-                title="16 Folarin Street"
-                style={styles.addressStreet}
-              />
-              <RegularText title="Lekki, Lagos" style={styles.addressState} />
-            </View>
-          </TouchableOpacity>
+          {predictions.length > 0 &&
+            predictions.map((prediction) => (
+              <TouchableOpacity
+                key={prediction.place_id}
+                activeOpacity={0.9}
+                onPress={() => onSelect('hello world')}
+                style={styles.addressView}>
+                <View style={styles.addressViewIcon}>
+                  <MapPin />
+                </View>
+                <View style={styles.addressViewInfo}>
+                  <RegularText
+                    title={prediction.structured_formatting.main_text}
+                    style={styles.addressStreet}
+                  />
+                  <RegularText
+                    title={prediction.structured_formatting.secondary_text}
+                    style={styles.addressState}
+                  />
+                </View>
+              </TouchableOpacity>
+            ))}
         </ScrollView>
       </View>
     </SafeAreaView>

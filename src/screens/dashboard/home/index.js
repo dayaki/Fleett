@@ -24,7 +24,9 @@ const Home = () => {
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const [showModal, setShowModal] = useState(false);
-  // const [location, setLocation] = useState('');
+  const [latlng, setLatlng] = useState('');
+  const [pickup, setPickUp] = useState('');
+  const [destination, setDestination] = useState('');
   const [region, setRegion] = useState({
     latitude: 6.524379,
     longitude: 3.379206,
@@ -42,7 +44,7 @@ const Home = () => {
       console.log('request status', status);
       Geolocation.getCurrentPosition(
         async ({ coords: { latitude, longitude } }) => {
-          console.log('latlng', latitude, longitude);
+          setLatlng(`${latitude},${longitude}`);
           // const response = await Geocoder.from({ latitude, longitude });
           // const address = response.results[0].formatted_address;
           // const shortAddress = address.substring(0, address.indexOf(','));
@@ -70,6 +72,7 @@ const Home = () => {
       <SafeAreaView style={styles.safeview}>
         <StatusBar backgroundColor="black" barStyle="dark-content" />
         <MapView
+          provider={PROVIDER_GOOGLE}
           style={styles.map}
           initialRegion={region}
           showsUserLocation={true}
@@ -82,12 +85,12 @@ const Home = () => {
           onPress={() => Actions.drawerOpen()}>
           <MenuIcon />
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.8} style={styles.search}>
+        {/* <TouchableOpacity activeOpacity={0.8} style={styles.search}>
           <View style={styles.searchIcon}>
             <Scooter />
           </View>
           <Text style={styles.searchText}>Where to deliver?</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <View style={styles.content}>
           <RegularText title="Nice to see you!" style={styles.contentText} />
@@ -116,6 +119,7 @@ const Home = () => {
           <Address
             onClose={() => setShowModal(!showModal)}
             onSelect={chooseAddress}
+            latlng={latlng}
           />
         </Modal>
       </SafeAreaView>
