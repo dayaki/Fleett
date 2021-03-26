@@ -9,9 +9,10 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import Geolocation from 'react-native-geolocation-service';
 import Modal from 'react-native-modal';
-import Geolocation from '@react-native-community/geolocation';
-import Geocoder from 'react-native-geocoding';
+// import Geolocation from '@react-native-community/geolocation';
+// import Geocoder from 'react-native-geocoding';
 import { MenuIcon, Scooter, Search } from '../../../../assets/svgs';
 import { RegularText, TitleText } from '../../../common';
 import Address from './Address';
@@ -33,29 +34,30 @@ const Home = () => {
 
   useEffect(() => {
     const options = {
-      timeout: 2000,
+      timeout: 15000,
       enableHighAccuracy: true,
-      maximumAge: 1000,
+      maximumAge: 10000,
     };
-
-    Geolocation.getCurrentPosition(
-      async ({ coords: { latitude, longitude } }) => {
-        console.log('latlng', latitude, longitude);
-        // const response = await Geocoder.from({ latitude, longitude });
-        // const address = response.results[0].formatted_address;
-        // const shortAddress = address.substring(0, address.indexOf(','));
-        setRegion({
-          ...region,
-          latitude,
-          longitude,
-        });
-      },
-      (error) => {
-        console.log('errrrr', error);
-        // alert(error.message)
-      },
-      options,
-    );
+    Geolocation.requestAuthorization('whenInUse').then((status) => {
+      console.log('request status', status);
+      Geolocation.getCurrentPosition(
+        async ({ coords: { latitude, longitude } }) => {
+          console.log('latlng', latitude, longitude);
+          // const response = await Geocoder.from({ latitude, longitude });
+          // const address = response.results[0].formatted_address;
+          // const shortAddress = address.substring(0, address.indexOf(','));
+          setRegion({
+            ...region,
+            latitude,
+            longitude,
+          });
+        },
+        (error) => {
+          console.log('errrrr', error);
+        },
+        options,
+      );
+    });
   }, []);
 
   const chooseAddress = (address) => {
@@ -68,7 +70,6 @@ const Home = () => {
       <SafeAreaView style={styles.safeview}>
         <StatusBar backgroundColor="black" barStyle="dark-content" />
         <MapView
-          provider={PROVIDER_GOOGLE}
           style={styles.map}
           initialRegion={region}
           showsUserLocation={true}

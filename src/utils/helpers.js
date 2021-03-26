@@ -1,5 +1,5 @@
-import Geolocation from '@react-native-community/geolocation';
-import Geocoder from 'react-native-geocoding';
+// import Geolocation from '@react-native-community/geolocation';
+// import Geocoder from 'react-native-geocoding';
 import { store } from '../store';
 import { RESET_LOADER } from '../store/actions/types';
 

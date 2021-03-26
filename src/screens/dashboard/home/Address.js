@@ -6,7 +6,7 @@ import {
   TextInput,
   ScrollView,
 } from 'react-native';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+// import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import {
   Close,
   PlusIcon,
@@ -46,17 +46,6 @@ const Address = ({ onClose, onSelect }) => {
                 value="Folarin Street 16"
                 style={styles.addressInput}
                 onFocus={() => handleFocus('pickup')}
-              />
-              <GooglePlacesAutocomplete
-                placeholder="Search destination"
-                onPress={(data, details = null) => {
-                  // 'details' is provided when fetchDetails = true
-                  console.log(data, details);
-                }}
-                query={{
-                  key: 'AIzaSyC3txceMWvnO5IwXxkOkMZ_EkK1RyE0Ad4',
-                  language: 'en',
-                }}
               />
               <TextInput
                 placeholder="Search destination"

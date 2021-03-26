@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+// import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { RegularText, TitleText } from '../../../common';
 import { DeliverySwitch } from '../../../../assets/svgs';
 import { detailStyles as dstyles, styles } from './styles';
@@ -8,7 +8,7 @@ import { detailStyles as dstyles, styles } from './styles';
 const OrderDetail = () => {
   return (
     <View style={styles.container}>
-      <MapView
+      {/* <MapView
         style={dstyles.map}
         initialRegion={{
           latitude: 37.78825,
@@ -16,7 +16,7 @@ const OrderDetail = () => {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
-      />
+      /> */}
       <View style={dstyles.content}>
         <View style={styles.order}>
           <View style={styles.doubleView}>
