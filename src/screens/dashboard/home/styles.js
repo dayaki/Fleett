@@ -112,7 +112,8 @@ export const styles = StyleSheet.create({
     bottom: 0,
     height: hp(230),
     backgroundColor: Colors.White,
-
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
     paddingTop: hp(30),
   },
   unavailable: {

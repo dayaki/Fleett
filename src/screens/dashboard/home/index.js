@@ -6,12 +6,15 @@ import {
   Text,
   StatusBar,
   useWindowDimensions,
+  Platform,
+  PermissionsAndroid,
 } from 'react-native';
+import Config from 'react-native-config';
 import { Actions } from 'react-native-router-flux';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import Modal from 'react-native-modal';
-// import Geolocation from '@react-native-community/geolocation';
+import MapViewDirections from 'react-native-maps-directions';
 import Geocoder from 'react-native-geocoding';
 import {
   MenuIcon,
@@ -25,7 +28,9 @@ import { RegularText, TitleText } from '../../../common';
 import Address from './Address';
 import { styles } from './styles';
 
-Geocoder.init('AIzaSyCK_4fZKdjxO7wy6nv2EQaEXOp1_So5rlU', { language: 'en' });
+const { GOOGLE_API_KEY } = Config;
+
+Geocoder.init(GOOGLE_API_KEY, { language: 'en' });
 
 const Home = () => {
   const windowWidth = useWindowDimensions().width;
@@ -42,37 +47,75 @@ const Home = () => {
   });
 
   useEffect(() => {
+    if (Platform.OS === 'android') {
+      requestLocationPermission();
+    } else {
+      Geolocation.requestAuthorization('whenInUse').then((status) => {
+        if (status === 'granted' || 'restricted') {
+          getLocation();
+        }
+      });
+    }
+  }, []);
+
+  const requestLocationPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Fleett Location Permission',
+          message:
+            'Fleett needs access to your location ' +
+            'to show you closest riders to you.',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        getLocation();
+      } else {
+        console.log('location permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  const getLocation = () => {
     const options = {
       timeout: 15000,
       enableHighAccuracy: true,
       maximumAge: 10000,
     };
-    Geolocation.requestAuthorization('whenInUse').then((status) => {
-      Geolocation.getCurrentPosition(
-        async ({ coords: { latitude, longitude } }) => {
-          setLatlng(`${latitude},${longitude}`);
-          const response = await Geocoder.from({ latitude, longitude });
-          const address = response.results[0].formatted_address;
-          // const shortAddress = address.substring(0, address.indexOf(','));
-          setPickupAddress(address);
-          // console.log('shortAddress', shortAddress);
-          setRegion({
-            ...region,
-            latitude,
-            longitude,
-          });
-        },
-        (error) => {
-          console.log('errrrr', error);
-        },
-        options,
-      );
-    });
-  }, []);
+    Geolocation.getCurrentPosition(
+      async ({ coords: { latitude, longitude } }) => {
+        setLatlng({ lat: latitude, lng: longitude });
+        const response = await Geocoder.from({ latitude, longitude });
+        const address = response.results[0].formatted_address;
+        // const shortAddress = address.substring(0, address.indexOf(','));
+        setPickupAddress(address);
+        // console.log('shortAddress', shortAddress);
+        setRegion({
+          ...region,
+          latitude,
+          longitude,
+        });
+      },
+      (error) => {
+        console.log('errrrr', error);
+      },
+      options,
+    );
+  };
 
-  const chooseAddress = (address) => {
+  const chooseAddress = async (address) => {
     console.log('selected address', address);
-    setDestination(address);
+    const response = await Geocoder.from(
+      address.structured_formatting.main_text,
+    );
+    console.log('resssss', response);
+    setDestination({ address, latlng: response.results[0].geometry.location });
     setShowModal(false);
   };
 
@@ -90,8 +133,20 @@ const Home = () => {
           initialRegion={region}
           showsUserLocation={true}
           followsUserLocation={true}
-          loadingEnabled={true}
-        />
+          loadingEnabled={true}>
+          {destination && (
+            <MapViewDirections
+              origin={{ latitude: latlng.lat, longitude: latlng.lng }}
+              destination={{
+                latitude: destination.latlng.lat,
+                longitude: destination.latlng.lng,
+              }}
+              apikey={GOOGLE_API_KEY}
+              strokeWidth={3}
+              strokeColor="hotpink"
+            />
+          )}
+        </MapView>
         {destination ? (
           <TouchableOpacity
             activeOpacity={0.8}

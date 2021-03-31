@@ -27,7 +27,12 @@ const Address = ({ onClose, onSelect, latlng, pickupAddress }) => {
   const [predictions, setPredictions] = useState([]);
 
   const updateQuery = async () => {
-    const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${GOOGLE_API_KEY}&input=${destination}&location=${latlng}&radius=2000`;
+    const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${GOOGLE_API_KEY}&input=${destination}&location=${
+      (latlng.lat, latlng.lng)
+    }&radius=2000`;
+    // const apiUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=${GOOGLE_API_KEY}&input=${destination}&inputtype=textquery&locationbias=circle:2000@${
+    //   (latlng.lat, latlng.lng)
+    // }&fields=formatted_address,name,geometry`;
     try {
       const result = await fetch(apiUrl);
       const json = await result.json();
