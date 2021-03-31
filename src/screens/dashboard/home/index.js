@@ -12,21 +12,28 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import Modal from 'react-native-modal';
 // import Geolocation from '@react-native-community/geolocation';
-// import Geocoder from 'react-native-geocoding';
-import { MenuIcon, Scooter, Search } from '../../../../assets/svgs';
+import Geocoder from 'react-native-geocoding';
+import {
+  MenuIcon,
+  Unavailable,
+  ForwardArrow,
+  BackArrow,
+  Scooter,
+  Search,
+} from '../../../../assets/svgs';
 import { RegularText, TitleText } from '../../../common';
 import Address from './Address';
 import { styles } from './styles';
 
-// Geocoder.init('AIzaSyCK_4fZKdjxO7wy6nv2EQaEXOp1_So5rlU', { language: 'en' });
+Geocoder.init('AIzaSyCK_4fZKdjxO7wy6nv2EQaEXOp1_So5rlU', { language: 'en' });
 
 const Home = () => {
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const [showModal, setShowModal] = useState(false);
   const [latlng, setLatlng] = useState('');
-  const [pickup, setPickUp] = useState('');
-  const [destination, setDestination] = useState('');
+  const [pickupAddress, setPickupAddress] = useState('');
+  const [destination, setDestination] = useState(null);
   const [region, setRegion] = useState({
     latitude: 6.524379,
     longitude: 3.379206,
@@ -41,13 +48,14 @@ const Home = () => {
       maximumAge: 10000,
     };
     Geolocation.requestAuthorization('whenInUse').then((status) => {
-      console.log('request status', status);
       Geolocation.getCurrentPosition(
         async ({ coords: { latitude, longitude } }) => {
           setLatlng(`${latitude},${longitude}`);
-          // const response = await Geocoder.from({ latitude, longitude });
-          // const address = response.results[0].formatted_address;
+          const response = await Geocoder.from({ latitude, longitude });
+          const address = response.results[0].formatted_address;
           // const shortAddress = address.substring(0, address.indexOf(','));
+          setPickupAddress(address);
+          // console.log('shortAddress', shortAddress);
           setRegion({
             ...region,
             latitude,
@@ -64,7 +72,12 @@ const Home = () => {
 
   const chooseAddress = (address) => {
     console.log('selected address', address);
+    setDestination(address);
     setShowModal(false);
+  };
+
+  const resetNav = () => {
+    setDestination(null);
   };
 
   return (
@@ -79,12 +92,22 @@ const Home = () => {
           followsUserLocation={true}
           loadingEnabled={true}
         />
-        <TouchableOpacity
-          activeOpacity={0.8}
-          style={styles.menu}
-          onPress={() => Actions.drawerOpen()}>
-          <MenuIcon />
-        </TouchableOpacity>
+        {destination ? (
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.menu}
+            onPress={resetNav}>
+            <BackArrow />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.menu}
+            onPress={() => Actions.drawerOpen()}>
+            <MenuIcon />
+          </TouchableOpacity>
+        )}
+
         {/* <TouchableOpacity activeOpacity={0.8} style={styles.search}>
           <View style={styles.searchIcon}>
             <Scooter />
@@ -92,23 +115,40 @@ const Home = () => {
           <Text style={styles.searchText}>Where to deliver?</Text>
         </TouchableOpacity> */}
 
-        <View style={styles.content}>
-          <RegularText title="Nice to see you!" style={styles.contentText} />
-          <TitleText
-            title="Where do you want to deliver?"
-            style={styles.contentTitle}
-          />
-          <TouchableOpacity
-            activeOpacity={0.9}
-            style={styles.contentSearch}
-            onPress={() => setShowModal(true)}>
-            <Search fill="#AEAEAE" />
-            <RegularText
-              title="Search destination"
-              style={styles.contentSearchText}
+        {!destination ? (
+          <View style={styles.content}>
+            <RegularText title="Nice to see you!" style={styles.contentText} />
+            <TitleText
+              title="What's your delivery destination?"
+              style={styles.contentTitle}
             />
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity
+              activeOpacity={0.9}
+              style={styles.contentSearch}
+              onPress={() => setShowModal(true)}>
+              <Search fill="#AEAEAE" />
+              <RegularText
+                title="Search destination"
+                style={styles.contentSearchText}
+              />
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View style={styles.orderInfo}>
+            <View style={styles.unavailable}>
+              <Unavailable />
+              <RegularText
+                title="Unfortunately, Fleett is currently unavailable in your area."
+                style={styles.unavailableText}
+              />
+            </View>
+
+            <View style={styles.orderInfoFooter}>
+              <ForwardArrow />
+            </View>
+          </View>
+        )}
+
         <Modal
           isVisible={showModal}
           hasBackdrop={false}
@@ -117,6 +157,7 @@ const Home = () => {
           animationIn="fadeInDownBig"
           style={styles.modal}>
           <Address
+            pickupAddress={pickupAddress}
             onClose={() => setShowModal(!showModal)}
             onSelect={chooseAddress}
             latlng={latlng}

@@ -106,6 +106,37 @@ export const styles = StyleSheet.create({
     // justifyContent: 'flex-end',
     margin: 0,
   },
+  orderInfo: {
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
+    height: hp(230),
+    backgroundColor: Colors.White,
+
+    paddingTop: hp(30),
+  },
+  unavailable: {
+    paddingHorizontal: wp(20),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  unavailableText: {
+    width: '80%',
+    alignSelf: 'center',
+    textAlign: 'center',
+    color: Colors.SilverChalice,
+    marginTop: hp(40),
+  },
+  orderInfoFooter: {
+    borderTopColor: 'rgba(0,0,0,0.10)',
+    borderTopWidth: 1,
+    height: hp(50),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    // backgroundColor: 'pink',
+    marginTop: hp(30),
+  },
 });
 
 export const modalStyles = StyleSheet.create({

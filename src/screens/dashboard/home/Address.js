@@ -21,7 +21,7 @@ import { modalStyles as styles } from './styles';
 
 const { GOOGLE_API_KEY } = Config;
 
-const Address = ({ onClose, onSelect, latlng }) => {
+const Address = ({ onClose, onSelect, latlng, pickupAddress }) => {
   const [title, setTitle] = useState('Select destination');
   const [destination, setDestination] = useState('');
   const [predictions, setPredictions] = useState([]);
@@ -47,16 +47,6 @@ const Address = ({ onClose, onSelect, latlng }) => {
 
   const changeDestination = async (dest) => {
     setDestination(dest);
-    console.log('dest', dest);
-    // const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${GOOGLE_API_KEY}&input=${destination}&location=${latlng}&radius=2000`;
-    // try {
-    //   const result = await fetch(apiUrl);
-    //   const json = await result.json();
-    //   console.log('result', json);
-    //   setPredictions(json.predictions);
-    // } catch (error) {
-    //   console.error('errr', error);
-    // }
   };
 
   const handleFocus = (type) => {
@@ -66,6 +56,7 @@ const Address = ({ onClose, onSelect, latlng }) => {
       setTitle('Select destination');
     }
   };
+
   return (
     <SafeAreaView style={styles.safeview}>
       <View style={styles.container}>
@@ -83,7 +74,7 @@ const Address = ({ onClose, onSelect, latlng }) => {
             {/* <View style={styles.addressIcon}></View> */}
             <View style={styles.inputs}>
               <TextInput
-                value="Folarin Street 16"
+                value={pickupAddress}
                 style={styles.addressInput}
                 onFocus={() => handleFocus('pickup')}
               />
@@ -111,7 +102,7 @@ const Address = ({ onClose, onSelect, latlng }) => {
               <TouchableOpacity
                 key={prediction.place_id}
                 activeOpacity={0.9}
-                onPress={() => onSelect('hello world')}
+                onPress={() => onSelect(prediction)}
                 style={styles.addressView}>
                 <View style={styles.addressViewIcon}>
                   <MapPin />
