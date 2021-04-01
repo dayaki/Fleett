@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   SafeAreaView,
@@ -45,6 +45,7 @@ const Home = () => {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
+  const mapView = useRef();
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -109,6 +110,10 @@ const Home = () => {
     );
   };
 
+  useEffect(() => {
+    console.log('des', destination);
+  }, [destination]);
+
   const chooseAddress = async (address) => {
     console.log('selected address', address);
     const response = await Geocoder.from(
@@ -130,10 +135,12 @@ const Home = () => {
         <MapView
           provider={PROVIDER_GOOGLE}
           style={styles.map}
-          initialRegion={region}
+          region={region}
           showsUserLocation={true}
           followsUserLocation={true}
-          loadingEnabled={true}>
+          loadingEnabled={true}
+          minZoomLevel={18}
+          ref={mapView}>
           {destination && (
             <MapViewDirections
               origin={{ latitude: latlng.lat, longitude: latlng.lng }}
@@ -142,8 +149,18 @@ const Home = () => {
                 longitude: destination.latlng.lng,
               }}
               apikey={GOOGLE_API_KEY}
-              strokeWidth={3}
-              strokeColor="hotpink"
+              strokeWidth={5}
+              strokeColor="black"
+              onReady={(result) => {
+                mapView.current.fitToCoordinates(result.coordinates, {
+                  edgePadding: {
+                    right: windowWidth / 20,
+                    bottom: windowHeight / 20,
+                    left: windowWidth / 20,
+                    top: windowHeight / 20,
+                  },
+                });
+              }}
             />
           )}
         </MapView>

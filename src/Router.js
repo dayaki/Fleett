@@ -33,7 +33,7 @@ const Routing = () => (
           component={Launch}
           on={() => checkAuth()}
           success="home"
-          failure="onboarding"
+          failure="home"
           initial
         />
         <Scene key="onboarding" component={Onboarding} />

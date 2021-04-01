@@ -8,14 +8,7 @@ import {
 } from 'react-native';
 import Config from 'react-native-config';
 import debounce from 'lodash/debounce';
-// import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import {
-  Close,
-  PlusIcon,
-  MapPin,
-  Clock,
-  Cancel,
-} from '../../../../assets/svgs';
+import { Close, PlusIcon, MapPin } from '../../../../assets/svgs';
 import { RegularText, TitleText } from '../../../common';
 import { modalStyles as styles } from './styles';
 
@@ -30,9 +23,6 @@ const Address = ({ onClose, onSelect, latlng, pickupAddress }) => {
     const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${GOOGLE_API_KEY}&input=${destination}&location=${
       (latlng.lat, latlng.lng)
     }&radius=2000`;
-    // const apiUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=${GOOGLE_API_KEY}&input=${destination}&inputtype=textquery&locationbias=circle:2000@${
-    //   (latlng.lat, latlng.lng)
-    // }&fields=formatted_address,name,geometry`;
     try {
       const result = await fetch(apiUrl);
       const json = await result.json();

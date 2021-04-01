@@ -22,6 +22,8 @@ DerivedData
 *.xcuserstate
 
 .env
+*.hprof
+android/*.hprof
 
 # Android/IntelliJ
 #
