@@ -6,3 +6,4 @@ export * from './View';
 export * from './TextInput';
 export * from './Loader';
 export * from './Toast';
+export * from './BottomSheet';

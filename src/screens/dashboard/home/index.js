@@ -3,10 +3,9 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
-  Text,
   StatusBar,
   useWindowDimensions,
-  Platform,
+  Image,
   PermissionsAndroid,
 } from 'react-native';
 import Config from 'react-native-config';
@@ -16,6 +15,7 @@ import Geolocation from 'react-native-geolocation-service';
 import Modal from 'react-native-modal';
 import MapViewDirections from 'react-native-maps-directions';
 import Geocoder from 'react-native-geocoding';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import {
   MenuIcon,
   Unavailable,
@@ -23,14 +23,18 @@ import {
   BackArrow,
   Scooter,
   Search,
+  RightArrow,
+  Cash,
 } from '../../../../assets/svgs';
-import { RegularText, TitleText } from '../../../common';
+import { masterCard } from '../../../../assets/images';
+import { Button, RegularText, TitleText } from '../../../common';
 import Address from './Address';
+import { PaymentOptions } from './utils';
 import { styles } from './styles';
 
 const { GOOGLE_API_KEY } = Config;
 
-Geocoder.init(GOOGLE_API_KEY, { language: 'en' });
+// Geocoder.init(GOOGLE_API_KEY, { language: 'en' });
 
 const Home = () => {
   const windowWidth = useWindowDimensions().width;
@@ -39,6 +43,7 @@ const Home = () => {
   const [latlng, setLatlng] = useState('');
   const [pickupAddress, setPickupAddress] = useState('');
   const [destination, setDestination] = useState(null);
+  const [paymentType, setPaymentType] = useState('card');
   const [region, setRegion] = useState({
     latitude: 6.524379,
     longitude: 3.379206,
@@ -46,18 +51,19 @@ const Home = () => {
     longitudeDelta: 0.0421,
   });
   const mapView = useRef();
+  const refRBSheet = useRef();
 
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      requestLocationPermission();
-    } else {
-      Geolocation.requestAuthorization('whenInUse').then((status) => {
-        if (status === 'granted' || 'restricted') {
-          getLocation();
-        }
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (Platform.OS === 'android') {
+  //     requestLocationPermission();
+  //   } else {
+  //     Geolocation.requestAuthorization('whenInUse').then((status) => {
+  //       if (status === 'granted' || 'restricted') {
+  //         getLocation();
+  //       }
+  //     });
+  //   }
+  // }, []);
 
   const requestLocationPermission = async () => {
     try {
@@ -110,10 +116,6 @@ const Home = () => {
     );
   };
 
-  useEffect(() => {
-    console.log('des', destination);
-  }, [destination]);
-
   const chooseAddress = async (address) => {
     console.log('selected address', address);
     const response = await Geocoder.from(
@@ -128,6 +130,15 @@ const Home = () => {
     setDestination(null);
   };
 
+  const choosePayType = (type) => {
+    setPaymentType(type);
+    refRBSheet.current.close();
+  };
+
+  const handleDispatch = () => {
+    console.log('dispatch', paymentType);
+  };
+
   return (
     <>
       <SafeAreaView style={styles.safeview}>
@@ -139,7 +150,7 @@ const Home = () => {
           showsUserLocation={true}
           followsUserLocation={true}
           loadingEnabled={true}
-          minZoomLevel={18}
+          minZoomLevel={17}
           ref={mapView}>
           {destination && (
             <MapViewDirections
@@ -150,7 +161,7 @@ const Home = () => {
               }}
               apikey={GOOGLE_API_KEY}
               strokeWidth={5}
-              strokeColor="black"
+              strokeColor="#5406CB"
               onReady={(result) => {
                 mapView.current.fitToCoordinates(result.coordinates, {
                   edgePadding: {
@@ -164,6 +175,8 @@ const Home = () => {
             />
           )}
         </MapView>
+
+        {/* Top Nav */}
         {destination ? (
           <TouchableOpacity
             activeOpacity={0.8}
@@ -187,7 +200,7 @@ const Home = () => {
           <Text style={styles.searchText}>Where to deliver?</Text>
         </TouchableOpacity> */}
 
-        {!destination ? (
+        {destination ? (
           <View style={styles.content}>
             <RegularText title="Nice to see you!" style={styles.contentText} />
             <TitleText
@@ -207,7 +220,75 @@ const Home = () => {
           </View>
         ) : (
           <View style={styles.orderInfo}>
-            <View style={styles.unavailable}>
+            <View style={styles.order}>
+              <View style={styles.rider}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Scooter />
+                  <View style={styles.riderInfo}>
+                    <TitleText title="Fleett Basic" style={styles.riderName} />
+                    <RegularText title="4-8 mins" style={styles.riderPlate} />
+                  </View>
+                </View>
+                <View style={styles.orderPrice}>
+                  <TitleText title="₦1,500" style={styles.orderAmount} />
+                  <RegularText
+                    title="₦2,000"
+                    style={styles.orderDiscountAmount}
+                  />
+                </View>
+              </View>
+
+              {/* <View
+                style={{
+                  paddingHorizontal: 30,
+                  paddingVertical: 15,
+                  marginBottom: 20,
+                  backgroundColor: 'rgba(240, 240, 239,0.3)',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Scooter />
+                <View style={styles.riderInfo}>
+                  <TitleText title="Fleett Basic" style={styles.riderName} />
+                  <RegularText title="4-8 mins" style={styles.riderPlate} />
+                </View>
+              </View> */}
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.payMethod}
+                onPress={() => refRBSheet.current.open()}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  {paymentType === 'card' ? (
+                    <>
+                      <Image
+                        source={masterCard}
+                        resizeMode="cover"
+                        style={styles.mastercard}
+                      />
+                      <RegularText
+                        title="Pay before delivery"
+                        style={styles.paymentText}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <Cash />
+                      <RegularText
+                        title="Pay with cash"
+                        style={styles.paymentText}
+                      />
+                    </>
+                  )}
+                </View>
+                <RightArrow />
+              </TouchableOpacity>
+              <Button
+                title="Confirm Dispatch"
+                style={styles.orderButton}
+                onPress={handleDispatch}
+              />
+            </View>
+            {/* <View style={styles.unavailable}>
               <Unavailable />
               <RegularText
                 title="Unfortunately, Fleett is currently unavailable in your area."
@@ -217,7 +298,7 @@ const Home = () => {
 
             <View style={styles.orderInfoFooter}>
               <ForwardArrow />
-            </View>
+            </View> */}
           </View>
         )}
 
@@ -235,6 +316,22 @@ const Home = () => {
             latlng={latlng}
           />
         </Modal>
+
+        <RBSheet
+          ref={refRBSheet}
+          height={230}
+          closeOnDragDown={false}
+          closeOnPressMask={true}
+          customStyles={{
+            wrapper: {
+              backgroundColor: 'rgba(0,0,0,0.6)',
+            },
+            draggableIcon: {
+              backgroundColor: '#000',
+            },
+          }}>
+          <PaymentOptions onChoose={choosePayType} paymentType={paymentType} />
+        </RBSheet>
       </SafeAreaView>
     </>
   );
