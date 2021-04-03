@@ -50,7 +50,7 @@ const DrawerMenu = () => {
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.navItem}
-            onPress={() => Actions.drawerClose()}>
+            onPress={() => Actions.home()}>
             <View style={styles.navIcon}>
               <MenuTracking />
             </View>
