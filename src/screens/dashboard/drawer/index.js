@@ -50,20 +50,11 @@ const DrawerMenu = () => {
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.navItem}
-            onPress={() => Actions.drawer()}>
+            onPress={() => Actions.drawerClose()}>
             <View style={styles.navIcon}>
               <MenuTracking />
             </View>
-            <RegularText title="Tracking" style={styles.navItemText} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.navItem}
-            onPress={() => Actions.order()}>
-            <View style={styles.navIcon}>
-              <MenuTracking />
-            </View>
-            <RegularText title="New Order" style={styles.navItemText} />
+            <RegularText title="Home" style={styles.navItemText} />
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
