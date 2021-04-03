@@ -3,15 +3,8 @@ import { View, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import {
-  BackView,
-  RegularText,
-  TitleText,
-  Input,
-  Button,
-  DoubleText,
-  Loader,
-} from '../../common';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { BackView, RegularText, TitleText, Input, Button } from '../../common';
 import { createAccount } from '../../store/actions/userActions';
 import { Email, Password, User, Phone } from '../../../assets/svgs';
 import { registerStyles as styles } from './styles';
@@ -29,8 +22,8 @@ const SignupSchema = Yup.object().shape({
   password: Yup.string().required('Password is required'),
 });
 
-const Register = ({}) => {
-  const { loading, error } = useSelector((state) => state.user);
+const Register = () => {
+  const { loading, registerError } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const register = (data) => {
@@ -39,8 +32,7 @@ const Register = ({}) => {
   };
 
   return (
-    <>
-      {loading && <Loader />}
+    <KeyboardAwareScrollView>
       <BackView isScroll>
         <View style={styles.texts}>
           <TitleText title="Let’s Get Started!" />
@@ -68,10 +60,14 @@ const Register = ({}) => {
             touched,
           }) => (
             <View style={styles.form}>
-              {error !== '' && (
+              {registerError !== '' && (
                 <View style={styles.errorView}>
                   <RegularText
-                    title={error.email ? error.email[0] : error.phone[0]}
+                    title={
+                      registerError?.email
+                        ? registerError?.email[0]
+                        : registerError?.phone[0]
+                    }
                     style={styles.errorText}
                   />
                 </View>
@@ -84,6 +80,7 @@ const Register = ({}) => {
                   onChange={handleChange('fname')}
                   onBlur={handleBlur('fname')}
                   error={errors.fname ? true : false}
+                  disable={loading}
                 />
                 {errors.fname && touched.fname ? (
                   <Text style={{ fontSize: 10, color: 'red' }}>
@@ -99,6 +96,7 @@ const Register = ({}) => {
                   onChange={handleChange('lname')}
                   onBlur={handleBlur('lname')}
                   error={errors.lname ? true : false}
+                  disable={loading}
                 />
                 {errors.lname && touched.lname ? (
                   <Text style={{ fontSize: 10, color: 'red' }}>
@@ -114,6 +112,8 @@ const Register = ({}) => {
                   onChange={handleChange('phone')}
                   onBlur={handleBlur('phone')}
                   error={errors.phone ? true : false}
+                  keyboardType="numeric"
+                  disable={loading}
                 />
                 {errors.phone && touched.phone ? (
                   <Text style={{ fontSize: 10, color: 'red' }}>
@@ -129,7 +129,9 @@ const Register = ({}) => {
                   onChange={handleChange('email')}
                   onBlur={handleBlur('email')}
                   capitalize="none"
+                  keyboardType="email-address"
                   error={true}
+                  disable={loading}
                 />
                 {errors.email && touched.email ? (
                   <Text style={{ fontSize: 10, color: 'red' }}>
@@ -147,6 +149,7 @@ const Register = ({}) => {
                   error={errors.password ? true : false}
                   capitalize="none"
                   password
+                  disable={loading}
                 />
                 {errors.password && touched.password ? (
                   <Text style={{ fontSize: 10, color: 'red' }}>
@@ -158,12 +161,13 @@ const Register = ({}) => {
                 title="Create Account"
                 style={styles.formButton}
                 onPress={handleSubmit}
+                isLoading={loading}
               />
             </View>
           )}
         </Formik>
       </BackView>
-    </>
+    </KeyboardAwareScrollView>
   );
 };
 

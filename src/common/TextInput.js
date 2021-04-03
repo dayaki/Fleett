@@ -12,6 +12,8 @@ export const Input = ({
   error = false,
   capitalize = 'words',
   password = false,
+  keyboardType,
+  disable,
 }) => (
   <View style={styles.input}>
     <View style={styles.icon}>{icon}</View>
@@ -24,6 +26,8 @@ export const Input = ({
       style={styles.textInput}
       autoCapitalize={capitalize}
       secureTextEntry={password}
+      keyboardType={keyboardType ? keyboardType : 'default'}
+      editable={disable ? false : true}
     />
     {error && <Text style={styles.error}>{error}</Text>}
   </View>

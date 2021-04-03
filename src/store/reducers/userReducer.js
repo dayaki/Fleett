@@ -124,6 +124,8 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         error: '',
+        registerError: '',
+        loginError: '',
         tempOrder: {},
       };
     case CANCEL_REQUEST:
