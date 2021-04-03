@@ -68,6 +68,14 @@ export const styles = StyleSheet.create({
     paddingTop: hp(30),
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 15,
   },
   contentText: {
     fontSize: hp(13),
@@ -117,6 +125,14 @@ export const styles = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     paddingVertical: hp(30),
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   rider: {
     backgroundColor: 'rgba(240, 240, 239,0.3)',
@@ -211,6 +227,31 @@ export const styles = StyleSheet.create({
     // backgroundColor: 'pink',
     marginTop: hp(30),
   },
+  requesting: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  requestingTitle: {
+    textAlign: 'center',
+    color: Colors.SilverChalice,
+    marginBottom: hp(20),
+  },
+  requestingBtn: {
+    backgroundColor: Colors.White,
+  },
+  requestingBtnText: {
+    color: Colors.SilverChalice,
+    fontSize: hp(13),
+  },
+  dash: {
+    width: wp(50),
+    height: hp(6),
+    borderRadius: 6,
+    backgroundColor: 'rgba(213, 213, 211,0.6)',
+    alignSelf: 'center',
+    position: 'absolute',
+    top: 12,
+  },
 });
 
 export const modalStyles = StyleSheet.create({
@@ -221,6 +262,7 @@ export const modalStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.White,
+    paddingTop: hp(20),
   },
   header: {
     paddingHorizontal: wp(20),
