@@ -58,7 +58,7 @@ const Routing = () => (
         <Scene key="find_rider" component={FindRider} />
       </Stack>
       <Stack key="rider" hideNavBar>
-        <Scene key="rider_login" component={Login} />
+        <Scene key="rider_login" component={Login} initial />
         <Scene key="rider_dashboard" component={Dashboard} />
       </Stack>
     </Scene>

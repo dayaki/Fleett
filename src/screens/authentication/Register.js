@@ -27,7 +27,6 @@ const Register = () => {
   const dispatch = useDispatch();
 
   const register = (data) => {
-    console.log('data', data);
     dispatch(createAccount(data));
   };
 

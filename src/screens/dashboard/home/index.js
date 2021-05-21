@@ -237,8 +237,7 @@ const Home = () => {
           region={region}
           showsUserLocation={true}
           loadingEnabled={true}
-          minZoomLevel={18}
-          zoomEnabled={true}
+          minZoomLevel={10}
           ref={mapView}>
           {destination && (
             <MapViewDirections

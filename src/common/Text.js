@@ -30,6 +30,10 @@ export const RegularText = ({ onPress, style, title }) => (
   </Text>
 );
 
+export const FormErrorText = ({ message }) => (
+  <Text style={styles.formErrortext}>{message}</Text>
+);
+
 const styles = StyleSheet.create({
   headerTextStyle: {
     fontFamily: 'TTNormsPro-Bold',
@@ -65,5 +69,12 @@ const styles = StyleSheet.create({
     fontSize: hp(16),
     lineHeight: hp(37),
     paddingLeft: wp(10),
+  },
+  formErrortext: {
+    fontSize: hp(11),
+    color: 'red',
+    fontFamily: 'TTNormsPro-Medium',
+    marginTop: hp(5),
+    opacity: 0.7,
   },
 });

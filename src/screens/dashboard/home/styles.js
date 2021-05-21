@@ -300,7 +300,6 @@ export const modalStyles = StyleSheet.create({
     height: hp(80),
   },
   inputs: {
-    marginHorizontal: wp(10),
     flex: 1,
   },
   addressInput: {
