@@ -103,7 +103,11 @@ const Onboarding = () => {
                   <Text style={styles.sliderFooterText}>
                     Are you a dispatch rider?
                   </Text>
-                  <Text style={styles.sliderFooterButton}>Sign In</Text>
+                  <Text
+                    style={styles.sliderFooterButton}
+                    onPress={() => Actions.rider()}>
+                    Sign In
+                  </Text>
                 </View>
               </View>
             ))}

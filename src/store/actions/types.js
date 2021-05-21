@@ -1,4 +1,5 @@
 export const RESET_LOADER = 'reset_loader';
+export const LOADING = 'loading';
 export const CANCEL_REQUEST = 'cancel_request';
 
 export const CREATE_ACCOUNT = 'create_account';
@@ -21,3 +22,8 @@ export const INITIATE_ORDER_SUCESS = 'initiate_order_success';
 export const INITIATE_ORDER_ERROR = 'initiate_order_error';
 
 export const MAKE_PAYMENT = 'make_payment';
+
+/*  Rider Types  */
+export const RIDER_LOGIN = 'rider_login';
+export const RIDER_LOGIN_ERROR = 'rider_login_error';
+export const RIDER_LOGOUT = 'rider_logout';

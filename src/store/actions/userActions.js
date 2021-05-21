@@ -48,7 +48,7 @@ export const createAccount = (user) => (dispatch) => {
       Actions.home();
     })
     .catch((error) => {
-      console.log('signuop err', error.error);
+      console.log('signuop err', error);
       dispatch({
         type: CREATE_ACCOUNT_ERROR,
         payload: error.error,

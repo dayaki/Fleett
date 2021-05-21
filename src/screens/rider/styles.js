@@ -46,6 +46,13 @@ export const loginStyles = StyleSheet.create({
   button: {
     marginTop: hp(55),
   },
+  errorView: {
+    marginBottom: hp(10),
+  },
+  errorText: {
+    color: 'red',
+    fontSize: hp(14),
+  },
 });
 
 export const dashboardStyles = StyleSheet.create({
