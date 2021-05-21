@@ -12,7 +12,6 @@ export const riderLogin = (data) => (dispatch) => {
   dispatch({ type: LOADING });
   apiService('rider/login', 'POST', data)
     .then((res) => {
-      console.log('login', res);
       dispatch({
         type: RIDER_LOGIN,
         payload: res.data,

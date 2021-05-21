@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Scene, Stack, Drawer } from 'react-native-router-flux';
-import { checkAuth } from './utils/helpers';
+import { checkUserAuth, checkRiderAuth } from './utils/helpers';
 
 import Onboarding from './screens/onboarding/';
 import Launch from './screens/onboarding/launch';
@@ -31,7 +31,7 @@ const Routing = () => (
         <Scene
           key="launch"
           component={Launch}
-          on={() => checkAuth()}
+          on={() => checkUserAuth()}
           success="home"
           failure="onboarding"
           initial
@@ -58,7 +58,14 @@ const Routing = () => (
         <Scene key="find_rider" component={FindRider} />
       </Stack>
       <Stack key="rider" hideNavBar>
-        <Scene key="rider_login" component={Login} initial />
+        <Scene
+          key="rider_login"
+          component={Login}
+          initial
+          on={() => checkRiderAuth()}
+          success="rider_dashboard"
+          failure="rider_login"
+        />
         <Scene key="rider_dashboard" component={Dashboard} />
       </Stack>
     </Scene>
