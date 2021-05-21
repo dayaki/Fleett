@@ -24,7 +24,9 @@ setCustomImage(customImageProps);
 
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
-  const token = store.getState().user.profile?.auth_token;
+  const token =
+    store.getState().user.profile?.auth_token ||
+    store.getState().rider.profile?.auth_token;
   console.log('token', token);
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;

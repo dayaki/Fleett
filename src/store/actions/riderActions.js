@@ -5,6 +5,8 @@ import {
   LOADING,
   RIDER_LOGIN,
   RIDER_LOGIN_ERROR,
+  RIDER_LOGOUT,
+  UPDATE_RIDER_STATUS,
 } from './types';
 import { showToast } from '../../common';
 
@@ -27,7 +29,27 @@ export const riderLogin = (data) => (dispatch) => {
     });
 };
 
+export const updateRiderStatus = (updateData) => (dispatch) => {
+  dispatch({ type: LOADING });
+  apiService('rider/status', 'PATCH', updateData)
+    .then(({ data }) => {
+      console.log('res status', data);
+      dispatch({
+        type: UPDATE_RIDER_STATUS,
+        payload: data,
+      });
+    })
+    .catch((error) => {
+      console.log('login err', error);
+      dispatch({
+        type: CANCEL_REQUEST,
+        payload: error.message,
+      });
+      showToast(error.message);
+    });
+};
+
 export const logout = () => (dispatch) => {
-  dispatch({ type: LOGOUT_USER });
+  dispatch({ type: RIDER_LOGOUT });
   Actions.sign_in();
 };

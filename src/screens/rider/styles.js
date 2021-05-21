@@ -67,4 +67,61 @@ export const dashboardStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  onlineStatus: {
+    backgroundColor: Colors.White,
+    position: 'absolute',
+    bottom: hp(0),
+    paddingHorizontal: wp(28),
+    paddingVertical: hp(19),
+    borderTopRightRadius: wp(20),
+    borderTopLeftRadius: wp(20),
+    width: '100%',
+    // height: hp(117),
+    alignSelf: 'center',
+  },
+  dash: {
+    backgroundColor: Colors.SilverGray,
+    width: wp(100),
+    height: hp(4),
+    alignSelf: 'center',
+  },
+  onlineState: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  onlineTexts: {
+    marginLeft: wp(20),
+  },
+  onlineViews: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginVertical: hp(34),
+  },
+  onlineStatusTitle: {
+    fontSize: hp(16),
+  },
+  onlineStatusSub: {
+    fontSize: hp(13),
+    marginTop: -3,
+  },
+  actionButton: {
+    backgroundColor: Colors.Black,
+    paddingHorizontal: wp(20),
+    paddingVertical: hp(8),
+    borderRadius: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  actionButton2: {
+    backgroundColor: Colors.MountainMeadow,
+    width: wp(60),
+    height: hp(60),
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  actionButtonText: {
+    color: Colors.White,
+  },
 });

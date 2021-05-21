@@ -1,15 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, PermissionsAndroid, Platform } from 'react-native';
+import {
+  View,
+  PermissionsAndroid,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { useSelector, useDispatch } from 'react-redux';
 import Config from 'react-native-config';
 import Geolocation from 'react-native-geolocation-service';
 import Geocoder from 'react-native-geocoding';
-import {} from '../../common';
+import { TitleText, RegularText } from '../../common';
+import { RiderOffline, RiderOnline } from '../../../assets/svgs';
 import { dashboardStyles as styles } from './styles';
+import { updateRiderStatus } from '../../store/actions/riderActions';
 const { GOOGLE_API_KEY } = Config;
 Geocoder.init(GOOGLE_API_KEY, { language: 'en' });
 
 const Dashboard = () => {
+  const {
+    profile: { rider },
+  } = useSelector((state) => state.rider);
   const [region, setRegion] = useState({
     latitude: 6.524379,
     longitude: 3.379206,
@@ -17,6 +28,7 @@ const Dashboard = () => {
     longitudeDelta: 0.0421,
   });
   const mapView = useRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -75,6 +87,52 @@ const Dashboard = () => {
     );
   };
 
+  const handleStatus = (type) => {
+    dispatch(updateRiderStatus({ user: rider.user_id, type }));
+  };
+
+  const RiderStatusView = () => (
+    <View style={styles.onlineStatus}>
+      <View style={styles.dash} />
+      <View style={styles.onlineViews}>
+        <View style={styles.onlineState}>
+          {rider.status === 'online' ? <RiderOnline /> : <RiderOffline />}
+          <View style={styles.onlineTexts}>
+            <TitleText
+              title={
+                rider.status === 'online' ? 'You’re online!' : 'You’re offline!'
+              }
+              style={styles.onlineStatusTitle}
+            />
+            <RegularText
+              title={
+                rider.status === 'online'
+                  ? 'Receiving dispatch requests'
+                  : 'NOT Receiving dispatch requests'
+              }
+              style={styles.onlineStatusSub}
+            />
+          </View>
+        </View>
+        {rider.status === 'online' ? (
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => handleStatus('offline')}
+            style={styles.actionButton}>
+            <RegularText title="Go Offline" style={styles.actionButtonText} />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.actionButton2}
+            onPress={() => handleStatus('online')}>
+            <RegularText title="Go" style={styles.actionButtonText} />
+          </TouchableOpacity>
+        )}
+      </View>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <MapView
@@ -86,7 +144,7 @@ const Dashboard = () => {
         minZoomLevel={10}
         ref={mapView}
       />
-      <View style={styles.header}></View>
+      <RiderStatusView />
     </View>
   );
 };

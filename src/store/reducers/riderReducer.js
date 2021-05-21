@@ -5,6 +5,7 @@ import {
   RIDER_LOGIN_ERROR,
   RIDER_LOGOUT,
   LOADING,
+  UPDATE_RIDER_STATUS,
 } from '../actions/types';
 
 const initialState = {
@@ -39,6 +40,11 @@ export default (state = initialState, action = {}) => {
         ...state,
         loading: false,
         loginError: action.payload,
+      };
+    case UPDATE_RIDER_STATUS:
+      return {
+        ...state,
+        profile: action.payload,
       };
     case RIDER_LOGOUT:
       return {

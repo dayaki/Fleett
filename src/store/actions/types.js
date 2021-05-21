@@ -26,4 +26,5 @@ export const MAKE_PAYMENT = 'make_payment';
 /*  Rider Types  */
 export const RIDER_LOGIN = 'rider_login';
 export const RIDER_LOGIN_ERROR = 'rider_login_error';
+export const UPDATE_RIDER_STATUS = 'update_rider_status';
 export const RIDER_LOGOUT = 'rider_logout';
