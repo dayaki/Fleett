@@ -4,6 +4,7 @@ import {
   PermissionsAndroid,
   Platform,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,7 +12,7 @@ import Config from 'react-native-config';
 import Geolocation from 'react-native-geolocation-service';
 import Geocoder from 'react-native-geocoding';
 import { TitleText, RegularText } from '../../common';
-import { RiderOffline, RiderOnline } from '../../../assets/svgs';
+import { RiderOffline, RiderOnline, RiderMenu } from '../../../assets/svgs';
 import { dashboardStyles as styles } from './styles';
 import { updateRiderStatus } from '../../store/actions/riderActions';
 const { GOOGLE_API_KEY } = Config;
@@ -133,6 +134,26 @@ const Dashboard = () => {
     </View>
   );
 
+  const RiderHeader = () => (
+    <View style={styles.header}>
+      <TouchableOpacity activeOpacity={0.8} style={styles.menu}>
+        <RiderMenu />
+      </TouchableOpacity>
+      <View style={styles.userData}>
+        <View style={styles.amount}>
+          <TitleText title="₦22,450" style={styles.amountText} />
+        </View>
+        <View style={styles.avatar}>
+          <Image
+            source={require('../../../assets/images/user_placeholder.jpeg')}
+            resizeMode="contain"
+            style={styles.avatarImage}
+          />
+        </View>
+      </View>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <MapView
@@ -144,6 +165,7 @@ const Dashboard = () => {
         minZoomLevel={10}
         ref={mapView}
       />
+      <RiderHeader />
       <RiderStatusView />
     </View>
   );
