@@ -171,4 +171,62 @@ export const dashboardStyles = StyleSheet.create({
   actionButtonText: {
     color: Colors.White,
   },
+  requestModal: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(22,21,21,0.76)',
+  },
+  newRequest: {
+    paddingTop: hp(30),
+  },
+  newRequestTitle: {
+    textAlign: 'center',
+  },
+  newRequestUser: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: hp(44),
+    marginBottom: hp(19),
+  },
+  newRequestName: {
+    fontSize: hp(18),
+    color: Colors.Woodsmoke,
+    marginBottom: hp(5),
+  },
+  newRequestFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderTopColor: '#E4E4E4',
+    borderTopWidth: 1,
+    paddingVertical: hp(18),
+  },
+  newRequestAddress: {
+    color: Colors.Silver,
+    fontSize: hp(15),
+  },
+  newRequestNotes: {
+    fontSize: hp(12),
+    color: '#AAD3BA',
+    marginTop: hp(4),
+  },
+  newRequestPhone: {
+    paddingRight: wp(20),
+  },
+  dismissText: {},
+  acceptBtn: {
+    backgroundColor: Colors.Black,
+    borderRadius: 4,
+    paddingHorizontal: wp(21),
+    paddingVertical: wp(13),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  acceptBtnText: {
+    color: Colors.White,
+    marginRight: wp(18),
+  },
 });

@@ -12,7 +12,13 @@ import Config from 'react-native-config';
 import Geolocation from 'react-native-geolocation-service';
 import Geocoder from 'react-native-geocoding';
 import { TitleText, RegularText } from '../../common';
-import { RiderOffline, RiderOnline, RiderMenu } from '../../../assets/svgs';
+import {
+  RiderOffline,
+  RiderOnline,
+  RiderMenu,
+  ForwardIcon,
+  PhoneCall,
+} from '../../../assets/svgs';
 import { dashboardStyles as styles } from './styles';
 import { updateRiderStatus } from '../../store/actions/riderActions';
 const { GOOGLE_API_KEY } = Config;
@@ -42,6 +48,10 @@ const Dashboard = () => {
       });
     }
   }, []);
+
+  const callUser = () => {
+    alert('Call user...');
+  };
 
   const requestLocationPermission = async () => {
     try {
@@ -154,6 +164,43 @@ const Dashboard = () => {
     </View>
   );
 
+  const NewRequest = () => (
+    <View style={styles.requestModal}>
+      <View style={[styles.newRequest, styles.onlineStatus]}>
+        <TitleText
+          title="New Dispatch Request"
+          style={styles.newRequestTitle}
+        />
+        <View style={styles.newRequestUser}>
+          <View>
+            <TitleText title="Dayo Aderibegbe" style={styles.newRequestName} />
+            <RegularText
+              title="112 Bourdillon Rd, Ikoyi, Lagos"
+              style={styles.newRequestAddress}
+            />
+            <TitleText
+              title="₦1,350 (Delivery to 1 location(s))"
+              style={styles.newRequestNotes}
+            />
+          </View>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.newRequestPhone}
+            onPress={callUser}>
+            <PhoneCall />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.newRequestFooter}>
+          <RegularText title="Dismiss" style={styles.dismissText} />
+          <TouchableOpacity activeOpacity={0.8} style={styles.acceptBtn}>
+            <RegularText title="Accept" style={styles.acceptBtnText} />
+            <ForwardIcon />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <MapView
@@ -166,7 +213,8 @@ const Dashboard = () => {
         ref={mapView}
       />
       <RiderHeader />
-      <RiderStatusView />
+      {/* <RiderStatusView /> */}
+      <NewRequest />
     </View>
   );
 };
