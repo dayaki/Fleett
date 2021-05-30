@@ -1,5 +1,4 @@
 import React from 'react';
-import { Actions } from 'react-native-router-flux';
 import {
   View,
   ScrollView,
@@ -25,13 +24,13 @@ export const NoContentView = ({ title }) => (
   </View>
 );
 
-export const BackView = ({ children, isScroll, title }) => (
+export const BackView = ({ children, isScroll, title, backAction }) => (
   <SafeAreaView style={styles.safeview}>
     <View style={styles.backView}>
       <View style={styles.header}>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => Actions.pop()}
+          onPress={backAction}
           style={styles.backBtn}>
           <BackArrow />
         </TouchableOpacity>

@@ -24,7 +24,7 @@ import { updateRiderStatus } from '../../store/actions/riderActions';
 const { GOOGLE_API_KEY } = Config;
 Geocoder.init(GOOGLE_API_KEY, { language: 'en' });
 
-const Dashboard = () => {
+const Dashboard = ({ navigation }) => {
   const {
     profile: { rider },
   } = useSelector((state) => state.rider);
@@ -34,6 +34,7 @@ const Dashboard = () => {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
+  const [hasRequest, setHasRequest] = useState(false);
   const mapView = useRef();
   const dispatch = useDispatch();
 
@@ -146,7 +147,10 @@ const Dashboard = () => {
 
   const RiderHeader = () => (
     <View style={styles.header}>
-      <TouchableOpacity activeOpacity={0.8} style={styles.menu}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        style={styles.menu}
+        onPress={() => navigation.toggleDrawer()}>
         <RiderMenu />
       </TouchableOpacity>
       <View style={styles.userData}>
@@ -191,7 +195,11 @@ const Dashboard = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.newRequestFooter}>
-          <RegularText title="Dismiss" style={styles.dismissText} />
+          <RegularText
+            title="Dismiss"
+            style={styles.dismissText}
+            onPress={() => setHasRequest(false)}
+          />
           <TouchableOpacity activeOpacity={0.8} style={styles.acceptBtn}>
             <RegularText title="Accept" style={styles.acceptBtnText} />
             <ForwardIcon />
@@ -213,8 +221,7 @@ const Dashboard = () => {
         ref={mapView}
       />
       <RiderHeader />
-      {/* <RiderStatusView /> */}
-      <NewRequest />
+      {hasRequest ? <NewRequest /> : <RiderStatusView />}
     </View>
   );
 };

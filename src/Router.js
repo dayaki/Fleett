@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Router, Scene, Stack, Drawer } from 'react-native-router-flux';
+import { store } from './store';
 import { checkUserAuth, checkRiderAuth } from './utils/helpers';
 
 import Onboarding from './screens/onboarding/';
@@ -31,10 +32,10 @@ const Routing = () => (
         <Scene
           key="launch"
           component={Launch}
-          on={() => checkUserAuth()}
-          success="home"
-          failure="onboarding"
           initial
+          on={() => checkRiderAuth()}
+          success="rider_dashboard"
+          failure="rider_login"
         />
         <Scene key="onboarding" component={Onboarding} />
         <Scene key="sign_in" component={SignIn} />
@@ -56,20 +57,75 @@ const Routing = () => (
         <Scene key="webview" component={Web} />
         <Scene key="transaction_status" component={TransactionStatus} />
         <Scene key="find_rider" component={FindRider} />
-      </Stack>
-      <Stack key="rider" hideNavBar>
-        <Scene
-          key="rider_login"
-          component={Login}
-          initial
-          on={() => checkRiderAuth()}
-          success="rider_dashboard"
-          failure="rider_login"
-        />
+
+        <Scene key="rider_login" component={Login} />
         <Scene key="rider_dashboard" component={Dashboard} />
       </Stack>
     </Scene>
   </Router>
 );
+
+// const Routing = () => {
+//   const [userType, setUserType] = useState('user');
+//   useEffect(() => {
+//     checkState();
+//   }, []);
+
+//   const checkState = async () => {
+//     const riderId = await store.getState().rider.profile?.id;
+//     if (riderId) {
+//       setUserType('rider');
+//     }
+//   };
+//   return (
+//     <Router>
+//       {userType === 'rider' ? (
+//         <Stack key="rider" hideNavBar>
+//           <Scene
+//             key="launch"
+//             component={Launch}
+//             initial
+//             on={() => checkRiderAuth()}
+//             success="rider_dashboard"
+//             failure="rider_login"
+//           />
+//           <Scene key="rider_login" component={Login} />
+//           <Scene key="rider_dashboard" component={Dashboard} />
+//         </Stack>
+//       ) : (
+//         <Stack key="root" hideNavBar>
+//           <Scene
+//             key="launch"
+//             component={Launch}
+//             initial
+//             on={() => checkUserAuth()}
+//             success="home"
+//             failure="onboarding"
+//           />
+//           <Scene key="onboarding" component={Onboarding} />
+//           <Scene key="sign_in" component={SignIn} />
+//           <Scene key="register" component={Register} />
+//           <Scene key="forgot_pass" component={ForgotPass} />
+//           <Drawer
+//             hideNavBar
+//             key="drawer"
+//             headerMode="none"
+//             contentComponent={DrawerMenu}
+//             drawerWidth={wp(268)}>
+//             <Scene key="home" component={Home} />
+//             <Scene key="history" component={History} />
+//             <Scene key="about" component={About} />
+//           </Drawer>
+//           <Scene key="order" component={Order} />
+//           <Scene key="order_two" component={OrderTwo} />
+//           <Scene key="order_detail" component={OrderDetail} />
+//           <Scene key="webview" component={Web} />
+//           <Scene key="transaction_status" component={TransactionStatus} />
+//           <Scene key="find_rider" component={FindRider} />
+//         </Stack>
+//       )}
+//     </Router>
+//   );
+// };
 
 export default Routing;

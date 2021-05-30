@@ -4,8 +4,10 @@ import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'react-redux';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { PersistGate } from 'redux-persist/integration/react';
+import { NavigationContainer } from '@react-navigation/native';
 import axios from 'axios';
-import Router from './Router';
+import { navigationRef } from './navigation/navigationService';
+import MainStack from './navigation';
 import { persistor, store } from './store';
 
 const customTextProps = {
@@ -44,7 +46,9 @@ const App = () => {
     <Provider store={store}>
       <RootSiblingParent>
         <PersistGate persistor={persistor}>
-          <Router />
+          <NavigationContainer ref={navigationRef}>
+            <MainStack />
+          </NavigationContainer>
         </PersistGate>
       </RootSiblingParent>
     </Provider>

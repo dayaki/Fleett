@@ -22,7 +22,7 @@ const SignupSchema = Yup.object().shape({
   password: Yup.string().required('Password is required'),
 });
 
-const Register = () => {
+const Register = ({ navigation }) => {
   const { loading, registerError } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -32,7 +32,7 @@ const Register = () => {
 
   return (
     <KeyboardAwareScrollView>
-      <BackView isScroll>
+      <BackView isScroll backAction={() => navigation.goBack()}>
         <View style={styles.texts}>
           <TitleText title="Let’s Get Started!" />
           <RegularText

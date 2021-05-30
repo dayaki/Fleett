@@ -15,6 +15,12 @@ export const checkRiderAuth = async () => {
   return !!id;
 };
 
+export const toMoney = (num) => {
+  return parseFloat(num)
+    .toFixed(0)
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
 export const getRating = (rating) => {
   return (
     <>

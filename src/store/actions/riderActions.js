@@ -1,4 +1,4 @@
-import { Actions } from 'react-native-router-flux';
+import { navigate } from '../../navigation/navigationService';
 import apiService from '../../utils/apiService';
 import {
   CANCEL_REQUEST,
@@ -10,15 +10,16 @@ import {
 } from './types';
 import { showToast } from '../../common';
 
-export const riderLogin = (data) => (dispatch) => {
+export const riderLogin = (loginData) => (dispatch) => {
   dispatch({ type: LOADING });
-  apiService('rider/login', 'POST', data)
-    .then((res) => {
+  apiService('rider/login', 'POST', loginData)
+    .then(({ data }) => {
+      console.log('login', data);
       dispatch({
         type: RIDER_LOGIN,
-        payload: res.data,
+        payload: data,
       });
-      Actions.rider_dashboard();
+      navigate('dashboard');
     })
     .catch((error) => {
       console.log('login err', error);
@@ -51,5 +52,5 @@ export const updateRiderStatus = (updateData) => (dispatch) => {
 
 export const logout = () => (dispatch) => {
   dispatch({ type: RIDER_LOGOUT });
-  Actions.sign_in();
+  navigate('rider_login');
 };

@@ -1,4 +1,4 @@
-import { Actions } from 'react-native-router-flux';
+import NavigationService from '../../navigation/navigationService';
 import apiService from '../../utils/apiService';
 import {
   CREATE_ACCOUNT,
@@ -45,7 +45,7 @@ export const createAccount = (user) => (dispatch) => {
         type: CREATE_ACCOUNT_SUCCESS,
         payload: res.data,
       });
-      Actions.home();
+      NavigationService.navigate('home');
     })
     .catch((error) => {
       console.log('signuop err', error);
@@ -65,7 +65,7 @@ export const trackOrder = (trackNumber) => (dispatch) => {
         type: TRACK_SHIPMENT_SUCCESS,
         payload: res.data,
       });
-      Actions.home();
+      NavigationService.navigate('home');
     })
     .catch((error) => {
       console.log('tracking err', error);
@@ -89,7 +89,7 @@ export const initiateOrder = (data) => (dispatch) => {
       const params = {
         uri: res.data,
       };
-      Actions.webview({ params });
+      NavigationService.navigate('webview', { params });
     })
     .catch((error) => {
       console.log('initiate err', error);
@@ -103,5 +103,5 @@ export const initiateOrder = (data) => (dispatch) => {
 
 export const userLogout = () => (dispatch) => {
   dispatch({ type: LOGOUT_USER });
-  Actions.sign_in();
+  NavigationService.navigate('onboarding');
 };

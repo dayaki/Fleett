@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Image, Text } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -24,7 +23,7 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string().required('Password is required'),
 });
 
-const SignIn = () => {
+const SignIn = ({ navigation }) => {
   const { loading, loginError } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -101,7 +100,7 @@ const SignIn = () => {
               <RegularText
                 title="Trouble logging in?"
                 style={styles.forgotPass}
-                onPress={() => Actions.forgot_pass()}
+                onPress={() => navigation.navigate('forgot_pass')}
               />
               <Button
                 title="Sign In"
@@ -111,7 +110,7 @@ const SignIn = () => {
               <DoubleText
                 title="Don’t have an account yet?"
                 text="Sign Up"
-                onPress={() => Actions.register()}
+                onPress={() => navigation.navigate('signup')}
               />
             </View>
           )}
