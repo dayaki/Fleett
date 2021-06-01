@@ -14,7 +14,7 @@ const MainStack = () => {
     } else if (user.isAuthenticated) {
       stack = <UserStack />;
     } else {
-      <AuthStack />;
+      stack = <AuthStack />;
     }
     return stack;
   };

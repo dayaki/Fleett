@@ -3,7 +3,7 @@ import Config from 'react-native-config';
 import { CANCEL_REQUEST } from '../store/actions/types';
 import { store } from '../store';
 
-const { BASE_URL, LOCALHOST } = Config;
+const { BASE_URL } = Config;
 
 const apiService = (url, type, data, headers) => {
   if (!url || typeof url !== 'string') {
@@ -24,7 +24,7 @@ const apiService = (url, type, data, headers) => {
   return new Promise((resolve, reject) => {
     axios({
       method: type,
-      url: `${LOCALHOST}${url}`,
+      url: `${BASE_URL}${url}`,
       data,
       headers: init,
     })

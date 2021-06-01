@@ -165,11 +165,12 @@ export const styles = StyleSheet.create({
   },
   orderAmount: {},
   orderDiscountAmount: {
-    fontSize: hp(14),
+    fontSize: hp(13),
     color: '#706B6B',
     fontFamily: 'TTNormsPro-Light',
-    textDecorationLine: 'line-through',
-    textDecorationStyle: 'solid',
+    // fontSize: hp(14),
+    // textDecorationLine: 'line-through',
+    // textDecorationStyle: 'solid',
   },
   payOptions: {
     paddingVertical: wp(30),
@@ -233,7 +234,8 @@ export const styles = StyleSheet.create({
   },
   requestingTitle: {
     textAlign: 'center',
-    color: Colors.SilverChalice,
+    color: Colors.SuvaGray,
+    marginTop: hp(20),
     marginBottom: hp(20),
   },
   requestingBtn: {

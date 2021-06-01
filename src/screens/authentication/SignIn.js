@@ -10,7 +10,6 @@ import {
   Input,
   Button,
   DoubleText,
-  Loader,
 } from '../../common';
 import { Email, Password } from '../../../assets/svgs';
 import { userLogin } from '../../store/actions/userActions';
@@ -28,12 +27,10 @@ const SignIn = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const handleLogin = (data) => {
-    console.log('login data', data);
     dispatch(userLogin(data));
   };
   return (
     <>
-      {loading && <Loader />}
       <NormalView>
         <Image
           source={require('../../../assets/images/logo.png')}
@@ -106,6 +103,7 @@ const SignIn = ({ navigation }) => {
                 title="Sign In"
                 style={styles.formButton}
                 onPress={handleSubmit}
+                isLoading={loading}
               />
               <DoubleText
                 title="Don’t have an account yet?"

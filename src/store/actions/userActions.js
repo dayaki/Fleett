@@ -1,4 +1,4 @@
-import NavigationService from '../../navigation/navigationService';
+import { navigate } from '../../navigation/navigationService';
 import apiService from '../../utils/apiService';
 import {
   CREATE_ACCOUNT,
@@ -26,7 +26,7 @@ export const userLogin = (user) => (dispatch) => {
         type: LOGIN_USER_SUCCESS,
         payload: res.data,
       });
-      Actions.home();
+      navigate('home');
     })
     .catch((error) => {
       console.log('login err', error);
@@ -45,7 +45,7 @@ export const createAccount = (user) => (dispatch) => {
         type: CREATE_ACCOUNT_SUCCESS,
         payload: res.data,
       });
-      NavigationService.navigate('home');
+      navigate('home');
     })
     .catch((error) => {
       console.log('signuop err', error);
@@ -65,7 +65,7 @@ export const trackOrder = (trackNumber) => (dispatch) => {
         type: TRACK_SHIPMENT_SUCCESS,
         payload: res.data,
       });
-      NavigationService.navigate('home');
+      navigate('home');
     })
     .catch((error) => {
       console.log('tracking err', error);
@@ -89,7 +89,7 @@ export const initiateOrder = (data) => (dispatch) => {
       const params = {
         uri: res.data,
       };
-      NavigationService.navigate('webview', { params });
+      navigate('webview', { params });
     })
     .catch((error) => {
       console.log('initiate err', error);
@@ -103,5 +103,4 @@ export const initiateOrder = (data) => (dispatch) => {
 
 export const userLogout = () => (dispatch) => {
   dispatch({ type: LOGOUT_USER });
-  NavigationService.navigate('onboarding');
 };

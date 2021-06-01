@@ -84,7 +84,7 @@ const Dashboard = ({ navigation }) => {
       enableHighAccuracy: true,
       maximumAge: 10000,
     };
-    Geolocation.getCurrentPosition(
+    Geolocation.watchPosition(
       async ({ coords: { latitude, longitude } }) => {
         setRegion({
           ...region,
@@ -216,6 +216,10 @@ const Dashboard = ({ navigation }) => {
         provider={PROVIDER_GOOGLE}
         region={region}
         showsUserLocation={true}
+        followsUserLocation={true}
+        onUserLocationChange={(event) =>
+          console.log('onUserLocationChange', event)
+        }
         loadingEnabled={true}
         minZoomLevel={10}
         ref={mapView}

@@ -1,4 +1,7 @@
-import { createNavigationContainerRef } from '@react-navigation/native';
+import {
+  createNavigationContainerRef,
+  DrawerActions,
+} from '@react-navigation/native';
 
 export const navigationRef = createNavigationContainerRef();
 
@@ -6,6 +9,10 @@ export const navigate = (name, params) => {
   if (navigationRef.isReady()) {
     navigationRef.navigate(name, params);
   }
+};
+
+export const drawerToggle = () => {
+  navigationRef.dispatch(DrawerActions.toggleDrawer());
 };
 
 // export const setTopLevelNavigator = (navigatorRef) => {
@@ -33,10 +40,6 @@ export const navigate = (name, params) => {
 // const goBack = () => {
 //   _navigator.dispatch(CommonActions.goBack());
 // };
-
-// function drawerToggle() {
-//   _navigator.dispatch(DrawerActions.toggleDrawer());
-// }
 
 // function search() {
 //   _navigator.dispatch(CommonActions.navigate('search'));

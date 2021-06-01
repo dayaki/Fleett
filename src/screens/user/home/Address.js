@@ -82,9 +82,9 @@ const Address = ({ onClose, onSelect, latlng, pickupAddress }) => {
                 autoFocus
                 onFocus={() => handleFocus('destination')}
               />
-              <TouchableOpacity style={styles.addAddress}>
+              {/* <TouchableOpacity style={styles.addAddress}>
                 <PlusIcon />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </View>
         </View>

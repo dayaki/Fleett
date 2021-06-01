@@ -10,8 +10,8 @@ import {
   Platform,
 } from 'react-native';
 import Config from 'react-native-config';
+import socketIOClient from 'socket.io-client';
 import { useDispatch, useSelector } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import Modal from 'react-native-modal';
@@ -42,7 +42,7 @@ const { GOOGLE_API_KEY } = Config;
 
 Geocoder.init(GOOGLE_API_KEY, { language: 'en' });
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const { profile } = useSelector((state) => state.user);
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
@@ -64,6 +64,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // const socket = socketIOClient('https://fleett.herokuapp.com');
     if (Platform.OS === 'android') {
       requestLocationPermission();
     } else {
@@ -128,12 +129,12 @@ const Home = () => {
 
   const chooseAddress = async (address) => {
     console.log('selected address', address);
+    setShowModal(false);
     const response = await Geocoder.from(
       address.structured_formatting.main_text,
     );
     console.log('resssss', response);
     setDestination({ address, latlng: response.results[0].geometry.location });
-    setShowModal(false);
   };
 
   const resetNav = () => {
@@ -143,35 +144,6 @@ const Home = () => {
   const choosePayType = (type) => {
     setPaymentType(type);
     refRBSheet.current.close();
-  };
-
-  const handleDispatch = () => {
-    if (paymentType === 'card') {
-      setIsLoading(true);
-      const payload = {
-        name: `${profile.fname} ${profile.lname}`,
-        phone: profile.phone,
-        email: profile.email,
-        amount: 1500,
-        user_id: profile.id,
-      };
-      dispatch(initiateOrder(payload));
-      apiService('user/orders/initiate', 'POST', payload)
-        .then((res) => {
-          console.log('initiate', res);
-          const params = {
-            uri: res.data,
-          };
-          Actions.webview({ params });
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          console.log('initiate err', error);
-          showToast(error.message, 'error');
-        });
-    } else {
-      setIsFetching(true);
-    }
   };
 
   const InitialOrder = () => (
@@ -186,7 +158,11 @@ const Home = () => {
         </View>
         <View style={styles.orderPrice}>
           <TitleText title="₦1,500" style={styles.orderAmount} />
-          <RegularText title="₦2,000" style={styles.orderDiscountAmount} />
+          <RegularText
+            title="Estimated cost"
+            style={styles.orderDiscountAmount}
+          />
+          {/* <RegularText title="₦2,000" style={styles.orderDiscountAmount} /> */}
         </View>
       </View>
       <TouchableOpacity
@@ -216,12 +192,54 @@ const Home = () => {
         <RightArrow />
       </TouchableOpacity>
       <Button
-        title="Confirm Dispatch"
+        title="Request Dispatch"
         style={styles.orderButton}
         onPress={handleDispatch}
       />
     </View>
   );
+
+  const handleDispatch = () => {
+    setIsFetching(true);
+    apiService('user/search', 'POST', latlng)
+      .then(({ data }) => {
+        console.log('search', data);
+        if (data.length > 0) {
+        }
+      })
+      .catch((err) => {
+        console.log('search error', err);
+      });
+    // if (paymentType === 'card') {
+    //   setIsLoading(true);
+    //   const payload = {
+    //     name: `${profile.fname} ${profile.lname}`,
+    //     phone: profile.phone,
+    //     email: profile.email,
+    //     amount: 1500,
+    //     user_id: profile.id,
+    //   };
+    //   dispatch(initiateOrder(payload));
+    //   apiService('user/orders/initiate', 'POST', payload)
+    //     .then((res) => {
+    //       console.log('initiate', res);
+    //       const params = {
+    //         uri: res.data,
+    //       };
+    //       Actions.webview({ params });
+    //       setIsLoading(false);
+    //     })
+    //     .catch((error) => {
+    //       console.log('initiate err', error);
+    //       showToast(error.message, 'error');
+    //     });
+    // } else {
+    //   setIsFetching(true);
+    // }
+  };
+  const cancelRequest = () => {
+    setIsFetching(false);
+  };
 
   return (
     <>
@@ -270,7 +288,14 @@ const Home = () => {
         ) : (
           <View style={styles.orderInfo}>
             <View style={styles.dash} />
-            {isFetching ? <RequestingView /> : <InitialOrder />}
+            {isFetching ? (
+              <RequestingView
+                onCancel={cancelRequest}
+                title="Requesting a dispatch rider..."
+              />
+            ) : (
+              <InitialOrder />
+            )}
           </View>
         )}
 

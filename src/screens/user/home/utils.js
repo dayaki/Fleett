@@ -8,10 +8,12 @@ import {
   MenuIcon,
   Unavailable,
   Search,
+  CancelCircle,
 } from '../../../../assets/svgs';
 import { RegularText, TitleText, Button } from '../../../common';
 import { masterCard } from '../../../../assets/images';
 import { styles } from './styles';
+import { drawerToggle } from '../../../navigation/navigationService';
 
 export const InitialView = ({ showModal }) => (
   <View style={styles.content}>
@@ -71,13 +73,10 @@ export const PaymentOptions = ({ onChoose, paymentType }) => {
   );
 };
 
-export const RequestingView = ({ onCancel }) => {
+export const RequestingView = ({ onCancel, title }) => {
   return (
     <View style={styles.requesting}>
-      <TitleText
-        title="Requesting a dispatch rider..."
-        style={styles.requestingTitle}
-      />
+      <TitleText title={title} style={styles.requestingTitle} />
       <Button
         title="Cancel request"
         onPress={onCancel}
@@ -97,7 +96,7 @@ export const NavButton = ({ isBack, onReset }) => {
     <TouchableOpacity
       activeOpacity={0.8}
       style={styles.menu}
-      onPress={() => Actions.drawerOpen()}>
+      onPress={() => drawerToggle()}>
       <MenuIcon />
     </TouchableOpacity>
   );
