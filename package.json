@@ -7,13 +7,14 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint .",
+    "lint": "eslint ./src --fix",
+    "build-android": "cd android && ./gradlew clean && ./gradlew assembleRelease && ./gradlew bundleRelease && cd ..",
+    "pod-update": "npm install && cd ios && pod install && cd ..",
     "postinstall": "patch-package"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.13.4",
     "@react-native-community/masked-view": "^0.1.11",
-    "@react-native-masked-view/masked-view": "^0.2.4",
     "@react-navigation/drawer": "^6.0.0-next.16",
     "@react-navigation/native": "^6.0.0-next.13",
     "@react-navigation/stack": "^6.0.0-next.24",
