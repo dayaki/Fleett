@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Config from 'react-native-config';
 import socketIOClient from 'socket.io-client';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import Modal from 'react-native-modal';
@@ -24,6 +24,7 @@ import {
   PaymentOptions,
   RequestingView,
   RiderPopView,
+  ErrorPopView,
 } from './utils';
 import { styles } from './styles';
 import apiService from '../../../utils/apiService';
@@ -33,7 +34,7 @@ const { GOOGLE_API_KEY } = Config;
 Geocoder.init(GOOGLE_API_KEY, { language: 'en' });
 
 const Home = ({ navigation }) => {
-  const { profile } = useSelector((state) => state.user);
+  // const { profile } = useSelector((state) => state.user);
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const [showModal, setShowModal] = useState(false);
@@ -43,6 +44,8 @@ const Home = ({ navigation }) => {
   const [paymentType, setPaymentType] = useState('pod');
   const [isFetching, setIsFetching] = useState(false);
   const [tempRider, setTempRider] = useState(null);
+  const [hasOrder, setHasOrder] = useState(null);
+  const [hasError, setHasError] = useState(null);
   const [region, setRegion] = useState({
     latitude: 6.524379,
     longitude: 3.379206,
@@ -130,20 +133,34 @@ const Home = ({ navigation }) => {
   };
 
   const handleDispatch = () => {
+    setHasError(null);
     setIsFetching(true);
     apiService('user/search', 'POST', latlng)
       .then(({ data }) => {
         console.log('search', data);
         if (data) {
           setTempRider(data);
+        } else {
+          setHasError({
+            title: 'Riders are busy now',
+            label: 'Please try again in a few minutes.',
+          });
         }
       })
       .catch((err) => {
         console.log('search error', err);
+        setHasError({
+          title: 'Riders are busy now',
+          label: 'Please try again in a few minutes.',
+        });
+      })
+      .finally(() => {
+        setIsFetching(false);
       });
   };
 
   const resetNav = () => {
+    setHasError(null);
     setDestination(null);
     setTempRider(null);
     setIsFetching(false);
@@ -198,6 +215,9 @@ const Home = ({ navigation }) => {
         ) : (
           <View style={styles.bottomSheet}>
             {tempRider && <RiderPopView name={tempRider.fname} time="3 mins" />}
+            {hasError && (
+              <ErrorPopView title={hasError.title} label={hasError.label} />
+            )}
             {isFetching ? (
               <RequestingView
                 onCancel={resetNav}

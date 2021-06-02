@@ -189,11 +189,9 @@ export const RiderPopView = ({ name, time, photo }) => (
   </View>
 );
 
-{
-  /* <TouchableOpacity activeOpacity={0.8} style={styles.search}>
-          <View style={styles.searchIcon}>
-            <Scooter />
-          </View>
-          <Text style={styles.searchText}>Where to deliver?</Text>
-        </TouchableOpacity> */
-}
+export const ErrorPopView = ({ title, label }) => (
+  <View style={[styles.popView, styles.errorPopView]}>
+    <TitleText title={title} style={styles.errorPopViewTitle} />
+    <RegularText title={label} style={styles.errorPopViewText} />
+  </View>
+);

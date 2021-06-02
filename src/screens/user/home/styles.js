@@ -280,6 +280,22 @@ export const styles = StyleSheet.create({
   popViewText: {
     fontSize: hp(14),
   },
+  errorPopView: {
+    backgroundColor: Colors.Woodsmoke,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    paddingLeft: wp(20),
+    paddingVertical: hp(14),
+  },
+  errorPopViewTitle: {
+    color: Colors.White,
+    fontSize: hp(17),
+  },
+  errorPopViewText: {
+    color: Colors.SilverGray,
+    fontSize: hp(15),
+    marginTop: hp(4),
+  },
 });
 
 export const modalStyles = StyleSheet.create({
