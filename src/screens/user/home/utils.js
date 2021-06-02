@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, TouchableOpacity, Image } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import {
   Cash,
   CheckMark,
@@ -8,7 +7,8 @@ import {
   MenuIcon,
   Unavailable,
   Search,
-  CancelCircle,
+  Scooter,
+  RightArrow,
 } from '../../../../assets/svgs';
 import { RegularText, TitleText, Button } from '../../../common';
 import { masterCard } from '../../../../assets/images';
@@ -32,6 +32,62 @@ export const InitialView = ({ showModal }) => (
         style={styles.contentSearchText}
       />
     </TouchableOpacity>
+  </View>
+);
+
+export const InitialOrder = ({ paymentType, handleDispatch, openRBSheet }) => (
+  <View style={styles.orderInfo}>
+    <View style={styles.dash} />
+    <View style={styles.order}>
+      <View style={styles.rider}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Scooter />
+          <View style={styles.riderInfo}>
+            <TitleText title="Fleett Basic" style={styles.riderName} />
+            <RegularText title="4-8 mins" style={styles.riderPlate} />
+          </View>
+        </View>
+        <View style={styles.orderPrice}>
+          <TitleText title="₦1,500" style={styles.orderAmount} />
+          <RegularText
+            title="Estimated cost"
+            style={styles.orderDiscountAmount}
+          />
+          {/* <RegularText title="₦2,000" style={styles.orderDiscountAmount} /> */}
+        </View>
+      </View>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        style={styles.payMethod}
+        onPress={openRBSheet}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          {paymentType === 'card' ? (
+            <>
+              <Image
+                source={masterCard}
+                resizeMode="cover"
+                style={styles.mastercard}
+              />
+              <RegularText
+                title="Pay before delivery"
+                style={styles.paymentText}
+              />
+            </>
+          ) : (
+            <>
+              <Cash />
+              <RegularText title="Pay with cash" style={styles.paymentText} />
+            </>
+          )}
+        </View>
+        <RightArrow />
+      </TouchableOpacity>
+      <Button
+        title="Request Dispatch"
+        style={styles.orderButton}
+        onPress={handleDispatch}
+      />
+    </View>
   </View>
 );
 
@@ -73,8 +129,9 @@ export const PaymentOptions = ({ onChoose, paymentType }) => {
   );
 };
 
-export const RequestingView = ({ onCancel, title }) => {
-  return (
+export const RequestingView = ({ onCancel, title }) => (
+  <View style={styles.orderInfo}>
+    <View style={styles.dash} />
     <View style={styles.requesting}>
       <TitleText title={title} style={styles.requestingTitle} />
       <Button
@@ -84,8 +141,8 @@ export const RequestingView = ({ onCancel, title }) => {
         textStyle={styles.requestingBtnText}
       />
     </View>
-  );
-};
+  </View>
+);
 
 export const NavButton = ({ isBack, onReset }) => {
   return isBack ? (
@@ -116,6 +173,20 @@ export const UnavailableView = () => (
       <ForwardArrow />
     </View>
   </>
+);
+
+export const RiderPopView = ({ name, time, photo }) => (
+  <View style={styles.popView}>
+    <Image
+      source={{ uri: photo ? photo : 'https://placeimg.com/640/640/people' }}
+      resizeMode="cover"
+      style={styles.popViewImage}
+    />
+    <RegularText
+      title={`${name} arrives in ${time}`}
+      style={styles.popViewText}
+    />
+  </View>
 );
 
 {

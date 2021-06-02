@@ -116,10 +116,16 @@ export const styles = StyleSheet.create({
     // justifyContent: 'flex-end',
     margin: 0,
   },
-  orderInfo: {
+  bottomSheet: {
     width: '100%',
     position: 'absolute',
     bottom: 0,
+    height: 'auto',
+  },
+  orderInfo: {
+    // width: '100%',
+    // position: 'absolute',
+    // bottom: 0,
     height: 'auto',
     backgroundColor: Colors.White,
     borderTopLeftRadius: 15,
@@ -253,6 +259,26 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     position: 'absolute',
     top: 12,
+  },
+  popView: {
+    width: '94%',
+    alignSelf: 'center',
+    backgroundColor: Colors.White,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: wp(10),
+    paddingVertical: hp(10),
+    borderRadius: hp(6),
+    marginBottom: hp(18),
+  },
+  popViewImage: {
+    width: wp(40),
+    height: hp(40),
+    borderRadius: hp(20),
+    marginRight: wp(15),
+  },
+  popViewText: {
+    fontSize: hp(14),
   },
 });
 
