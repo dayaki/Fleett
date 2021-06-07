@@ -68,6 +68,7 @@ const Login = () => {
                   style={styles.textInput}
                   autoCapitalize="none"
                   value={values.phonne}
+                  keyboardType="number-pad"
                   onChangeText={handleChange('phone')}
                   onBlur={handleBlur('phone')}
                 />

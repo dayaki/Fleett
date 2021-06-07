@@ -6,10 +6,11 @@ import {
   useWindowDimensions,
   PermissionsAndroid,
   Platform,
+  Linking,
 } from 'react-native';
 import Config from 'react-native-config';
 import { useSelector, useDispatch } from 'react-redux';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import Modal from 'react-native-modal';
 import MapViewDirections from 'react-native-maps-directions';
@@ -25,6 +26,7 @@ import {
   RequestingView,
   RiderPopView,
   ErrorPopView,
+  OrderView,
 } from './utils';
 import { styles } from './styles';
 import apiService from '../../../utils/apiService';
@@ -87,20 +89,30 @@ const Home = ({ navigation }) => {
       dispatch({ type: UPDATE_USER_SOCKET, payload: socket.id });
 
       socket.on('NO_RIDERS', () => {
-        updateHasError();
+        // updateHasError();
+        setTempRider(null);
+        setIsFetching(false);
+        setHasError({
+          title: 'Riders are busy now',
+          label: 'Please try again in a few minutes.',
+        });
+      });
+
+      socket.on('RIDE_ACCEPTED', (data) => {
+        console.log('rider accepted', data);
+        setHasOrder(data);
       });
     });
   };
 
-  const updateHasError = (value) => {
-    console.log('calling he.....');
-    setTempRider(null);
-    setIsFetching(false);
-    setHasError({
-      title: 'Riders are busy now',
-      label: 'Please try again in a few minutes.',
-    });
-  };
+  // const updateHasError = (value) => {
+  //   setTempRider(null);
+  //   setIsFetching(false);
+  //   setHasError({
+  //     title: 'Riders are busy now',
+  //     label: 'Please try again in a few minutes.',
+  //   });
+  // };
 
   const requestLocationPermission = async () => {
     try {
@@ -216,6 +228,10 @@ const Home = ({ navigation }) => {
     setIsFetching(false);
   };
 
+  const handleCallRider = () => {
+    Linking.openURL('tel:07038327370');
+  };
+
   return (
     <>
       <SafeAreaView style={styles.safeview}>
@@ -231,7 +247,7 @@ const Home = ({ navigation }) => {
           loadingEnabled={true}
           minZoomLevel={10}
           ref={mapView}>
-          {destination && (
+          {destination ? (
             <MapViewDirections
               origin={{ latitude: latlng.lat, longitude: latlng.lng }}
               destination={{
@@ -252,6 +268,8 @@ const Home = ({ navigation }) => {
                 });
               }}
             />
+          ) : (
+            <Marker coordinate={region} />
           )}
         </MapView>
 
@@ -264,25 +282,33 @@ const Home = ({ navigation }) => {
           <InitialView showModal={() => setShowModal(!showModal)} />
         ) : (
           <View style={styles.bottomSheet}>
-            {tempRider && <RiderPopView name={tempRider.fname} time="3 mins" />}
-            {hasError && (
-              <ErrorPopView title={hasError.title} label={hasError.label} />
-            )}
-            {isFetching ? (
-              <RequestingView
-                onCancel={resetNav}
-                title={
-                  tempRider
-                    ? 'Connecting to the dispatch rider...'
-                    : 'Looking for a dispatch rider...'
-                }
-              />
+            {hasOrder ? (
+              <OrderView rider={{ photo: null }} callRider={handleCallRider} />
             ) : (
-              <InitialOrder
-                paymentType={paymentType}
-                handleDispatch={handleDispatch}
-                openRBSheet={() => refRBSheet.current.open()}
-              />
+              <>
+                {tempRider && (
+                  <RiderPopView name={tempRider.fname} time="5 mins" />
+                )}
+                {hasError && (
+                  <ErrorPopView title={hasError.title} label={hasError.label} />
+                )}
+                {isFetching ? (
+                  <RequestingView
+                    onCancel={resetNav}
+                    title={
+                      tempRider
+                        ? 'Connecting to the dispatch rider...'
+                        : 'Looking for a dispatch rider...'
+                    }
+                  />
+                ) : (
+                  <InitialOrder
+                    paymentType={paymentType}
+                    handleDispatch={handleDispatch}
+                    openRBSheet={() => refRBSheet.current.open()}
+                  />
+                )}
+              </>
             )}
           </View>
         )}

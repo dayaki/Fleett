@@ -460,8 +460,8 @@ export const DeliverySwitch = (props) => (
 
 export const Star = (props) => (
   <Svg
-    width="1em"
-    height="1em"
+    width={12}
+    height={12}
     viewBox="0 0 13 12"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -663,8 +663,8 @@ export const ForwardIcon = (props) => (
 
 export const PhoneCall = (props) => (
   <Svg
-    width={30}
-    height={30}
+    width={props.width || 30}
+    height={props.width || 30}
     viewBox="0 0 22 22"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

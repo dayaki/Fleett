@@ -296,6 +296,65 @@ export const styles = StyleSheet.create({
     fontSize: hp(15),
     marginTop: hp(4),
   },
+
+  orderTitle: {
+    fontSize: hp(20),
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: hp(10),
+  },
+  orderRider: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderBottomColor: Colors.SilverGray,
+    borderBottomWidth: 1,
+    borderTopColor: Colors.SilverGray,
+    borderTopWidth: 1,
+    paddingVertical: hp(10),
+    marginVertical: hp(10),
+    paddingHorizontal: wp(20),
+    marginHorizontal: wp(20),
+  },
+  orderPlateText: {
+    color: Colors.Silver,
+    fontSize: hp(16),
+    marginBottom: hp(6),
+  },
+  orderPlate: {
+    fontSize: hp(21),
+    fontWeight: 'bold',
+  },
+  orderName: {
+    color: Colors.Woodsmoke,
+    fontSize: hp(16),
+    marginTop: hp(20),
+  },
+  orderRating: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  orderRatingText: {
+    color: Colors.MountainMeadow,
+    fontSize: hp(14),
+    marginLeft: wp(2),
+  },
+  orderPhoto: {
+    width: wp(50),
+    height: hp(50),
+    borderRadius: 40,
+  },
+  orderCall: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    paddingVertical: hp(10),
+  },
+  orderCallText: {
+    marginLeft: wp(10),
+    fontSize: hp(16),
+  },
 });
 
 export const modalStyles = StyleSheet.create({

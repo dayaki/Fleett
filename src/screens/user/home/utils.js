@@ -9,6 +9,9 @@ import {
   Search,
   Scooter,
   RightArrow,
+  ForwardArrow,
+  PhoneCall,
+  Star,
 } from '../../../../assets/svgs';
 import { RegularText, TitleText, Button } from '../../../common';
 import { masterCard } from '../../../../assets/images';
@@ -87,6 +90,54 @@ export const InitialOrder = ({ paymentType, handleDispatch, openRBSheet }) => (
         style={styles.orderButton}
         onPress={handleDispatch}
       />
+    </View>
+  </View>
+);
+
+export const OrderView = ({ rider, callRider }) => (
+  <View style={styles.orderInfo}>
+    <View style={styles.dash} />
+    <View style={styles.orderWrapper}>
+      <TitleText title="Rider is coming to you." style={styles.orderTitle} />
+      <RegularText
+        title="Rider should arrive in 5 mins"
+        style={[styles.orderPlateText, { textAlign: 'center', marginTop: -4 }]}
+      />
+      <View style={styles.orderRider}>
+        <View>
+          <RegularText
+            title="Bike Plate Number"
+            style={styles.orderPlateText}
+          />
+          <TitleText title="APP714GD" style={styles.orderPlate} />
+          <RegularText
+            title="Your rider name is Deji"
+            style={styles.orderName}
+          />
+          <View style={styles.orderRating}>
+            <Star />
+            <TitleText title="4.2" style={styles.orderRatingText} />
+          </View>
+        </View>
+        <View>
+          <Image
+            source={{
+              uri: rider.photo
+                ? rider.photo
+                : 'https://placeimg.com/640/640/people',
+            }}
+            resizeMode="cover"
+            style={styles.orderPhoto}
+          />
+        </View>
+      </View>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={callRider}
+        style={styles.orderCall}>
+        <PhoneCall width={20} height={20} />
+        <TitleText title="CALL RIDER" style={styles.orderCallText} />
+      </TouchableOpacity>
     </View>
   </View>
 );

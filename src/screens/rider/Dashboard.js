@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { useSelector, useDispatch } from 'react-redux';
 import Config from 'react-native-config';
 import Geolocation from 'react-native-geolocation-service';
@@ -82,8 +82,8 @@ const Dashboard = ({ navigation }) => {
       riderId: profile._id,
       room: profile.socketId,
     };
-    socket.emit('REQUEST_ACCEPTED', payload);
-    // await apiService('user/accept_request', 'POST', payload);
+    // socket.emit('REQUEST_ACCEPTED', payload);
+    await apiService('user/accept_request', 'POST', payload);
   };
 
   const dismissRequest = async () => {
@@ -130,10 +130,12 @@ const Dashboard = ({ navigation }) => {
     const options = {
       timeout: 15000,
       enableHighAccuracy: true,
-      maximumAge: 10000,
+      maximumAge: 1000,
+      distanceFilter: 10,
     };
     Geolocation.watchPosition(
       async ({ coords: { latitude, longitude } }) => {
+        console.log('new location...');
         setRegion({
           ...region,
           latitude,
@@ -256,7 +258,7 @@ const Dashboard = ({ navigation }) => {
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.acceptBtn}
-            onPress={acceptRequest}>
+            onPress={() => acceptRequest()}>
             <RegularText title="Accept" style={styles.acceptBtnText} />
             <ForwardIcon />
           </TouchableOpacity>
@@ -273,14 +275,12 @@ const Dashboard = ({ navigation }) => {
         region={region}
         showsUserLocation={true}
         followsUserLocation={true}
-        onUserLocationChange={(event) =>
-          console.log('onUserLocationChange', event)
-        }
         loadingEnabled={true}
         minZoomLevel={10}
         ref={mapView}
       />
-      <RiderHeader />
+      <Marker coordinate={region} title="Hello World." />
+      {/* <RiderHeader />
       {hasRequest ? (
         <NewRequest
           user={requestData.user}
@@ -288,7 +288,7 @@ const Dashboard = ({ navigation }) => {
         />
       ) : (
         <RiderStatusView />
-      )}
+      )} */}
     </View>
   );
 };
