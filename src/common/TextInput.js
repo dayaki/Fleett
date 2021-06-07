@@ -11,7 +11,7 @@ export const Input = ({
   onBlur,
   error = false,
   capitalize = 'words',
-  password = false,
+  secure,
   keyboardType,
   disable,
 }) => (
@@ -25,7 +25,7 @@ export const Input = ({
       placeholderTextColor={Colors.SilverGray}
       style={styles.textInput}
       autoCapitalize={capitalize}
-      secureTextEntry={password}
+      secureTextEntry={secure}
       keyboardType={keyboardType ? keyboardType : 'default'}
       editable={disable ? false : true}
     />

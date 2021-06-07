@@ -8,14 +8,14 @@ import {
   Platform,
 } from 'react-native';
 import Config from 'react-native-config';
-import socketIOClient from 'socket.io-client';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import Modal from 'react-native-modal';
 import MapViewDirections from 'react-native-maps-directions';
 import Geocoder from 'react-native-geocoding';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { socket } from '../../../utils/socket';
 import Address from './Address';
 import {
   InitialView,
@@ -28,13 +28,14 @@ import {
 } from './utils';
 import { styles } from './styles';
 import apiService from '../../../utils/apiService';
+import { UPDATE_USER_SOCKET } from '../../../store/actions/types';
 
 const { GOOGLE_API_KEY } = Config;
 
 Geocoder.init(GOOGLE_API_KEY, { language: 'en' });
 
 const Home = ({ navigation }) => {
-  // const { profile } = useSelector((state) => state.user);
+  const { profile } = useSelector((state) => state.user);
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const [showModal, setShowModal] = useState(false);
@@ -54,9 +55,16 @@ const Home = ({ navigation }) => {
   });
   const mapView = useRef();
   const refRBSheet = useRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    // const socket = socketIOClient('https://fleett.herokuapp.com');
+    handleSockets();
+    // const socket = socketIOClient('http://bbb3bfb98f18.ngrok.io/');
+    // // socket.emit('join room', profile.socketRoom);
+    // socket.on('connect', () => {
+    //   console.log('socket id', socket.id);
+    //   socket.emit('new connection', { socket: socket.id, userId: profile._id });
+    // });
     if (Platform.OS === 'android') {
       requestLocationPermission();
     } else {
@@ -67,6 +75,32 @@ const Home = ({ navigation }) => {
       });
     }
   }, []);
+
+  const handleSockets = () => {
+    socket.on('connect', () => {
+      // emit USER_ONLINE event
+      socket.emit('USER_ONLINE', {
+        socket: socket.id,
+        user: profile._id,
+        room: profile.socketRoom,
+      });
+      dispatch({ type: UPDATE_USER_SOCKET, payload: socket.id });
+
+      socket.on('NO_RIDERS', () => {
+        updateHasError();
+      });
+    });
+  };
+
+  const updateHasError = (value) => {
+    console.log('calling he.....');
+    setTempRider(null);
+    setIsFetching(false);
+    setHasError({
+      title: 'Riders are busy now',
+      label: 'Please try again in a few minutes.',
+    });
+  };
 
   const requestLocationPermission = async () => {
     try {
@@ -92,6 +126,11 @@ const Home = ({ navigation }) => {
     }
   };
 
+  const changePickupAddress = ({ description }) => {
+    console.log('data', description);
+    setPickupAddress(description);
+  };
+
   const getLocation = () => {
     const options = {
       timeout: 15000,
@@ -103,6 +142,7 @@ const Home = ({ navigation }) => {
         setLatlng({ lat: latitude, lng: longitude });
         const response = await Geocoder.from({ latitude, longitude });
         const address = response.results[0].formatted_address;
+        console.log('pickupAddress', address);
         // const shortAddress = address.substring(0, address.indexOf(','));
         setPickupAddress(address);
         // console.log('shortAddress', shortAddress);
@@ -135,7 +175,17 @@ const Home = ({ navigation }) => {
   const handleDispatch = () => {
     setHasError(null);
     setIsFetching(true);
-    apiService('user/search', 'POST', latlng)
+    const searchData = {
+      pickupAddress: {
+        latlng,
+        address: pickupAddress,
+      },
+      destinationAddress: {
+        latlng: destination.latlng,
+        address: destination.address.description,
+      },
+    };
+    apiService('user/search', 'POST', searchData)
       .then(({ data }) => {
         console.log('search', data);
         if (data) {
@@ -153,10 +203,10 @@ const Home = ({ navigation }) => {
           title: 'Riders are busy now',
           label: 'Please try again in a few minutes.',
         });
-      })
-      .finally(() => {
-        setIsFetching(false);
       });
+    // .finally(() => {
+    //   setIsFetching(false);
+    // });
   };
 
   const resetNav = () => {
@@ -245,7 +295,8 @@ const Home = ({ navigation }) => {
           animationIn="fadeInDownBig"
           style={styles.modal}>
           <Address
-            pickupAddress={pickupAddress}
+            address={pickupAddress}
+            changeAddress={changePickupAddress}
             onClose={() => setShowModal(!showModal)}
             onSelect={chooseAddress}
             latlng={latlng}

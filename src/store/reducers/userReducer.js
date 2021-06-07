@@ -13,6 +13,7 @@ import {
   INITIATE_ORDER,
   INITIATE_ORDER_SUCESS,
   INITIATE_ORDER_ERROR,
+  UPDATE_USER_SOCKET,
 } from '../actions/types';
 
 const initialState = {
@@ -53,6 +54,7 @@ export default (state = initialState, action) => {
         closeBottomSheet: false,
         // tempOrder: {},
       };
+
     case RESET_TEMP_ORDER:
       return {
         ...state,
@@ -84,6 +86,11 @@ export default (state = initialState, action) => {
         error: '',
         loginError: '',
         registerError: action.payload,
+      };
+    case UPDATE_USER_SOCKET:
+      return {
+        ...state,
+        profile: { ...state.profile, socketId: action.payload },
       };
     case LOGIN_USER:
       return {

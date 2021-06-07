@@ -6,6 +6,7 @@ import {
   RIDER_LOGOUT,
   LOADING,
   UPDATE_RIDER_STATUS,
+  UPDATE_RIDER_SOCKET,
 } from '../actions/types';
 
 const initialState = {
@@ -45,6 +46,11 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         profile: action.payload,
+      };
+    case UPDATE_RIDER_SOCKET:
+      return {
+        ...state,
+        profile: { ...state.profile, socketId: action.payload },
       };
     case RIDER_LOGOUT:
       return {

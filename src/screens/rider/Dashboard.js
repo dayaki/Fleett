@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Config from 'react-native-config';
 import Geolocation from 'react-native-geolocation-service';
 import Geocoder from 'react-native-geocoding';
+import { socket } from '../../utils/socket';
 import { TitleText, RegularText } from '../../common';
 import {
   RiderOffline,
@@ -19,15 +20,15 @@ import {
   ForwardIcon,
   PhoneCall,
 } from '../../../assets/svgs';
+import { UPDATE_RIDER_SOCKET } from '../../store/actions/types';
 import { dashboardStyles as styles } from './styles';
 import { updateRiderStatus } from '../../store/actions/riderActions';
+import apiService from '../../utils/apiService';
 const { GOOGLE_API_KEY } = Config;
 Geocoder.init(GOOGLE_API_KEY, { language: 'en' });
 
 const Dashboard = ({ navigation }) => {
-  const {
-    profile: { rider },
-  } = useSelector((state) => state.rider);
+  const { profile } = useSelector((state) => state.rider);
   const [region, setRegion] = useState({
     latitude: 6.524379,
     longitude: 3.379206,
@@ -35,10 +36,12 @@ const Dashboard = ({ navigation }) => {
     longitudeDelta: 0.0421,
   });
   const [hasRequest, setHasRequest] = useState(false);
+  const [requestData, setRequestData] = useState(null);
   const mapView = useRef();
   const dispatch = useDispatch();
 
   useEffect(() => {
+    handleSockets();
     if (Platform.OS === 'android') {
       requestLocationPermission();
     } else {
@@ -50,8 +53,53 @@ const Dashboard = ({ navigation }) => {
     }
   }, []);
 
+  const handleSockets = () => {
+    socket.on('connect', () => {
+      // emit USER_ONLINE event
+      socket.emit('RIDER_ONLINE', {
+        socket: socket.id,
+        user: profile._id,
+        room: profile.socketRoom,
+      });
+      dispatch({ type: UPDATE_RIDER_SOCKET, payload: socket.id });
+
+      socket.on('NEW_REQUEST', (data) => {
+        setRequestData(data);
+        updateHasRequest(true);
+        console.log('new request data', data);
+      });
+    });
+  };
+
   const callUser = () => {
     alert('Call user...');
+  };
+
+  const acceptRequest = async () => {
+    const payload = {
+      user: requestData.user.socketId,
+      trip: requestData.trip,
+      riderId: profile._id,
+      room: profile.socketId,
+    };
+    socket.emit('REQUEST_ACCEPTED', payload);
+    // await apiService('user/accept_request', 'POST', payload);
+  };
+
+  const dismissRequest = async () => {
+    const payload = {
+      user: requestData.user._id,
+      trip: requestData.trip,
+      riderId: profile._id,
+    };
+    setHasRequest(false);
+    setRequestData(null);
+    await apiService('user/cancel_request', 'POST', payload);
+  };
+
+  const updateHasRequest = (value) => {
+    console.log('calling he.....');
+    setHasRequest(value);
   };
 
   const requestLocationPermission = async () => {
@@ -100,7 +148,7 @@ const Dashboard = ({ navigation }) => {
   };
 
   const handleStatus = (type) => {
-    dispatch(updateRiderStatus({ user: rider.user_id, type }));
+    dispatch(updateRiderStatus({ user: profile._id, type }));
   };
 
   const RiderStatusView = () => (
@@ -108,17 +156,19 @@ const Dashboard = ({ navigation }) => {
       <View style={styles.dash} />
       <View style={styles.onlineViews}>
         <View style={styles.onlineState}>
-          {rider.status === 'online' ? <RiderOnline /> : <RiderOffline />}
+          {profile.status === 'online' ? <RiderOnline /> : <RiderOffline />}
           <View style={styles.onlineTexts}>
             <TitleText
               title={
-                rider.status === 'online' ? 'You’re online!' : 'You’re offline!'
+                profile.status === 'online'
+                  ? 'You’re online!'
+                  : 'You’re offline!'
               }
               style={styles.onlineStatusTitle}
             />
             <RegularText
               title={
-                rider.status === 'online'
+                profile.status === 'online'
                   ? 'Receiving dispatch requests'
                   : 'NOT Receiving dispatch requests'
               }
@@ -126,7 +176,7 @@ const Dashboard = ({ navigation }) => {
             />
           </View>
         </View>
-        {rider.status === 'online' ? (
+        {profile.status === 'online' ? (
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => handleStatus('offline')}
@@ -168,7 +218,7 @@ const Dashboard = ({ navigation }) => {
     </View>
   );
 
-  const NewRequest = () => (
+  const NewRequest = ({ user, pickup }) => (
     <View style={styles.requestModal}>
       <View style={[styles.newRequest, styles.onlineStatus]}>
         <TitleText
@@ -177,9 +227,12 @@ const Dashboard = ({ navigation }) => {
         />
         <View style={styles.newRequestUser}>
           <View>
-            <TitleText title="Dayo Aderibegbe" style={styles.newRequestName} />
+            <TitleText
+              title={`${user.fname} ${user.lname}`}
+              style={styles.newRequestName}
+            />
             <RegularText
-              title="112 Bourdillon Rd, Ikoyi, Lagos"
+              title={pickup.address}
               style={styles.newRequestAddress}
             />
             <TitleText
@@ -198,9 +251,12 @@ const Dashboard = ({ navigation }) => {
           <RegularText
             title="Dismiss"
             style={styles.dismissText}
-            onPress={() => setHasRequest(false)}
+            onPress={dismissRequest}
           />
-          <TouchableOpacity activeOpacity={0.8} style={styles.acceptBtn}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.acceptBtn}
+            onPress={acceptRequest}>
             <RegularText title="Accept" style={styles.acceptBtnText} />
             <ForwardIcon />
           </TouchableOpacity>
@@ -225,7 +281,14 @@ const Dashboard = ({ navigation }) => {
         ref={mapView}
       />
       <RiderHeader />
-      {hasRequest ? <NewRequest /> : <RiderStatusView />}
+      {hasRequest ? (
+        <NewRequest
+          user={requestData.user}
+          pickup={requestData.pickupAddress}
+        />
+      ) : (
+        <RiderStatusView />
+      )}
     </View>
   );
 };

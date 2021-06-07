@@ -15,9 +15,7 @@ import { loginStyles as styles } from './styles';
 import { riderLogin } from '../../store/actions/riderActions';
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Please enter a valid email')
-    .required('Email address is required'),
+  phone: Yup.string().required('Email address is required'),
   password: Yup.string().required('Password is required'),
 });
 
@@ -45,7 +43,7 @@ const Login = () => {
         <Formik
           validationSchema={LoginSchema}
           initialValues={{
-            email: '',
+            phone: '',
             password: '',
           }}
           onSubmit={(values) => handleLogin(values)}>
@@ -65,16 +63,16 @@ const Login = () => {
               )}
               <View style={styles.input}>
                 <TextInput
-                  placeholder="Email"
+                  placeholder="Phone number"
                   placeholderTextColor={ScarpaFlow}
                   style={styles.textInput}
                   autoCapitalize="none"
-                  value={values.email}
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
+                  value={values.phonne}
+                  onChangeText={handleChange('phone')}
+                  onBlur={handleBlur('phone')}
                 />
-                {errors.email && touched.email ? (
-                  <FormErrorText message={errors.email} />
+                {errors.phone && touched.phone ? (
+                  <FormErrorText message={errors.phone} />
                 ) : null}
               </View>
 

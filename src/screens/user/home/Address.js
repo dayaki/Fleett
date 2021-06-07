@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -14,10 +14,13 @@ import { modalStyles as styles } from './styles';
 
 const { GOOGLE_API_KEY } = Config;
 
-const Address = ({ onClose, onSelect, latlng, pickupAddress }) => {
+const Address = ({ onClose, onSelect, latlng, address, changeAddress }) => {
   const [title, setTitle] = useState('Select destination');
   const [destination, setDestination] = useState('');
+  const [pickupAddress, setPickupAddress] = useState(address);
   const [predictions, setPredictions] = useState([]);
+  const [pickupPredictions, setPickupPredictions] = useState([]);
+  const inputRef = useRef();
 
   const updateQuery = async () => {
     const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${GOOGLE_API_KEY}&input=${destination}&location=${
@@ -33,15 +36,38 @@ const Address = ({ onClose, onSelect, latlng, pickupAddress }) => {
     }
   };
 
+  const updatePickupQuery = async () => {
+    const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${GOOGLE_API_KEY}&input=${pickupAddress}&location=${
+      (latlng.lat, latlng.lng)
+    }&radius=2000`;
+    try {
+      const result = await fetch(apiUrl);
+      const json = await result.json();
+      console.log('pickup result', json);
+      setPickupPredictions(json.predictions);
+    } catch (error) {
+      console.error('errr', error);
+    }
+  };
+
   const delayedQuery = useCallback(debounce(updateQuery, 1000), [destination]);
+  const delayedPickupQuery = useCallback(debounce(updatePickupQuery, 1000), [
+    pickupAddress,
+  ]);
 
   useEffect(() => {
     delayedQuery();
     return delayedQuery.cancel;
   }, [destination, delayedQuery]);
 
-  const changeDestination = async (dest) => {
-    setDestination(dest);
+  useEffect(() => {
+    delayedPickupQuery();
+    return delayedPickupQuery.cancel;
+  }, [pickupAddress, delayedPickupQuery]);
+
+  const handlePickupAddress = (data) => {
+    changeAddress(data);
+    inputRef.current.focus();
   };
 
   const handleFocus = (type) => {
@@ -70,15 +96,20 @@ const Address = ({ onClose, onSelect, latlng, pickupAddress }) => {
             <View style={styles.inputs}>
               <TextInput
                 value={pickupAddress}
+                onChangeText={(dest) => setPickupAddress(dest)}
                 style={styles.addressInput}
                 onFocus={() => handleFocus('pickup')}
+                clearButtonMode="always"
+                blurOnSubmit={false}
+                returnKeyType="done"
               />
               <TextInput
+                ref={inputRef}
                 placeholder="Search destination"
                 placeholderTextColor="rgba(127,129,142,1)"
                 style={styles.addressInput}
                 value={destination}
-                onChangeText={changeDestination}
+                onChangeText={(dest) => setDestination(dest)}
                 autoFocus
                 onFocus={() => handleFocus('destination')}
               />
@@ -109,6 +140,29 @@ const Address = ({ onClose, onSelect, latlng, pickupAddress }) => {
                   />
                   <RegularText
                     title={prediction.structured_formatting.secondary_text}
+                    style={styles.addressState}
+                  />
+                </View>
+              </TouchableOpacity>
+            ))}
+
+          {pickupPredictions.length > 0 &&
+            pickupPredictions.map((predict) => (
+              <TouchableOpacity
+                key={predict.place_id}
+                activeOpacity={0.9}
+                onPress={() => handlePickupAddress(predict)}
+                style={styles.addressView}>
+                <View style={styles.addressViewIcon}>
+                  <MapPin />
+                </View>
+                <View style={styles.addressViewInfo}>
+                  <RegularText
+                    title={predict.structured_formatting.main_text}
+                    style={styles.addressStreet}
+                  />
+                  <RegularText
+                    title={predict.structured_formatting.secondary_text}
                     style={styles.addressState}
                   />
                 </View>

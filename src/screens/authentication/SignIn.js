@@ -66,7 +66,7 @@ const SignIn = ({ navigation }) => {
               )}
               <View style={styles.formInput}>
                 <Input
-                  placeholder="Email Address"
+                  placeholder="Email"
                   icon={<Email />}
                   capitalize="none"
                   value={values.email}
@@ -83,7 +83,8 @@ const SignIn = ({ navigation }) => {
                 <Input
                   placeholder="Password"
                   icon={<Password />}
-                  password
+                  capitalize="none"
+                  secure
                   value={values.password}
                   onChange={handleChange('password')}
                   onBlur={handleBlur('password')}
