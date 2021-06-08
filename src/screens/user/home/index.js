@@ -102,6 +102,10 @@ const Home = ({ navigation }) => {
         console.log('rider accepted', data);
         setHasOrder(data);
       });
+
+      socket.on('RIDER_LOCATION_UPDATE', (data) => {
+        console.log('RIDER_LOCATION_UPDATE', data);
+      });
     });
   };
 
@@ -247,7 +251,7 @@ const Home = ({ navigation }) => {
           loadingEnabled={true}
           minZoomLevel={10}
           ref={mapView}>
-          {destination ? (
+          {destination && (
             <MapViewDirections
               origin={{ latitude: latlng.lat, longitude: latlng.lng }}
               destination={{
@@ -268,8 +272,6 @@ const Home = ({ navigation }) => {
                 });
               }}
             />
-          ) : (
-            <Marker coordinate={region} />
           )}
         </MapView>
 
@@ -283,7 +285,7 @@ const Home = ({ navigation }) => {
         ) : (
           <View style={styles.bottomSheet}>
             {hasOrder ? (
-              <OrderView rider={{ photo: null }} callRider={handleCallRider} />
+              <OrderView orderData={hasOrder} callRider={handleCallRider} />
             ) : (
               <>
                 {tempRider && (

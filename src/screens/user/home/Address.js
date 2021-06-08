@@ -66,6 +66,7 @@ const Address = ({ onClose, onSelect, latlng, address, changeAddress }) => {
   }, [pickupAddress, delayedPickupQuery]);
 
   const handlePickupAddress = (data) => {
+    setPickupAddress(data.description);
     changeAddress(data);
     inputRef.current.focus();
   };
