@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { useSelector, useDispatch } from 'react-redux';
 import Config from 'react-native-config';
 import Geolocation from 'react-native-geolocation-service';
@@ -135,7 +135,12 @@ const Dashboard = ({ navigation }) => {
     };
     Geolocation.watchPosition(
       async ({ coords: { latitude, longitude } }) => {
-        console.log('new location...');
+        console.log('new location...', { latitude, longitude });
+        socket.emit('RIDER_LOCATION_UPDATE', {
+          latitude,
+          longitude,
+          user: requestData.user.socketId,
+        });
         setRegion({
           ...region,
           latitude,
@@ -150,7 +155,7 @@ const Dashboard = ({ navigation }) => {
   };
 
   const handleStatus = (type) => {
-    dispatch(updateRiderStatus({ user: profile._id, type }));
+    dispatch(updateRiderStatus({ user: profile._id, status: type }));
   };
 
   const RiderStatusView = () => (
@@ -207,7 +212,7 @@ const Dashboard = ({ navigation }) => {
       </TouchableOpacity>
       <View style={styles.userData}>
         <View style={styles.amount}>
-          <TitleText title="₦22,450" style={styles.amountText} />
+          <TitleText title="₦0" style={styles.amountText} />
         </View>
         <View style={styles.avatar}>
           <Image
@@ -279,8 +284,7 @@ const Dashboard = ({ navigation }) => {
         minZoomLevel={10}
         ref={mapView}
       />
-      <Marker coordinate={region} title="Hello World." />
-      {/* <RiderHeader />
+      <RiderHeader />
       {hasRequest ? (
         <NewRequest
           user={requestData.user}
@@ -288,7 +292,7 @@ const Dashboard = ({ navigation }) => {
         />
       ) : (
         <RiderStatusView />
-      )} */}
+      )}
     </View>
   );
 };

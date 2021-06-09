@@ -34,14 +34,12 @@ export const updateRiderStatus = (updateData) => (dispatch) => {
   dispatch({ type: LOADING });
   apiService('rider/status', 'PATCH', updateData)
     .then(({ data }) => {
-      console.log('res status', data);
       dispatch({
         type: UPDATE_RIDER_STATUS,
         payload: data,
       });
     })
     .catch((error) => {
-      console.log('login err', error);
       dispatch({
         type: CANCEL_REQUEST,
         payload: error.message,
