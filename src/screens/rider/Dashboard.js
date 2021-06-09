@@ -136,12 +136,15 @@ const Dashboard = ({ navigation }) => {
     };
     Geolocation.watchPosition(
       async ({ coords: { latitude, longitude } }) => {
-        // console.log('new location...', { latitude, longitude });
-        // socket.emit('RIDER_LOCATION_UPDATE', {
-        //   latitude,
-        //   longitude,
-        //   user: requestData.user.socketId,
-        // });
+        if (requestData) {
+          console.log('new location...', { latitude, longitude });
+          socket.emit('RIDER_LOCATION_UPDATE', {
+            latitude,
+            longitude,
+            user: requestData.user.socketId,
+          });
+        }
+
         setRegion({
           ...region,
           latitude,
