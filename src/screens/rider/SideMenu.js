@@ -8,7 +8,7 @@ import {
   MenuHistory,
   MenuLock,
   MenuTracking,
-  MenuNewOrder,
+  MenuEarnings,
   Star,
 } from '../../../assets/svgs';
 import { sideMenuStyles as styles } from './styles';
@@ -43,7 +43,10 @@ const SideMenu = (props) => {
           />
           <View style={styles.profileRating}>
             <Star color="#fff" width={18} />
-            <TitleText title="4.0" style={styles.profileRatingText} />
+            <TitleText
+              title={profile.rating}
+              style={styles.profileRatingText}
+            />
           </View>
         </View>
         <ScrollView
@@ -60,7 +63,7 @@ const SideMenu = (props) => {
             style={styles.navItem}
             onPress={() => navigate('rider_earnings')}>
             <View style={styles.navIcon}>
-              <MenuTracking />
+              <MenuEarnings />
             </View>
             <RegularText title="Earnings" style={styles.navItemText} />
           </TouchableOpacity>
