@@ -20,6 +20,7 @@ import {
   ForwardIcon,
   PhoneCall,
 } from '../../../assets/svgs';
+import { imagePlaceholder } from '../../../assets/images';
 import { UPDATE_RIDER_SOCKET } from '../../store/actions/types';
 import { dashboardStyles as styles } from './styles';
 import { updateRiderStatus } from '../../store/actions/riderActions';
@@ -212,11 +213,11 @@ const Dashboard = ({ navigation }) => {
       </TouchableOpacity>
       <View style={styles.userData}>
         <View style={styles.amount}>
-          <TitleText title="₦0" style={styles.amountText} />
+          <TitleText title={`₦${profile.earnings}`} style={styles.amountText} />
         </View>
         <View style={styles.avatar}>
           <Image
-            source={require('../../../assets/images/user_placeholder.jpeg')}
+            source={profile.photo ? { uri: profile.photo } : imagePlaceholder}
             resizeMode="contain"
             style={styles.avatarImage}
           />

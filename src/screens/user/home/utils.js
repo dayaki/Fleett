@@ -94,7 +94,7 @@ export const InitialOrder = ({ paymentType, handleDispatch, openRBSheet }) => (
   </View>
 );
 
-export const OrderView = ({ rider, callRider }) => (
+export const OrderView = ({ orderData, callRider }) => (
   <View style={styles.orderInfo}>
     <View style={styles.dash} />
     <View style={styles.orderWrapper}>
@@ -111,7 +111,7 @@ export const OrderView = ({ rider, callRider }) => (
           />
           <TitleText title="APP714GD" style={styles.orderPlate} />
           <RegularText
-            title="Your rider name is Deji"
+            title={`Your rider name is Deji`}
             style={styles.orderName}
           />
           <View style={styles.orderRating}>

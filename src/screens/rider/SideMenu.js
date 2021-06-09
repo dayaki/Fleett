@@ -5,12 +5,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { TitleText, RegularText } from '../../common';
 import {
   MenuHelp,
-  MenuHistory,
   MenuLock,
   MenuTracking,
   MenuEarnings,
   Star,
 } from '../../../assets/svgs';
+import { imagePlaceholder } from '../../../assets/images';
 import { sideMenuStyles as styles } from './styles';
 import { logout } from '../../store/actions/riderActions';
 import { navigate } from '../../navigation/navigationService';
@@ -30,11 +30,13 @@ const SideMenu = (props) => {
       <View style={styles.container}>
         <View style={styles.profile}>
           <Image
-            source={{
-              uri: profile.photo
-                ? profile.photo
-                : 'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
-            }}
+            source={
+              profile.photo
+                ? {
+                    uri: profile.photo,
+                  }
+                : imagePlaceholder
+            }
             style={styles.profileImage}
           />
           <TitleText
@@ -52,7 +54,10 @@ const SideMenu = (props) => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.navList}>
-          <TouchableOpacity activeOpacity={0.8} style={styles.navItem}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.navItem}
+            onPress={() => navigate('rider_dashboard')}>
             <View style={styles.navIcon}>
               <MenuTracking />
             </View>

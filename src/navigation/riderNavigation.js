@@ -14,7 +14,7 @@ const RiderStack = () => {
       initialRouteName="dashboard"
       screenOptions={options}
       drawerContent={(props) => <SideMenu {...props} />}>
-      <Drawer.Screen name="dashboard" component={Dashboard} />
+      <Drawer.Screen name="rider_dashboard" component={Dashboard} />
       <Drawer.Screen name="rider_earnings" component={Earnings} />
     </Drawer.Navigator>
   );
