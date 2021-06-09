@@ -50,5 +50,4 @@ export const updateRiderStatus = (updateData) => (dispatch) => {
 
 export const logout = () => (dispatch) => {
   dispatch({ type: RIDER_LOGOUT });
-  navigate('rider_login');
 };
