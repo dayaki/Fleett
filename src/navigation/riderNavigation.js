@@ -3,6 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import SideMenu from '../screens/rider/SideMenu';
 import Dashboard from '../screens/rider/Dashboard';
+import Earnings from '../screens/rider/Earnings';
 
 const Drawer = createDrawerNavigator();
 const options = { headerShown: false };
@@ -14,6 +15,7 @@ const RiderStack = () => {
       screenOptions={options}
       drawerContent={(props) => <SideMenu {...props} />}>
       <Drawer.Screen name="dashboard" component={Dashboard} />
+      <Drawer.Screen name="rider_earnings" component={Earnings} />
     </Drawer.Navigator>
   );
 };

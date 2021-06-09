@@ -9,9 +9,11 @@ import {
   MenuLock,
   MenuTracking,
   MenuNewOrder,
+  Star,
 } from '../../../assets/svgs';
 import { sideMenuStyles as styles } from './styles';
 import { logout } from '../../store/actions/riderActions';
+import { navigate } from '../../navigation/navigationService';
 
 const SideMenu = (props) => {
   const { profile } = useSelector((state) => state.rider);
@@ -39,7 +41,10 @@ const SideMenu = (props) => {
             title={`${profile.fname} ${profile.lname}`}
             style={styles.profileText}
           />
-          {/* <TitleText title={profile.lname} style={styles.profileText} /> */}
+          <View style={styles.profileRating}>
+            <Star color="#fff" width={18} />
+            <TitleText title="4.0" style={styles.profileRatingText} />
+          </View>
         </View>
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -49,6 +54,15 @@ const SideMenu = (props) => {
               <MenuTracking />
             </View>
             <RegularText title="Dashboard" style={styles.navItemText} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.navItem}
+            onPress={() => navigate('rider_earnings')}>
+            <View style={styles.navIcon}>
+              <MenuTracking />
+            </View>
+            <RegularText title="Earnings" style={styles.navItemText} />
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.8} style={styles.navItem}>
             <View style={styles.navIcon}>
