@@ -143,6 +143,12 @@ const Dashboard = ({ navigation }) => {
             longitude,
             user: requestData.user.socketId,
           });
+        } else {
+          socket.emit('UPDATE_RIDER_LOCATION', {
+            rider: profile._id,
+            latitude,
+            longitude,
+          });
         }
 
         setRegion({
