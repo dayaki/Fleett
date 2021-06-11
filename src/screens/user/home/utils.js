@@ -94,13 +94,13 @@ export const InitialOrder = ({ paymentType, handleDispatch, openRBSheet }) => (
   </View>
 );
 
-export const OrderView = ({ orderData, callRider }) => (
+export const OrderView = ({ rider, callRider }) => (
   <View style={styles.orderInfo}>
     <View style={styles.dash} />
     <View style={styles.orderWrapper}>
       <TitleText title="Rider is coming to you." style={styles.orderTitle} />
       <RegularText
-        title="Rider should arrive in 5 mins"
+        title="Your dispatch rider should arrive in 5 mins"
         style={[styles.orderPlateText, { textAlign: 'center', marginTop: -4 }]}
       />
       <View style={styles.orderRider}>
@@ -109,14 +109,14 @@ export const OrderView = ({ orderData, callRider }) => (
             title="Bike Plate Number"
             style={styles.orderPlateText}
           />
-          <TitleText title="APP714GD" style={styles.orderPlate} />
+          <TitleText title={rider.plateNumber} style={styles.orderPlate} />
           <RegularText
-            title={`Your rider name is Deji`}
+            title={`Your rider name is ${rider.fname}`}
             style={styles.orderName}
           />
           <View style={styles.orderRating}>
             <Star />
-            <TitleText title="4.2" style={styles.orderRatingText} />
+            <TitleText title={rider.rating} style={styles.orderRatingText} />
           </View>
         </View>
         <View>
@@ -133,7 +133,7 @@ export const OrderView = ({ orderData, callRider }) => (
       </View>
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={callRider}
+        onPress={() => callRider(rider.phone)}
         style={styles.orderCall}>
         <PhoneCall width={20} height={20} />
         <TitleText title="CALL RIDER" style={styles.orderCallText} />
