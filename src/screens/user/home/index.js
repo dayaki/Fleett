@@ -31,9 +31,7 @@ import {
 import { styles } from './styles';
 import apiService from '../../../utils/apiService';
 import { UPDATE_USER_SOCKET } from '../../../store/actions/types';
-
 const { GOOGLE_API_KEY } = Config;
-
 Geocoder.init(GOOGLE_API_KEY, { language: 'en' });
 
 const Home = ({ navigation }) => {
@@ -100,13 +98,18 @@ const Home = ({ navigation }) => {
 
       socket.on('RIDE_ACCEPTED', (data) => {
         console.log('rider accepted', data);
-        setHasOrder(data);
+        updateHasOrder(data);
       });
 
       socket.on('RIDER_LOCATION_UPDATE', (data) => {
         console.log('RIDER_LOCATION_UPDATE', data);
       });
     });
+  };
+
+  const updateHasOrder = (data) => {
+    setHasOrder(data);
+    setIsFetching(false);
   };
 
   // const updateHasError = (value) => {
@@ -188,6 +191,7 @@ const Home = ({ navigation }) => {
     refRBSheet.current.close();
   };
 
+  // Initial search
   const handleDispatch = () => {
     setHasError(null);
     setIsFetching(true);
@@ -219,6 +223,7 @@ const Home = ({ navigation }) => {
           title: 'Riders are busy now',
           label: 'Please try again in a few minutes.',
         });
+        setIsFetching(false);
       });
     // .finally(() => {
     //   setIsFetching(false);
@@ -232,8 +237,8 @@ const Home = ({ navigation }) => {
     setIsFetching(false);
   };
 
-  const handleCallRider = () => {
-    Linking.openURL('tel:07038327370');
+  const handleCallRider = (phone) => {
+    Linking.openURL(`tel:${phone}`);
   };
 
   return (
@@ -285,7 +290,7 @@ const Home = ({ navigation }) => {
         ) : (
           <View style={styles.bottomSheet}>
             {hasOrder ? (
-              <OrderView orderData={hasOrder} callRider={handleCallRider} />
+              <OrderView rider={hasOrder.rider} callRider={handleCallRider} />
             ) : (
               <>
                 {tempRider && (

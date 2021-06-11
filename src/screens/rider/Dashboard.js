@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { useSelector, useDispatch } from 'react-redux';
 import Config from 'react-native-config';
 import Geolocation from 'react-native-geolocation-service';
@@ -38,6 +38,7 @@ const Dashboard = ({ navigation }) => {
   });
   const [hasRequest, setHasRequest] = useState(false);
   const [requestData, setRequestData] = useState(null);
+  const [hasTrip, setHasTrip] = useState(false);
   const mapView = useRef();
   const dispatch = useDispatch();
 
@@ -84,6 +85,7 @@ const Dashboard = ({ navigation }) => {
       room: profile.socketId,
     };
     // socket.emit('REQUEST_ACCEPTED', payload);
+    setHasTrip(true);
     await apiService('user/accept_request', 'POST', payload);
   };
 
@@ -129,7 +131,7 @@ const Dashboard = ({ navigation }) => {
 
   const getLocation = () => {
     const options = {
-      timeout: 15000,
+      timeout: 20000,
       enableHighAccuracy: true,
       maximumAge: 1000,
       distanceFilter: 10,
@@ -292,16 +294,28 @@ const Dashboard = ({ navigation }) => {
         followsUserLocation={true}
         loadingEnabled={true}
         minZoomLevel={10}
-        ref={mapView}
-      />
+        ref={mapView}>
+        {hasTrip && (
+          <MapView.Marker
+            coordinate={{
+              latitude: requestData.pickupAddress.latlng.lat,
+              longitude: requestData.pickupAddress.latlng.lng,
+            }}
+            title={'Your pickup location.'}
+            pinColor={'#4CDB00'}
+          />
+        )}
+      </MapView>
       <RiderHeader />
-      {hasRequest ? (
-        <NewRequest
-          user={requestData.user}
-          pickup={requestData.pickupAddress}
-        />
-      ) : (
+      {!hasRequest ? (
         <RiderStatusView />
+      ) : (
+        !hasTrip && (
+          <NewRequest
+            user={requestData.user}
+            pickup={requestData.pickupAddress}
+          />
+        )
       )}
     </View>
   );

@@ -115,6 +115,7 @@ const Address = ({ onClose, onSelect, latlng, address, changeAddress }) => {
                 value={destination}
                 onChangeText={(dest) => setDestination(dest)}
                 autoFocus
+                returnKeyType="done"
                 onFocus={() => handleFocus('destination')}
               />
               {/* <TouchableOpacity style={styles.addAddress}>
