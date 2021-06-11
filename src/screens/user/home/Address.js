@@ -20,6 +20,7 @@ const Address = ({ onClose, onSelect, latlng, address, changeAddress }) => {
   const [pickupAddress, setPickupAddress] = useState(address);
   const [predictions, setPredictions] = useState([]);
   const [pickupPredictions, setPickupPredictions] = useState([]);
+  const [isLanding, setIsLanding] = useState(true);
   const inputRef = useRef();
 
   const updateQuery = async () => {
@@ -74,8 +75,10 @@ const Address = ({ onClose, onSelect, latlng, address, changeAddress }) => {
   const handleFocus = (type) => {
     if (type === 'pickup') {
       setTitle('Select pick-up location');
+      setIsLanding(false);
     } else {
       setTitle('Select destination');
+      setIsLanding(true);
     }
   };
 
@@ -147,7 +150,8 @@ const Address = ({ onClose, onSelect, latlng, address, changeAddress }) => {
               </TouchableOpacity>
             ))}
 
-          {pickupPredictions.length > 0 &&
+          {!isLanding &&
+            pickupPredictions.length > 0 &&
             pickupPredictions.map((predict) => (
               <TouchableOpacity
                 key={predict.place_id}
