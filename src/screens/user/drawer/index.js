@@ -19,7 +19,7 @@ import {
 import { styles } from './styles';
 import { userLogout } from '../../../store/actions/userActions';
 
-const DrawerMenu = () => {
+const DrawerMenu = ({ navigation }) => {
   const {
     profile: { fname, lname, photo },
   } = useSelector((state) => state.user);
@@ -50,7 +50,7 @@ const DrawerMenu = () => {
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.navItem}
-            onPress={() => Actions.home()}>
+            onPress={() => navigation.navigate('Home')}>
             <View style={styles.navIcon}>
               <MenuTracking />
             </View>
@@ -59,7 +59,7 @@ const DrawerMenu = () => {
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.navItem}
-            onPress={() => Actions.history()}>
+            onPress={() => navigation.navigate('History')}>
             <View style={styles.navIcon}>
               <MenuHistory />
             </View>
@@ -74,7 +74,7 @@ const DrawerMenu = () => {
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.navItem}
-            onPress={() => Actions.about()}>
+            onPress={() => navigation.navigate('About')}>
             <View style={styles.navIcon}>
               <MenuHelp />
             </View>

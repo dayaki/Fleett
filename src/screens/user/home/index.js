@@ -7,6 +7,7 @@ import {
   PermissionsAndroid,
   Platform,
   Linking,
+  Image,
 } from 'react-native';
 import Config from 'react-native-config';
 import { useSelector, useDispatch } from 'react-redux';
@@ -31,6 +32,8 @@ import {
 import { styles } from './styles';
 import apiService from '../../../utils/apiService';
 import { UPDATE_USER_SOCKET } from '../../../store/actions/types';
+import { regionFrom } from '../../../utils/helpers';
+import { savePickupAddress } from '../../../store/actions/userActions';
 const { GOOGLE_API_KEY } = Config;
 Geocoder.init(GOOGLE_API_KEY, { language: 'en' });
 
@@ -47,6 +50,8 @@ const Home = ({ navigation }) => {
   const [tempRider, setTempRider] = useState(null);
   const [hasOrder, setHasOrder] = useState(null);
   const [hasError, setHasError] = useState(null);
+  const [riderLocation, setRiderLocation] = useState(null);
+  const [rider, setRider] = useState(null);
   const [region, setRegion] = useState({
     latitude: 6.524379,
     longitude: 3.379206,
@@ -58,27 +63,21 @@ const Home = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // let isMounted = true;
+    // if (isMounted) {
+    //   handleSockets();
+    //   locationPermission();
+    // }
+
+    // return () => {
+    //   isMounted = false;
+    // };
     handleSockets();
-    // const socket = socketIOClient('http://bbb3bfb98f18.ngrok.io/');
-    // // socket.emit('join room', profile.socketRoom);
-    // socket.on('connect', () => {
-    //   console.log('socket id', socket.id);
-    //   socket.emit('new connection', { socket: socket.id, userId: profile._id });
-    // });
-    if (Platform.OS === 'android') {
-      requestLocationPermission();
-    } else {
-      Geolocation.requestAuthorization('whenInUse').then((status) => {
-        if (status === 'granted' || 'restricted') {
-          getLocation();
-        }
-      });
-    }
+    locationPermission();
   }, []);
 
   const handleSockets = () => {
     socket.on('connect', () => {
-      // emit USER_ONLINE event
       socket.emit('USER_ONLINE', {
         socket: socket.id,
         user: profile._id,
@@ -103,26 +102,45 @@ const Home = ({ navigation }) => {
 
       socket.on('RIDER_LOCATION_UPDATE', (data) => {
         console.log('RIDER_LOCATION_UPDATE', data);
+        updateRiderLocation(data);
       });
     });
   };
 
+  const updateRiderLocation = (data) => {
+    let regionn = regionFrom(
+      data.location.lat,
+      data.location.lng,
+      data.accuracy,
+    );
+    regionn.heading = data.heading;
+    console.log('updateRiderLocation', regionn);
+    setRiderLocation(regionn);
+    setRegion(regionn);
+    setRider({
+      lat: data.location.lat,
+      lng: data.location.lng,
+    });
+  };
+
   const updateHasOrder = (data) => {
+    let regionn = regionFrom(
+      data.rider.location.lat,
+      data.rider.location.lng,
+      data.rider.location.accuracy,
+    );
+    setRiderLocation(regionn);
+    setRider({
+      lat: data.rider.location.lat,
+      lng: data.rider.location.lng,
+      accuracy: data.rider.location.accuracy,
+    });
     setHasOrder(data);
     setIsFetching(false);
   };
 
-  // const updateHasError = (value) => {
-  //   setTempRider(null);
-  //   setIsFetching(false);
-  //   setHasError({
-  //     title: 'Riders are busy now',
-  //     label: 'Please try again in a few minutes.',
-  //   });
-  // };
-
-  const requestLocationPermission = async () => {
-    try {
+  const locationPermission = async () => {
+    if (Platform.OS === 'android') {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         {
@@ -140,14 +158,13 @@ const Home = ({ navigation }) => {
       } else {
         console.log('location permission denied');
       }
-    } catch (err) {
-      console.warn(err);
+    } else {
+      Geolocation.requestAuthorization('whenInUse').then((status) => {
+        if (status === 'granted' || 'restricted') {
+          getLocation();
+        }
+      });
     }
-  };
-
-  const changePickupAddress = ({ description }) => {
-    console.log('data', description);
-    setPickupAddress(description);
   };
 
   const getLocation = () => {
@@ -162,9 +179,7 @@ const Home = ({ navigation }) => {
         const response = await Geocoder.from({ latitude, longitude });
         const address = response.results[0].formatted_address;
         console.log('pickupAddress', address);
-        // const shortAddress = address.substring(0, address.indexOf(','));
         setPickupAddress(address);
-        // console.log('shortAddress', shortAddress);
         setRegion({
           ...region,
           latitude,
@@ -176,6 +191,10 @@ const Home = ({ navigation }) => {
       },
       options,
     );
+  };
+
+  const changePickupAddress = ({ description }) => {
+    setPickupAddress(description);
   };
 
   const chooseAddress = async (address) => {
@@ -256,7 +275,32 @@ const Home = ({ navigation }) => {
           loadingEnabled={true}
           minZoomLevel={10}
           ref={mapView}>
-          {destination && (
+          {hasOrder && (
+            <Marker
+              flat
+              coordinate={{
+                latitude: riderLocation.latitude,
+                longitude: riderLocation.longitude,
+              }}>
+              <Image
+                source={require('../../../../assets/images/bike_1.png')}
+                // eslint-disable-next-line react-native/no-inline-styles
+                style={{
+                  width: 30,
+                  height: 30,
+                  resizeMode: 'contain',
+                  transform: [
+                    {
+                      rotate: `${
+                        riderLocation.heading ? riderLocation.heading : 180
+                      }deg`,
+                    },
+                  ],
+                }}
+              />
+            </Marker>
+          )}
+          {destination && !hasOrder && (
             <MapViewDirections
               origin={{ latitude: latlng.lat, longitude: latlng.lng }}
               destination={{
@@ -269,10 +313,10 @@ const Home = ({ navigation }) => {
               onReady={(result) => {
                 mapView.current.fitToCoordinates(result.coordinates, {
                   edgePadding: {
-                    right: windowWidth / 20,
-                    bottom: windowHeight / 20,
-                    left: windowWidth / 20,
-                    top: windowHeight / 20,
+                    right: windowWidth / 50,
+                    bottom: windowHeight / 50,
+                    left: windowWidth / 50,
+                    top: windowHeight / 50,
                   },
                 });
               }}

@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { RegularText, BackView, hp, ScarpaFlow } from '../../../common';
+import { RegularText, BackView, hp, ScarpaFlow } from '../../common';
 
-const About = () => {
+const About = ({ navigation }) => {
   return (
-    <BackView isScroll title="About us">
+    <BackView isScroll title="About us" backAction={() => navigation.goBack()}>
       <RegularText
         title="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
         style={styles.text}
@@ -31,9 +31,10 @@ const About = () => {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: hp(17),
+    fontSize: hp(16),
     color: ScarpaFlow,
     marginBottom: hp(15),
+    fontWeight: 'normal',
   },
 });
 

@@ -172,9 +172,9 @@ export const historyStyles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   avatar: {
-    width: wp(28),
-    height: hp(28),
-    borderRadius: 14,
+    width: wp(30),
+    height: hp(30),
+    borderRadius: 15,
   },
   headerTitle: {
     color: Colors.Woodsmoke,

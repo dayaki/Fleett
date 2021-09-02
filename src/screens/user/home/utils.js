@@ -1,5 +1,13 @@
 import React from 'react';
-import { View, TouchableOpacity, Image } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Image,
+  PermissionsAndroid,
+  Platform,
+} from 'react-native';
+import Geolocation from 'react-native-geolocation-service';
+
 import {
   Cash,
   CheckMark,
@@ -100,7 +108,7 @@ export const OrderView = ({ rider, callRider }) => (
     <View style={styles.orderWrapper}>
       <TitleText title="Rider is coming to you." style={styles.orderTitle} />
       <RegularText
-        title="Your dispatch rider should arrive in 5 mins"
+        title="Your dispatch rider should arrive in 5 mins."
         style={[styles.orderPlateText, { textAlign: 'center', marginTop: -4 }]}
       />
       <View style={styles.orderRider}>

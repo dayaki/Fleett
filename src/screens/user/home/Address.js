@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   TextInput,
   ScrollView,
+  Platform,
 } from 'react-native';
 import Config from 'react-native-config';
 import debounce from 'lodash/debounce';
@@ -55,6 +56,12 @@ const Address = ({ onClose, onSelect, latlng, address, changeAddress }) => {
   const delayedPickupQuery = useCallback(debounce(updatePickupQuery, 1000), [
     pickupAddress,
   ]);
+
+  useEffect(() => {
+    Platform.OS === 'ios'
+      ? inputRef.current.focus()
+      : setTimeout(() => inputRef.current.focus(), 150);
+  }, []);
 
   useEffect(() => {
     delayedQuery();
@@ -114,7 +121,6 @@ const Address = ({ onClose, onSelect, latlng, address, changeAddress }) => {
                 style={styles.addressInput}
                 value={destination}
                 onChangeText={(dest) => setDestination(dest)}
-                autoFocus
                 returnKeyType="done"
                 onFocus={() => handleFocus('destination')}
               />

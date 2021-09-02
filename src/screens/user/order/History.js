@@ -25,7 +25,7 @@ const HistoryItem = () => (
   </View>
 );
 
-const History = () => {
+const History = ({ navigation }) => {
   const { fname, photo } = useSelector((state) => state.user.profile);
 
   return (
@@ -36,7 +36,7 @@ const History = () => {
           <View style={styles.topHeader}>
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => Actions.drawerOpen()}>
+              onPress={() => navigation.toggleDrawer()}>
               <Image
                 source={{
                   uri: photo
@@ -58,7 +58,7 @@ const History = () => {
           </View>
         </View>
         <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
-          <NoContentView title="No order history here yet" />
+          <NoContentView title="No order history just yet." />
           {/* <HistoryItem />
         <HistoryItem /> */}
         </ScrollView>
