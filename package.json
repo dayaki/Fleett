@@ -8,6 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint ./src --fix",
+    "precommit": "npm run lint",
+    "build-apk": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
     "build-android": "cd android && ./gradlew clean && ./gradlew assembleRelease && ./gradlew bundleRelease && cd ..",
     "pod-update": "npm install && cd ios && pod install && cd ..",
     "postinstall": "patch-package"
@@ -68,12 +70,20 @@
     "@bam.tech/react-native-make": "^3.0.0",
     "@react-native-community/eslint-config": "^1.1.0",
     "babel-jest": "^25.1.0",
-    "eslint": "^6.5.1",
     "jest": "^25.1.0",
     "jest-fetch-mock": "^3.0.3",
     "metro-react-native-babel-preset": "^0.59.0",
     "react-native-testing-library": "^6.0.0",
-    "react-test-renderer": "16.13.1"
+    "react-test-renderer": "16.13.1",
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "eslint": "^7.14.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^4.3.8"
   },
   "jest": {
     "preset": "react-native",
