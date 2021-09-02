@@ -37,7 +37,7 @@ const Login = () => {
         />
         <TitleText title="Make More Money." style={styles.title} />
         <RegularText
-          title="Enter your credentials to access your dashboard."
+          title="Enter your credentials to access your rider's dashboard."
           style={styles.introText}
         />
         <Formik

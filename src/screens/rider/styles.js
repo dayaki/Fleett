@@ -25,11 +25,11 @@ export const loginStyles = StyleSheet.create({
   introText: {
     color: Colors.SilverChalice,
     fontSize: hp(15),
-    lineHeight: hp(18),
-    width: '50%',
+    lineHeight: hp(21),
+    width: '70%',
   },
   form: {
-    marginTop: hp(85),
+    marginTop: hp(70),
   },
   input: {
     marginBottom: hp(45),
@@ -39,9 +39,11 @@ export const loginStyles = StyleSheet.create({
     height: hp(50),
     borderRadius: 6,
     paddingVertical: hp(6),
-    paddingLeft: wp(20),
-    fontSize: hp(12),
+    paddingLeft: wp(10),
+    fontSize: hp(16),
     color: Colors.ScarpaFlow,
+    borderBottomColor: 'rgba(0,0,0,0.1)',
+    borderBottomWidth: 1,
   },
   button: {
     marginTop: hp(55),

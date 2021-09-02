@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Config from 'react-native-config';
 import Geolocation from 'react-native-geolocation-service';
 import Geocoder from 'react-native-geocoding';
+import Haversine from 'haversine';
 import { socket } from '../../utils/socket';
 import { TitleText, RegularText } from '../../common';
 import {
@@ -25,35 +26,144 @@ import { UPDATE_RIDER_SOCKET } from '../../store/actions/types';
 import { dashboardStyles as styles } from './styles';
 import { updateRiderStatus } from '../../store/actions/riderActions';
 import apiService from '../../utils/apiService';
+import { regionFrom, getLatLonDiffInMeters } from '../../utils/helpers';
 const { GOOGLE_API_KEY } = Config;
 Geocoder.init(GOOGLE_API_KEY, { language: 'en' });
 
+// GeoLocation option
+const options = {
+  timeout: 20000,
+  enableHighAccuracy: true,
+  maximumAge: 1000,
+  distanceFilter: 10,
+};
+
 const Dashboard = ({ navigation }) => {
   const { profile } = useSelector((state) => state.rider);
-  const [region, setRegion] = useState({
-    latitude: 6.524379,
-    longitude: 3.379206,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
+  const [region, setRegion] = useState(null); // for storing the current location of the rider
+  const [accuracy, setAccuracy] = useState(null); // for storing the accuracy of the location
+
+  const [hasTrip, setHasTrip] = useState(false); // whether the driver has a trip (once they agree to a request, this becomes true)
+  const [tripUser, setTripUser] = useState(null); // for storing the passenger info
+  const [tripData, setTripData] = useState(null);
+
+  const [isNearby, setIsNearby] = useState(false); // whether the nearby alert has already been issued
+  const [nearbyAlert, setNearbyAlert] = useState(false); // whether the nearby alert has already been issued
+  const [tripCompleted, setTripCompleted] = useState(false); // whether the trip has already ridden the vehicle
+
+  // const [watchId, setWatchId] = useState(null);
+
   const [hasRequest, setHasRequest] = useState(false);
   const [requestData, setRequestData] = useState(null);
-  const [hasTrip, setHasTrip] = useState(false);
   const mapView = useRef();
   const dispatch = useDispatch();
+  const watchId = useRef(null);
 
   useEffect(() => {
-    handleSockets();
-    if (Platform.OS === 'android') {
-      requestLocationPermission();
-    } else {
-      Geolocation.requestAuthorization('whenInUse').then((status) => {
-        if (status === 'granted' || 'restricted') {
-          getLocation();
-        }
-      });
+    let isMounted = true;
+    if (isMounted) {
+      handleSockets();
+      if (Platform.OS === 'android') {
+        requestLocationPermission();
+      } else {
+        Geolocation.requestAuthorization('whenInUse').then((status) => {
+          if (status === 'granted' || 'restricted') {
+            getLocation();
+          }
+        });
+      }
     }
-  }, []);
+
+    return () => {
+      if (watchId.current) {
+        console.log('GEOLOCATION WATCH: stop watch');
+        Geolocation.clearWatch(watchId.current);
+        watchId.current = null;
+      }
+      isMounted = false;
+    };
+  }, [hasTrip]);
+
+  // switch location watch
+  // useEffect(() => {
+  //   console.log('START GEOLOCATION WATCH', watchId.current);
+  //   if (watchId.current) {
+  //     console.log('GEOLOCATION WATCH: stop watch');
+  //     Geolocation.clearWatch(watchId.current);
+  //     watchId.current = null;
+  //   }
+  //   if (hasTrip) {
+  //     watchId.current = Geolocation.watchPosition(
+  //       async (position) => {
+  //         const newRegion = regionFrom(
+  //           position.coords.latitude,
+  //           position.coords.longitude,
+  //           position.coords.accuracy,
+  //         );
+  //         setRegion(newRegion);
+  //         setAccuracy(position.coords.accuracy);
+  //         console.log('getLocation....hasTrip', requestData);
+  //         socket.emit('TRIP_RIDER_LOCATION', {
+  //           rider: profile._id,
+  //           location: { lat: newRegion.latitude, lng: newRegion.longitude },
+  //           accuracy: position.coords.accuracy,
+  //           user: requestData.user._id,
+  //         });
+
+  //         // next: add code for sending driver's current location to passenger
+  //         const userRiderDiffMetter = getLatLonDiffInMeters(
+  //           position.coords.latitude,
+  //           position.coords.longitude,
+  //           requestData.pickupAddress.latlng.lat,
+  //           requestData.pickupAddress.latlng.lng,
+  //         );
+  //         console.log('distance diff', userRiderDiffMetter);
+  //         if (userRiderDiffMetter <= 20) {
+  //           console.log('rider is very near to user');
+  //           if (!tripCompleted) {
+  //             // inform user that the rider is very near
+  //             socket.emit('RIDER_NEARBY', { userId: requestData.user._id });
+  //           }
+  //         } else if (userRiderDiffMetter <= 50) {
+  //           console.log('rider getting close....');
+  //         }
+  //       },
+  //       (error) => {
+  //         console.log('errrrr', error);
+  //       },
+  //       options,
+  //     );
+  //   } else {
+  //     watchId.current = Geolocation.watchPosition(
+  //       async (position) => {
+  //         const newRegion = regionFrom(
+  //           position.coords.latitude,
+  //           position.coords.longitude,
+  //           position.coords.accuracy,
+  //         );
+  //         setRegion(newRegion);
+  //         setAccuracy(position.coords.accuracy);
+  //         socket.emit('RIDER_LOCATION_UPDATE', {
+  //           rider: profile._id,
+  //           location: { lat: newRegion.latitude, lng: newRegion.longitude },
+  //           accuracy: position.coords.accuracy,
+  //         });
+  //       },
+  //       (error) => {
+  //         console.log('errrrr', error);
+  //       },
+  //       options,
+  //     );
+  //   }
+
+  //   return () => {
+  //     if (watchId.current) {
+  //       console.log('GEOLOCATION WATCH: stop watch');
+  //       Geolocation.clearWatch(watchId.current);
+  //       watchId.current = null;
+  //     }
+  //   };
+  // }, [hasTrip]);
 
   const handleSockets = () => {
     socket.on('connect', () => {
@@ -65,16 +175,18 @@ const Dashboard = ({ navigation }) => {
       });
       dispatch({ type: UPDATE_RIDER_SOCKET, payload: socket.id });
 
+      // New dispatch request
       socket.on('NEW_REQUEST', (data) => {
-        setRequestData(data);
-        updateHasRequest(true);
-        console.log('new request data', data);
+        updateHasRequest(data);
       });
     });
   };
 
-  const callUser = () => {
-    alert('Call user...');
+  // New dispatch request
+  const updateHasRequest = (data) => {
+    console.log('new request data', data);
+    setRequestData(data);
+    setHasRequest(true);
   };
 
   const acceptRequest = async () => {
@@ -84,9 +196,11 @@ const Dashboard = ({ navigation }) => {
       riderId: profile._id,
       room: profile.socketId,
     };
-    // socket.emit('REQUEST_ACCEPTED', payload);
+    // setTripUser(requestData.user);
+    // setTripData()
     setHasTrip(true);
-    await apiService('user/accept_request', 'POST', payload);
+    const response = await apiService('user/accept_request', 'POST', payload);
+    console.log('acceptRequest', response);
   };
 
   const dismissRequest = async () => {
@@ -98,11 +212,6 @@ const Dashboard = ({ navigation }) => {
     setHasRequest(false);
     setRequestData(null);
     await apiService('user/cancel_request', 'POST', payload);
-  };
-
-  const updateHasRequest = (value) => {
-    console.log('calling he.....');
-    setHasRequest(value);
   };
 
   const requestLocationPermission = async () => {
@@ -129,42 +238,145 @@ const Dashboard = ({ navigation }) => {
     }
   };
 
-  const getLocation = () => {
-    const options = {
-      timeout: 20000,
-      enableHighAccuracy: true,
-      maximumAge: 1000,
-      distanceFilter: 10,
-    };
-    Geolocation.watchPosition(
-      async ({ coords: { latitude, longitude } }) => {
-        if (requestData) {
-          console.log('new location...', { latitude, longitude });
-          socket.emit('RIDER_LOCATION_UPDATE', {
-            latitude,
-            longitude,
-            user: requestData.user.socketId,
-          });
-        } else {
-          socket.emit('UPDATE_RIDER_LOCATION', {
+  const getLocation = async () => {
+    console.log('getLocation START', watchId.current);
+    if (watchId.current) {
+      console.log('GEOLOCATION WATCH: stop watch');
+      Geolocation.clearWatch(watchId.current);
+      watchId.current = null;
+    }
+    if (hasTrip) {
+      watchId.current = Geolocation.watchPosition(
+        async (position) => {
+          const newRegion = regionFrom(
+            position.coords.latitude,
+            position.coords.longitude,
+            position.coords.accuracy,
+          );
+          setRegion(newRegion);
+          setAccuracy(position.coords.accuracy);
+          console.log('getLocation....hasTrip', requestData);
+          socket.emit('TRIP_RIDER_LOCATION', {
             rider: profile._id,
-            latitude,
-            longitude,
+            location: { lat: newRegion.latitude, lng: newRegion.longitude },
+            accuracy: position.coords.accuracy,
+            heading: position.coords.heading,
+            user: requestData.user._id,
           });
-        }
 
-        setRegion({
-          ...region,
-          latitude,
-          longitude,
-        });
-      },
-      (error) => {
-        console.log('errrrr', error);
-      },
-      options,
-    );
+          // next: add code for sending driver's current location to passenger
+          const userRiderDiffMetter = await getLatLonDiffInMeters(
+            position.coords.latitude,
+            position.coords.longitude,
+            requestData.pickupAddress.latlng.lat,
+            requestData.pickupAddress.latlng.lng,
+          );
+          const userRiderDiffMetter2 = Haversine(
+            {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            },
+            {
+              latitude: requestData.pickupAddress.latlng.lat,
+              longitude: requestData.pickupAddress.latlng.lng,
+            },
+          );
+          console.log('distance diff', userRiderDiffMetter);
+          console.log('distance diff 2', userRiderDiffMetter2);
+          if (userRiderDiffMetter <= 20) {
+            console.log('rider is very near to user');
+            if (!tripCompleted) {
+              // inform user that the rider is very near
+              socket.emit('RIDER_NEARBY', { userId: requestData.user._id });
+            }
+          } else if (userRiderDiffMetter <= 50) {
+            console.log('rider getting close....');
+          }
+        },
+        (error) => {
+          console.log('errrrr', error);
+        },
+        options,
+      );
+    } else {
+      watchId.current = Geolocation.watchPosition(
+        async (position) => {
+          console.log('gelo', position);
+          const newRegion = regionFrom(
+            position.coords.latitude,
+            position.coords.longitude,
+            position.coords.accuracy,
+          );
+          setRegion({
+            ...newRegion,
+            latitudeDelta: 0.005,
+            longitudeDelta: 0.005,
+          });
+          setAccuracy(position.coords.accuracy);
+          socket.emit('RIDER_LOCATION_UPDATE', {
+            rider: profile._id,
+            location: { lat: newRegion.latitude, lng: newRegion.longitude },
+            accuracy: position.coords.accuracy,
+          });
+        },
+        (error) => {
+          console.log('errrrr', error);
+        },
+        options,
+      );
+    }
+    // Geolocation.watchPosition(
+    //   async (position) => {
+    //     const newRegion = regionFrom(
+    //       position.coords.latitude,
+    //       position.coords.longitude,
+    //       position.coords.accuracy,
+    //     );
+    //     setRegion(newRegion);
+    //     setAccuracy(position.coords.accuracy);
+    //     console.log('getLocation....', requestData);
+    //     socket.emit('UPDATE_RIDER_LOCATION', {
+    //       rider: profile._id,
+    //       location: { lat: newRegion.latitude, lng: newRegion.longitude },
+    //       accuracy: position.coords.accuracy,
+    //     });
+    //   },
+    //   (error) => {
+    //     console.log('errrrr', error);
+    //   },
+    //   options,
+    // );
   };
+
+  // const watchRiderLocation = async () => {
+  //   const options = {
+  //     timeout: 20000,
+  //     enableHighAccuracy: true,
+  //     maximumAge: 1000,
+  //     distanceFilter: 10,
+  //   };
+  //   Geolocation.watchPosition(
+  //     async (position) => {
+  //       const newRegion = regionFrom(
+  //         position.coords.latitude,
+  //         position.coords.longitude,
+  //         position.coords.accuracy,
+  //       );
+  //       setRegion(newRegion);
+  //       setAccuracy(position.coords.accuracy);
+  //       console.log('getLocation....', requestData);
+  //       socket.emit('UPDATE_RIDER_LOCATION', {
+  //         rider: profile._id,
+  //         location: { lat: newRegion.latitude, lng: newRegion.longitude },
+  //         accuracy: position.coords.accuracy,
+  //       });
+  //     },
+  //     (error) => {
+  //       console.log('errrrr', error);
+  //     },
+  //     options,
+  //   );
+  // };
 
   const handleStatus = (type) => {
     dispatch(updateRiderStatus({ user: profile._id, status: type }));
@@ -284,6 +496,10 @@ const Dashboard = ({ navigation }) => {
     </View>
   );
 
+  const callUser = () => {
+    alert('Call user...');
+  };
+
   return (
     <View style={styles.container}>
       <MapView
@@ -293,10 +509,10 @@ const Dashboard = ({ navigation }) => {
         showsUserLocation={true}
         followsUserLocation={true}
         loadingEnabled={true}
-        minZoomLevel={10}
+        showsTraffic={true}
         ref={mapView}>
         {hasTrip && (
-          <MapView.Marker
+          <Marker
             coordinate={{
               latitude: requestData.pickupAddress.latlng.lat,
               longitude: requestData.pickupAddress.latlng.lng,
