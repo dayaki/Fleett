@@ -78,7 +78,7 @@ const Register = ({ navigation }) => {
                   value={values.fname}
                   onChange={handleChange('fname')}
                   onBlur={handleBlur('fname')}
-                  error={errors.fname ? true : false}
+                  error={!!errors.fname}
                   disable={loading}
                 />
                 {errors.fname && touched.fname ? (
@@ -94,7 +94,7 @@ const Register = ({ navigation }) => {
                   value={values.lname}
                   onChange={handleChange('lname')}
                   onBlur={handleBlur('lname')}
-                  error={errors.lname ? true : false}
+                  error={!!errors.lname}
                   disable={loading}
                 />
                 {errors.lname && touched.lname ? (
@@ -110,7 +110,7 @@ const Register = ({ navigation }) => {
                   value={values.phone}
                   onChange={handleChange('phone')}
                   onBlur={handleBlur('phone')}
-                  error={errors.phone ? true : false}
+                  error={!!errors.phone}
                   keyboardType="numeric"
                   disable={loading}
                 />
@@ -145,7 +145,7 @@ const Register = ({ navigation }) => {
                   value={values.password}
                   onChange={handleChange('password')}
                   onBlur={handleBlur('password')}
-                  error={errors.password ? true : false}
+                  error={!!errors.password}
                   capitalize="none"
                   password
                   disable={loading}

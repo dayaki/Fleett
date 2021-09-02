@@ -8,22 +8,21 @@ import {
   StatusBar,
   SafeAreaView,
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { useSelector } from 'react-redux';
 import { RegularText, NoContentView } from '../../../common';
-import { ActiveBellBlack, BoxIcon } from '../../../../assets/svgs';
+import { ActiveBellBlack } from '../../../../assets/svgs';
 import { historyStyles as styles } from './styles';
 
-const HistoryItem = () => (
-  <View style={styles.historyItem}>
-    <BoxIcon />
-    <View style={styles.historyItemTexts}>
-      <RegularText title="Mary Akinlapa" style={styles.itemName} />
-      <RegularText title="In Progress" style={styles.itemStatus} />
-    </View>
-    <RegularText title="10-01-2021" style={styles.itemDate} />
-  </View>
-);
+// const HistoryItem = () => (
+//   <View style={styles.historyItem}>
+//     <BoxIcon />
+//     <View style={styles.historyItemTexts}>
+//       <RegularText title="Mary Akinlapa" style={styles.itemName} />
+//       <RegularText title="In Progress" style={styles.itemStatus} />
+//     </View>
+//     <RegularText title="10-01-2021" style={styles.itemDate} />
+//   </View>
+// );
 
 const History = ({ navigation }) => {
   const { fname, photo } = useSelector((state) => state.user.profile);
@@ -39,9 +38,9 @@ const History = ({ navigation }) => {
               onPress={() => navigation.toggleDrawer()}>
               <Image
                 source={{
-                  uri: photo
-                    ? photo
-                    : 'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
+                  uri:
+                    photo ||
+                    'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
                 }}
                 style={styles.avatar}
               />

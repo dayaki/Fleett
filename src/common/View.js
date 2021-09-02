@@ -53,8 +53,8 @@ export const BottomSheet = ({ openRef, height, render, lock }) => (
   <RBSheet
     ref={openRef}
     height={height}
-    closeOnPressMask={lock ? false : true}
-    closeOnPressBack={lock ? false : true}
+    closeOnPressMask={!lock}
+    closeOnPressBack={!lock}
     customStyles={{
       wrapper: {
         backgroundColor: 'rgba(20,20,20,0.87)',

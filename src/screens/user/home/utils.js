@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  View,
-  TouchableOpacity,
-  Image,
-  PermissionsAndroid,
-  Platform,
-} from 'react-native';
-import Geolocation from 'react-native-geolocation-service';
+import { View, TouchableOpacity, Image } from 'react-native';
 
 import {
   Cash,
@@ -237,7 +230,7 @@ export const UnavailableView = () => (
 export const RiderPopView = ({ name, time, photo }) => (
   <View style={styles.popView}>
     <Image
-      source={{ uri: photo ? photo : 'https://placeimg.com/640/640/people' }}
+      source={{ uri: photo || 'https://placeimg.com/640/640/people' }}
       resizeMode="cover"
       style={styles.popViewImage}
     />

@@ -27,6 +27,7 @@ import { dashboardStyles as styles } from './styles';
 import { updateRiderStatus } from '../../store/actions/riderActions';
 import apiService from '../../utils/apiService';
 import { regionFrom, getLatLonDiffInMeters } from '../../utils/helpers';
+
 const { GOOGLE_API_KEY } = Config;
 Geocoder.init(GOOGLE_API_KEY, { language: 'en' });
 
@@ -44,11 +45,11 @@ const Dashboard = ({ navigation }) => {
   const [accuracy, setAccuracy] = useState(null); // for storing the accuracy of the location
 
   const [hasTrip, setHasTrip] = useState(false); // whether the driver has a trip (once they agree to a request, this becomes true)
-  const [tripUser, setTripUser] = useState(null); // for storing the passenger info
-  const [tripData, setTripData] = useState(null);
+  // const [tripUser, setTripUser] = useState(null); // for storing the passenger info
+  // const [tripData, setTripData] = useState(null);
 
-  const [isNearby, setIsNearby] = useState(false); // whether the nearby alert has already been issued
-  const [nearbyAlert, setNearbyAlert] = useState(false); // whether the nearby alert has already been issued
+  // const [isNearby, setIsNearby] = useState(false); // whether the nearby alert has already been issued
+  // const [nearbyAlert, setNearbyAlert] = useState(false); // whether the nearby alert has already been issued
   const [tripCompleted, setTripCompleted] = useState(false); // whether the trip has already ridden the vehicle
 
   // const [watchId, setWatchId] = useState(null);
@@ -60,6 +61,7 @@ const Dashboard = ({ navigation }) => {
   const watchId = useRef(null);
 
   useEffect(() => {
+    console.log('ignore logs', accuracy, setTripCompleted);
     let isMounted = true;
     if (isMounted) {
       handleSockets();
@@ -67,6 +69,7 @@ const Dashboard = ({ navigation }) => {
         requestLocationPermission();
       } else {
         Geolocation.requestAuthorization('whenInUse').then((status) => {
+          // eslint-disable-next-line no-constant-condition
           if (status === 'granted' || 'restricted') {
             getLocation();
           }

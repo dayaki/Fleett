@@ -28,12 +28,12 @@ setCustomText(customTextProps);
 setCustomImage(customImageProps);
 
 // Add a request interceptor
-axios.interceptors.request.use(function (config) {
+axios.interceptors.request.use((config) => {
   const token =
     store.getState().user.profile?.token ||
     store.getState().rider.profile?.token;
-  console.log('token', token);
   if (token) {
+    // eslint-disable-next-line no-param-reassign
     config.headers.Authorization = `Bearer ${token}`;
   }
 
@@ -62,7 +62,7 @@ const App = () => {
           'OneSignal: notification will show in foreground:',
           notificationReceivedEvent,
         );
-        let notification = notificationReceivedEvent.getNotification();
+        const notification = notificationReceivedEvent.getNotification();
         console.log('notification: ', notification);
         const data = notification.additionalData;
         console.log('additionalData: ', data);

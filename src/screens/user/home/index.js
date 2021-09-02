@@ -4,7 +4,6 @@ import {
   SafeAreaView,
   StatusBar,
   useWindowDimensions,
-  PermissionsAndroid,
   Platform,
   Linking,
   Image,
@@ -33,11 +32,12 @@ import { styles } from './styles';
 import apiService from '../../../utils/apiService';
 import { UPDATE_USER_SOCKET } from '../../../store/actions/types';
 import { regionFrom } from '../../../utils/helpers';
-import { savePickupAddress } from '../../../store/actions/userActions';
+// import { savePickupAddress } from '../../../store/actions/userActions';
+
 const { GOOGLE_API_KEY } = Config;
 Geocoder.init(GOOGLE_API_KEY, { language: 'en' });
 
-const Home = ({ navigation }) => {
+const Home = () => {
   const { profile } = useSelector((state) => state.user);
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
@@ -93,7 +93,7 @@ const Home = ({ navigation }) => {
       });
 
       socket.on('RIDE_ACCEPTED', (data) => {
-        console.log('rider accepted', data);
+        console.log('rider accepted', data, rider);
         updateHasOrder(data);
       });
 
@@ -195,7 +195,7 @@ const Home = ({ navigation }) => {
   // };
 
   const updateRiderLocation = (data) => {
-    let regionn = regionFrom(
+    const regionn = regionFrom(
       data.location.lat,
       data.location.lng,
       data.accuracy,
@@ -211,7 +211,7 @@ const Home = ({ navigation }) => {
   };
 
   const updateHasOrder = (data) => {
-    let regionn = regionFrom(
+    const regionn = regionFrom(
       data.rider.location.lat,
       data.rider.location.lng,
       data.rider.location.accuracy,
@@ -320,7 +320,6 @@ const Home = ({ navigation }) => {
               }}>
               <Image
                 source={require('../../../../assets/images/bike_1.png')}
-                // eslint-disable-next-line react-native/no-inline-styles
                 style={{
                   width: 30,
                   height: 30,
@@ -360,10 +359,7 @@ const Home = ({ navigation }) => {
           )}
         </MapView>
 
-        <NavButton
-          onReset={resetNav}
-          isBack={destination && !tempRider ? true : false}
-        />
+        <NavButton onReset={resetNav} isBack={!!(destination && !tempRider)} />
 
         {!destination ? (
           <InitialView showModal={() => setShowModal(!showModal)} />

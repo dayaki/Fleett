@@ -32,6 +32,7 @@ const apiService = (url, type, data, headers) => {
       .then((res) => {
         resolve(res.data || res);
       })
+      // eslint-disable-next-line consistent-return
       .catch((error) => {
         console.log('error', error);
         if (error && !error.response) {

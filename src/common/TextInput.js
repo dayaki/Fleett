@@ -26,8 +26,8 @@ export const Input = ({
       style={styles.textInput}
       autoCapitalize={capitalize}
       secureTextEntry={secure}
-      keyboardType={keyboardType ? keyboardType : 'default'}
-      editable={disable ? false : true}
+      keyboardType={keyboardType || 'default'}
+      editable={!disable}
     />
     {error && <Text style={styles.error}>{error}</Text>}
   </View>

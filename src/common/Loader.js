@@ -4,7 +4,7 @@ import LottieView from 'lottie-react-native';
 import { loadingBar } from '../../assets/lotties';
 import { wp } from './utils';
 
-export const Loader = ({}) => (
+export const Loader = () => (
   <View style={styles.container}>
     <LottieView source={loadingBar} autoPlay loop style={styles.lottieView} />
   </View>

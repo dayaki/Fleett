@@ -9,10 +9,10 @@ import {
   Button,
   DoubleText,
 } from '../../common';
-import { Email, Password, User, Phone } from '../../../assets/svgs';
+import { Email } from '../../../assets/svgs';
 import { registerStyles as styles } from './styles';
 
-const ForgotPass = ({}) => {
+const ForgotPass = () => {
   return (
     <BackView isScroll>
       <View style={styles.texts}>

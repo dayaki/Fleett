@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { useSelector, useDispatch } from 'react-redux';
 import { TitleText, RegularText } from '../../../common';
 import {
@@ -14,7 +13,6 @@ import {
   MenuHistory,
   MenuLock,
   MenuTracking,
-  MenuNewOrder,
 } from '../../../../assets/svgs';
 import { styles } from './styles';
 import { userLogout } from '../../../store/actions/userActions';
@@ -35,9 +33,9 @@ const DrawerMenu = ({ navigation }) => {
         <View style={styles.profile}>
           <Image
             source={{
-              uri: photo
-                ? photo
-                : 'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
+              uri:
+                photo ||
+                'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
             }}
             style={styles.profileImage}
           />

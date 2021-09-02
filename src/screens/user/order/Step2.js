@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -25,7 +25,6 @@ import {
 import { styles } from './styles';
 import { PREPARE_ORDER } from '../../../store/actions/types';
 import { initiateOrder } from '../../../store/actions/userActions';
-import { useEffect } from 'react';
 
 const FormSchema = Yup.object().shape({
   recipient_name: Yup.string().required('Name of recipient is required.'),
@@ -43,7 +42,7 @@ const OrderTwo = () => {
   const orderBottomSheet = useRef();
 
   const prepareOrder = (data) => {
-    let payload = data;
+    const payload = data;
     payload.amount = 1500;
     dispatch({ type: PREPARE_ORDER, payload });
     orderBottomSheet.current.open();

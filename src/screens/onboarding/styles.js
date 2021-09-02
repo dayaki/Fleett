@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
   },
   texts: {
     marginTop: hp(100),
-    width: width,
+    width,
     flex: 1,
     paddingHorizontal: wp(50),
     justifyContent: 'flex-end',

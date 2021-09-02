@@ -1,8 +1,8 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as Colors from '../../common';
 import { wp, hp } from '../../common/utils';
 
-const { width } = Dimensions.get('screen');
+// const { width } = Dimensions.get('screen');
 
 export const loginStyles = StyleSheet.create({
   container: {

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Config from 'react-native-config';
 import debounce from 'lodash/debounce';
-import { Close, PlusIcon, MapPin } from '../../../../assets/svgs';
+import { Close, MapPin } from '../../../../assets/svgs';
 import { RegularText, TitleText } from '../../../common';
 import { modalStyles as styles } from './styles';
 
@@ -58,6 +58,7 @@ const Address = ({ onClose, onSelect, latlng, address, changeAddress }) => {
   ]);
 
   useEffect(() => {
+    // eslint-disable-next-line no-unused-expressions
     Platform.OS === 'ios'
       ? inputRef.current.focus()
       : setTimeout(() => inputRef.current.focus(), 150);
