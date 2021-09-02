@@ -14,6 +14,8 @@ import {
   INITIATE_ORDER_SUCESS,
   INITIATE_ORDER_ERROR,
   UPDATE_USER_SOCKET,
+  SAVE_DESTINATION,
+  SAVE_PICKUP,
 } from '../actions/types';
 
 const initialState = {
@@ -26,6 +28,8 @@ const initialState = {
   loginError: '',
   registerError: '',
   closeBottomSheet: false,
+  pickup: {},
+  destination: {},
 };
 
 export default (state = initialState, action) => {
@@ -34,6 +38,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         tempOrder: { ...state.tempOrder, ...action.payload },
+      };
+    case SAVE_DESTINATION:
+      return {
+        ...state,
+        destination: action.payload,
+      };
+    case SAVE_PICKUP:
+      return {
+        ...state,
+        pickup: action.payload,
       };
     case INITIATE_ORDER:
       return {

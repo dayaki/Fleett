@@ -25,7 +25,7 @@ const apiService = (url, type, data, headers) => {
     console.log('URL =>', `${LOCALHOST}${url}`);
     axios({
       method: type,
-      url: `${LOCALHOST}${url}`,
+      url: `${BASE_URL}${url}`,
       data,
       headers: init,
     })

@@ -77,6 +77,7 @@
 		C88E8828669C83B2D3DE556B /* Pods-Fleett-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fleett-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Fleett-tvOSTests/Pods-Fleett-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D3251F04260D55E2002753DB /* Fleett-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Fleett-Bridging-Header.h"; sourceTree = "<group>"; };
 		D3251F05260D55E2002753DB /* Bridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bridge.swift; sourceTree = "<group>"; };
+		D33CF7B526712BBC00235EFD /* Home To Population Censor.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Home To Population Censor.gpx"; sourceTree = "<group>"; };
 		D39A43ED26147FA70048367A /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
 		E406F928487A5C45C2618354 /* libPods-Fleett-FleettTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Fleett-FleettTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -189,6 +190,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D33CF7B526712BBC00235EFD /* Home To Population Censor.gpx */,
 				D39A43ED26147FA70048367A /* SplashScreen.storyboard */,
 				D3251F05260D55E2002753DB /* Bridge.swift */,
 				13B07FAE1A68108700A75B9A /* Fleett */,

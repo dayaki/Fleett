@@ -8,10 +8,13 @@ export const CREATE_ACCOUNT_ERROR = 'create_account_error';
 
 export const UPDATE_USER_SOCKET = 'update_user_socket';
 
+// User Types
 export const LOGIN_USER = 'login_user';
 export const LOGIN_USER_SUCCESS = 'login_user_success';
 export const LOGIN_USER_ERROR = 'login_user_error';
 export const LOGOUT_USER = 'logout_user';
+export const SAVE_PICKUP = 'save_pickup';
+export const SAVE_DESTINATION = 'save_destination';
 
 export const TRACK_SHIPMENT = 'track_shipment';
 export const TRACK_SHIPMENT_SUCCESS = 'track_shipment_success';

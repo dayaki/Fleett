@@ -14,6 +14,8 @@ import {
   INITIATE_ORDER,
   INITIATE_ORDER_SUCESS,
   INITIATE_ORDER_ERROR,
+  SAVE_PICKUP,
+  SAVE_DESTINATION,
 } from './types';
 import { showToast } from '../../common';
 
@@ -54,6 +56,14 @@ export const createAccount = (user) => (dispatch) => {
         payload: error.error,
       });
     });
+};
+
+export const savePickupAddress = (address) => (dispatch) => {
+  dispatch({ type: SAVE_PICKUP, payload: address });
+};
+
+export const saveDestination = (address) => (dispatch) => {
+  dispatch({ type: SAVE_DESTINATION, payload: address });
 };
 
 export const trackOrder = (trackNumber) => (dispatch) => {
