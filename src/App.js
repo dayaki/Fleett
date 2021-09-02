@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { Alert } from 'react-native';
+import { Alert, PermissionsAndroid, Platform } from 'react-native';
 import { setCustomText, setCustomImage } from 'react-native-global-props';
 import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'react-redux';
+import Geolocation from 'react-native-geolocation-service';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { PersistGate } from 'redux-persist/integration/react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -42,6 +43,7 @@ axios.interceptors.request.use(function (config) {
 const App = () => {
   useEffect(() => {
     oneSignalInit();
+    locationPermission();
     SplashScreen.hide();
   }, []);
 
@@ -89,6 +91,25 @@ const App = () => {
 
     const deviceState = await OneSignal.getDeviceState();
     console.log('Device state', deviceState);
+  };
+
+  const locationPermission = async () => {
+    if (Platform.OS === 'android') {
+      PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Fleett Location Permission',
+          message:
+            'Fleett needs access to your location ' +
+            'to show you closest riders to you.',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+    } else {
+      Geolocation.requestAuthorization('whenInUse');
+    }
   };
 
   return (

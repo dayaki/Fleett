@@ -48,6 +48,7 @@ const Home = ({ navigation }) => {
   const [paymentType, setPaymentType] = useState('pod');
   const [isFetching, setIsFetching] = useState(false);
   const [tempRider, setTempRider] = useState(null);
+  const [tempTrip, setTempTrip] = useState(null);
   const [hasOrder, setHasOrder] = useState(null);
   const [hasError, setHasError] = useState(null);
   const [riderLocation, setRiderLocation] = useState(null);
@@ -72,11 +73,8 @@ const Home = ({ navigation }) => {
     // return () => {
     //   isMounted = false;
     // };
-    handleSockets();
-    locationPermission();
-  }, []);
-
-  const handleSockets = () => {
+    // handleSockets();
+    // locationPermission();
     socket.on('connect', () => {
       socket.emit('USER_ONLINE', {
         socket: socket.id,
@@ -86,7 +84,6 @@ const Home = ({ navigation }) => {
       dispatch({ type: UPDATE_USER_SOCKET, payload: socket.id });
 
       socket.on('NO_RIDERS', () => {
-        // updateHasError();
         setTempRider(null);
         setIsFetching(false);
         setHasError({
@@ -105,7 +102,97 @@ const Home = ({ navigation }) => {
         updateRiderLocation(data);
       });
     });
-  };
+
+    const getLocation = () => {
+      const options = {
+        timeout: 15000,
+        enableHighAccuracy: true,
+        maximumAge: 10000,
+      };
+      Geolocation.getCurrentPosition(
+        async ({ coords: { latitude, longitude } }) => {
+          setLatlng({ lat: latitude, lng: longitude });
+          const response = await Geocoder.from({ latitude, longitude });
+          const address = response.results[0].formatted_address;
+          setPickupAddress(address);
+          setRegion((prevRegion) => ({
+            ...prevRegion,
+            latitude,
+            longitude,
+            latitudeDelta: 0.005,
+            longitudeDelta: 0.005,
+          }));
+        },
+        (error) => {
+          console.log('errrrr', error);
+        },
+        options,
+      );
+    };
+
+    getLocation();
+  }, [dispatch, profile]);
+
+  useEffect(() => {
+    console.log('tempssss', tempTrip?._id, tempRider?._id);
+    if (tempTrip && tempRider && !hasOrder) {
+      setTimeout(() => {
+        setIsFetching(true);
+        console.log('no RIDER yet....', tempRider._id, tempTrip._id);
+        apiService('user/re_route', 'POST', {
+          user: profile._id,
+          riderId: tempRider._id,
+          trip: tempTrip._id,
+        })
+          .then(({ data }) => {
+            console.log('search AGAIN', data);
+            setTempRider(data.rider);
+            setTempTrip(data.trip);
+          })
+          .catch((err) => {
+            console.log('search AGAIN error', err);
+            setHasError({
+              title: 'Riders are busy now',
+              label: 'Please try again in a few minutes.',
+            });
+            setIsFetching(false);
+            setTempRider(null);
+            setTempTrip(null);
+          });
+      }, 30000);
+    }
+  }, [tempTrip, hasOrder, tempRider, profile]);
+
+  // const handleSockets = () => {
+  //   socket.on('connect', () => {
+  //     socket.emit('USER_ONLINE', {
+  //       socket: socket.id,
+  //       user: profile._id,
+  //       room: profile.socketRoom,
+  //     });
+  //     dispatch({ type: UPDATE_USER_SOCKET, payload: socket.id });
+
+  //     socket.on('NO_RIDERS', () => {
+  //       // updateHasError();
+  //       setTempRider(null);
+  //       setIsFetching(false);
+  //       setHasError({
+  //         title: 'Riders are busy now',
+  //         label: 'Please try again in a few minutes.',
+  //       });
+  //     });
+
+  //     socket.on('RIDE_ACCEPTED', (data) => {
+  //       console.log('rider accepted', data);
+  //       updateHasOrder(data);
+  //     });
+
+  //     socket.on('RIDER_LOCATION_UPDATE', (data) => {
+  //       console.log('RIDER_LOCATION_UPDATE', data);
+  //       updateRiderLocation(data);
+  //     });
+  //   });
+  // };
 
   const updateRiderLocation = (data) => {
     let regionn = regionFrom(
@@ -137,60 +224,6 @@ const Home = ({ navigation }) => {
     });
     setHasOrder(data);
     setIsFetching(false);
-  };
-
-  const locationPermission = async () => {
-    if (Platform.OS === 'android') {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: 'Fleett Location Permission',
-          message:
-            'Fleett needs access to your location ' +
-            'to show you closest riders to you.',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        getLocation();
-      } else {
-        console.log('location permission denied');
-      }
-    } else {
-      Geolocation.requestAuthorization('whenInUse').then((status) => {
-        if (status === 'granted' || 'restricted') {
-          getLocation();
-        }
-      });
-    }
-  };
-
-  const getLocation = () => {
-    const options = {
-      timeout: 15000,
-      enableHighAccuracy: true,
-      maximumAge: 10000,
-    };
-    Geolocation.getCurrentPosition(
-      async ({ coords: { latitude, longitude } }) => {
-        setLatlng({ lat: latitude, lng: longitude });
-        const response = await Geocoder.from({ latitude, longitude });
-        const address = response.results[0].formatted_address;
-        console.log('pickupAddress', address);
-        setPickupAddress(address);
-        setRegion({
-          ...region,
-          latitude,
-          longitude,
-        });
-      },
-      (error) => {
-        console.log('errrrr', error);
-      },
-      options,
-    );
   };
 
   const changePickupAddress = ({ description }) => {
@@ -228,7 +261,9 @@ const Home = ({ navigation }) => {
       .then(({ data }) => {
         console.log('search', data);
         if (data) {
-          setTempRider(data);
+          setTempRider(data.rider);
+          setTempTrip(data.trip);
+          // handleRiderReroute();
         } else {
           setHasError({
             title: 'Riders are busy now',
@@ -272,6 +307,7 @@ const Home = ({ navigation }) => {
           style={styles.map}
           region={region}
           showsUserLocation={true}
+          showsMyLocationButton={false}
           loadingEnabled={true}
           minZoomLevel={10}
           ref={mapView}>
