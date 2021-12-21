@@ -8,7 +8,6 @@ import {
   Animated,
   Dimensions,
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { HeaderText, Button } from '../../common';
 import { styles } from './styles';
 
@@ -59,7 +58,7 @@ const Pagination = ({ scrollX }) => {
   );
 };
 
-const Onboarding = () => {
+const Onboarding = ({ navigation }) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   return (
     <>
@@ -97,13 +96,17 @@ const Onboarding = () => {
                 <Button
                   title="Get Started"
                   style={{ marginTop: 64 }}
-                  onPress={() => Actions.sign_in()}
+                  onPress={() => navigation.navigate('login')}
                 />
                 <View style={styles.sliderFooter}>
                   <Text style={styles.sliderFooterText}>
                     Are you a dispatch rider?
                   </Text>
-                  <Text style={styles.sliderFooterButton}>Sign In</Text>
+                  <Text
+                    style={styles.sliderFooterButton}
+                    onPress={() => navigation.navigate('rider_login')}>
+                    Sign In
+                  </Text>
                 </View>
               </View>
             ))}

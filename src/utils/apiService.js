@@ -1,15 +1,11 @@
 import axios from 'axios';
-import PropTypes from 'prop-types';
 import Config from 'react-native-config';
-// import showToast from '../common/Toast';
 import { CANCEL_REQUEST } from '../store/actions/types';
 import { store } from '../store';
 
-const { BASE_URL } = Config;
+const { BASE_URL, LOCALHOST } = Config;
 
 const apiService = (url, type, data, headers) => {
-  console.log('configssss', Config.BASE_URL, url);
-
   if (!url || typeof url !== 'string') {
     store.dispatch({ type: CANCEL_REQUEST });
     throw new Error('Please pass a string url to this function: /path/to/api');
@@ -21,39 +17,25 @@ const apiService = (url, type, data, headers) => {
     );
   }
 
-  const headerContent = () => {
-    if (headers) {
-      if (headers['Content-Type']) {
-        return headers['Content-Type'];
-      }
-      return 'application/json';
-    }
-    return 'application/json';
-  };
-
-  // const deviceId = DeviceInfo.getUniqueId();
-  const header = {
-    // 'X-DEVICE-ID': deviceId,
-    'Content-Type': headerContent(),
-    ...headers,
+  const init = headers || {
+    'Content-Type': 'application/json',
   };
 
   return new Promise((resolve, reject) => {
+    console.log('URL =>', `${LOCALHOST}${url}`);
     axios({
       method: type,
       url: `${BASE_URL}${url}`,
       data,
-      headers: header,
+      headers: init,
     })
       .then((res) => {
         resolve(res.data || res);
       })
+      // eslint-disable-next-line consistent-return
       .catch((error) => {
-        console.log(error, error.config);
+        console.log('error', error);
         if (error && !error.response) {
-          // showToast(
-          //   'Could not connect to the server, please check your internet connection',
-          // );
           console.log(
             'Could not connect to the server, please check your internet connection',
           );
@@ -63,12 +45,6 @@ const apiService = (url, type, data, headers) => {
         reject(error.response.data);
       });
   });
-};
-
-apiService.propTypes = {
-  url: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  headers: PropTypes.object.isRequired,
 };
 
 export default apiService;

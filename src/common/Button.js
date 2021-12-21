@@ -8,7 +8,7 @@ import {
 import { hp, wp } from './utils';
 import * as Colors from './Colors';
 
-export const Button = ({ title, onPress, style, isLoading }) => {
+export const Button = ({ title, onPress, style, isLoading, textStyle }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -17,7 +17,7 @@ export const Button = ({ title, onPress, style, isLoading }) => {
       {isLoading ? (
         <ActivityIndicator size="small" color={Colors.White} />
       ) : (
-        <Text style={styles.buttonText}>{title}</Text>
+        <Text style={[styles.buttonText, textStyle]}>{title}</Text>
       )}
     </TouchableOpacity>
   );

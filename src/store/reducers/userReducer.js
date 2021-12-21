@@ -13,6 +13,9 @@ import {
   INITIATE_ORDER,
   INITIATE_ORDER_SUCESS,
   INITIATE_ORDER_ERROR,
+  UPDATE_USER_SOCKET,
+  SAVE_DESTINATION,
+  SAVE_PICKUP,
 } from '../actions/types';
 
 const initialState = {
@@ -25,6 +28,8 @@ const initialState = {
   loginError: '',
   registerError: '',
   closeBottomSheet: false,
+  pickup: {},
+  destination: {},
 };
 
 export default (state = initialState, action) => {
@@ -33,6 +38,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         tempOrder: { ...state.tempOrder, ...action.payload },
+      };
+    case SAVE_DESTINATION:
+      return {
+        ...state,
+        destination: action.payload,
+      };
+    case SAVE_PICKUP:
+      return {
+        ...state,
+        pickup: action.payload,
       };
     case INITIATE_ORDER:
       return {
@@ -53,6 +68,7 @@ export default (state = initialState, action) => {
         closeBottomSheet: false,
         // tempOrder: {},
       };
+
     case RESET_TEMP_ORDER:
       return {
         ...state,
@@ -84,6 +100,11 @@ export default (state = initialState, action) => {
         error: '',
         loginError: '',
         registerError: action.payload,
+      };
+    case UPDATE_USER_SOCKET:
+      return {
+        ...state,
+        profile: { ...state.profile, socketId: action.payload },
       };
     case LOGIN_USER:
       return {
@@ -124,6 +145,8 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         error: '',
+        registerError: '',
+        loginError: '',
         tempOrder: {},
       };
     case CANCEL_REQUEST:

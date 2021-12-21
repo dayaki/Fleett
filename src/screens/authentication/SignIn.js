@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Image, Text } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -11,7 +10,6 @@ import {
   Input,
   Button,
   DoubleText,
-  Loader,
 } from '../../common';
 import { Email, Password } from '../../../assets/svgs';
 import { userLogin } from '../../store/actions/userActions';
@@ -24,17 +22,15 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string().required('Password is required'),
 });
 
-const SignIn = () => {
+const SignIn = ({ navigation }) => {
   const { loading, loginError } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const handleLogin = (data) => {
-    console.log('login data', data);
     dispatch(userLogin(data));
   };
   return (
     <>
-      {loading && <Loader />}
       <NormalView>
         <Image
           source={require('../../../assets/images/logo.png')}
@@ -70,7 +66,7 @@ const SignIn = () => {
               )}
               <View style={styles.formInput}>
                 <Input
-                  placeholder="Email Address"
+                  placeholder="Email"
                   icon={<Email />}
                   capitalize="none"
                   value={values.email}
@@ -87,7 +83,8 @@ const SignIn = () => {
                 <Input
                   placeholder="Password"
                   icon={<Password />}
-                  password
+                  capitalize="none"
+                  secure
                   value={values.password}
                   onChange={handleChange('password')}
                   onBlur={handleBlur('password')}
@@ -101,17 +98,18 @@ const SignIn = () => {
               <RegularText
                 title="Trouble logging in?"
                 style={styles.forgotPass}
-                onPress={() => Actions.forgot_pass()}
+                onPress={() => navigation.navigate('forgot_pass')}
               />
               <Button
                 title="Sign In"
                 style={styles.formButton}
                 onPress={handleSubmit}
+                isLoading={loading}
               />
               <DoubleText
                 title="Don’t have an account yet?"
                 text="Sign Up"
-                onPress={() => Actions.register()}
+                onPress={() => navigation.navigate('signup')}
               />
             </View>
           )}

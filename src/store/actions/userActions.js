@@ -1,4 +1,4 @@
-import { Actions } from 'react-native-router-flux';
+import { navigate } from '../../navigation/navigationService';
 import apiService from '../../utils/apiService';
 import {
   CREATE_ACCOUNT,
@@ -14,6 +14,8 @@ import {
   INITIATE_ORDER,
   INITIATE_ORDER_SUCESS,
   INITIATE_ORDER_ERROR,
+  SAVE_PICKUP,
+  SAVE_DESTINATION,
 } from './types';
 import { showToast } from '../../common';
 
@@ -26,7 +28,7 @@ export const userLogin = (user) => (dispatch) => {
         type: LOGIN_USER_SUCCESS,
         payload: res.data,
       });
-      Actions.home();
+      navigate('home');
     })
     .catch((error) => {
       console.log('login err', error);
@@ -45,15 +47,23 @@ export const createAccount = (user) => (dispatch) => {
         type: CREATE_ACCOUNT_SUCCESS,
         payload: res.data,
       });
-      Actions.home();
+      navigate('home');
     })
     .catch((error) => {
-      console.log('signuop err', error.error);
+      console.log('signuop err', error);
       dispatch({
         type: CREATE_ACCOUNT_ERROR,
         payload: error.error,
       });
     });
+};
+
+export const savePickupAddress = (address) => (dispatch) => {
+  dispatch({ type: SAVE_PICKUP, payload: address });
+};
+
+export const saveDestination = (address) => (dispatch) => {
+  dispatch({ type: SAVE_DESTINATION, payload: address });
 };
 
 export const trackOrder = (trackNumber) => (dispatch) => {
@@ -65,7 +75,7 @@ export const trackOrder = (trackNumber) => (dispatch) => {
         type: TRACK_SHIPMENT_SUCCESS,
         payload: res.data,
       });
-      Actions.home();
+      navigate('home');
     })
     .catch((error) => {
       console.log('tracking err', error);
@@ -89,7 +99,7 @@ export const initiateOrder = (data) => (dispatch) => {
       const params = {
         uri: res.data,
       };
-      Actions.webview({ params });
+      navigate('webview', { params });
     })
     .catch((error) => {
       console.log('initiate err', error);
@@ -103,5 +113,4 @@ export const initiateOrder = (data) => (dispatch) => {
 
 export const userLogout = () => (dispatch) => {
   dispatch({ type: LOGOUT_USER });
-  Actions.sign_in();
 };

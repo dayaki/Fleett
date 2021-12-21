@@ -11,7 +11,9 @@ export const Input = ({
   onBlur,
   error = false,
   capitalize = 'words',
-  password = false,
+  secure,
+  keyboardType,
+  disable,
 }) => (
   <View style={styles.input}>
     <View style={styles.icon}>{icon}</View>
@@ -23,7 +25,9 @@ export const Input = ({
       placeholderTextColor={Colors.SilverGray}
       style={styles.textInput}
       autoCapitalize={capitalize}
-      secureTextEntry={password}
+      secureTextEntry={secure}
+      keyboardType={keyboardType || 'default'}
+      editable={!disable}
     />
     {error && <Text style={styles.error}>{error}</Text>}
   </View>

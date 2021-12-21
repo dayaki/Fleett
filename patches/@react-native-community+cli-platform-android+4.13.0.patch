@@ -1,0 +1,69 @@
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.js b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.js
+index 59b7aef..8015dac 100644
+--- a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.js
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.js
+@@ -150,7 +150,15 @@ function buildAndRun(args, androidProject) {
+   }
+ }
+ 
+-function runOnSpecificDevice(args, gradlew, packageName, adbPath, androidProject) {
++function getTaskNames(appName, commands) {
++  return appName ? commands.map(command => `${appName}:${command}`) : commands;
++}
++
++function toPascalCase(value) {
++  return value !== '' ? value[0].toUpperCase() + value.slice(1) : value;
++}
++
++function runOnSpecificDevice(args, cmd, packageName, adbPath, androidProject) {
+   const devices = _adb.default.getDevices(adbPath);
+ 
+   const {
+@@ -159,7 +167,7 @@ function runOnSpecificDevice(args, gradlew, packageName, adbPath, androidProject
+ 
+   if (devices.length > 0 && deviceId) {
+     if (devices.indexOf(deviceId) !== -1) {
+-      buildApk(gradlew, androidProject.sourceDir);
++      buildApk(cmd, androidProject, args);
+       installAndLaunchOnDevice(args, deviceId, packageName, adbPath, androidProject);
+     } else {
+       _cliTools().logger.error(`Could not find device with the id: "${deviceId}". Please choose one of the following:`, ...devices);
+@@ -169,18 +177,24 @@ function runOnSpecificDevice(args, gradlew, packageName, adbPath, androidProject
+   }
+ }
+ 
+-function buildApk(gradlew, sourceDir) {
++function buildApk(cmd, androidProject, args) {
+   try {
+     // using '-x lint' in order to ignore linting errors while building the apk
+-    const gradleArgs = ['build', '-x', 'lint'];
++    // const gradleArgs = ['build', '-x', 'lint'];
++    const tasks = args.tasks || ['install' + toPascalCase(args.variant)];
++   const gradleArgs = getTaskNames(args.appFolder || androidProject.appName, tasks)
+ 
++    if (args.port != null) {
++      gradleArgs.push('-PreactNativeDevServerPort=' + args.port);
++    }
+     _cliTools().logger.info('Building the app...');
+ 
+-    _cliTools().logger.debug(`Running command "${gradlew} ${gradleArgs.join(' ')}"`);
++    // _cliTools().logger.debug(`Running command "${gradlew} ${gradleArgs.join(' ')}"`);
++    _cliTools().logger.debug(`Running command "${cmd} ${gradleArgs.join(' ')}"`);
+ 
+-    _execa().default.sync(gradlew, gradleArgs, {
++      _execa().default.sync(cmd, gradleArgs, {
+       stdio: 'inherit',
+-      cwd: sourceDir
++      cwd: androidProject.sourceDir
+     });
+   } catch (error) {
+     throw new (_cliTools().CLIError)('Failed to build the app.', error);
+@@ -240,7 +254,7 @@ function getInstallApkName(appName, adbPath, variant, device, buildDirectory) {
+ 
+ function installAndLaunchOnDevice(args, selectedDevice, packageName, adbPath, androidProject) {
+   (0, _tryRunAdbReverse.default)(args.port, selectedDevice);
+-  tryInstallAppOnDevice(args, adbPath, selectedDevice, androidProject);
++  // tryInstallAppOnDevice(args, adbPath, selectedDevice, androidProject);
+   (0, _tryLaunchAppOnDevice.default)(selectedDevice, packageName, adbPath, args);
+ }
+ 
