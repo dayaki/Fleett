@@ -1,4 +1,3 @@
-import { navigate } from '../../navigation/navigationService';
 import apiService from '../../utils/apiService';
 import {
   CANCEL_REQUEST,
@@ -19,7 +18,6 @@ export const riderLogin = (loginData) => (dispatch) => {
         type: RIDER_LOGIN,
         payload: data,
       });
-      navigate('rider_dashboard');
     })
     .catch((error) => {
       console.log('login err', error);

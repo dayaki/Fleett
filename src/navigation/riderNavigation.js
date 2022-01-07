@@ -11,7 +11,7 @@ const options = { headerShown: false };
 const RiderStack = () => {
   return (
     <Drawer.Navigator
-      initialRouteName="dashboard"
+      initialRouteName="rider_dashboard"
       screenOptions={options}
       drawerContent={(props) => <SideMenu {...props} />}>
       <Drawer.Screen name="rider_dashboard" component={Dashboard} />

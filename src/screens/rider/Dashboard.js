@@ -5,6 +5,7 @@ import {
   Platform,
   TouchableOpacity,
   Image,
+  StatusBar,
 } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { useSelector, useDispatch } from 'react-redux';
@@ -504,39 +505,43 @@ const Dashboard = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        provider={PROVIDER_GOOGLE}
-        region={region}
-        showsUserLocation={true}
-        followsUserLocation={true}
-        loadingEnabled={true}
-        showsTraffic={true}
-        ref={mapView}>
-        {hasTrip && (
-          <Marker
-            coordinate={{
-              latitude: requestData.pickupAddress.latlng.lat,
-              longitude: requestData.pickupAddress.latlng.lng,
-            }}
-            title={'Your pickup location.'}
-            pinColor={'#4CDB00'}
-          />
+    <>
+      <StatusBar barStyle="dark-content" animated={true} />
+      <View style={styles.container}>
+        <MapView
+          style={styles.map}
+          provider={PROVIDER_GOOGLE}
+          region={region}
+          showsMyLocationButton={false}
+          showsUserLocation={true}
+          followsUserLocation={true}
+          loadingEnabled={true}
+          showsTraffic={true}
+          ref={mapView}>
+          {hasTrip && (
+            <Marker
+              coordinate={{
+                latitude: requestData.pickupAddress.latlng.lat,
+                longitude: requestData.pickupAddress.latlng.lng,
+              }}
+              title={'Your pickup location.'}
+              pinColor={'#4CDB00'}
+            />
+          )}
+        </MapView>
+        <RiderHeader />
+        {!hasRequest ? (
+          <RiderStatusView />
+        ) : (
+          !hasTrip && (
+            <NewRequest
+              user={requestData.user}
+              pickup={requestData.pickupAddress}
+            />
+          )
         )}
-      </MapView>
-      <RiderHeader />
-      {!hasRequest ? (
-        <RiderStatusView />
-      ) : (
-        !hasTrip && (
-          <NewRequest
-            user={requestData.user}
-            pickup={requestData.pickupAddress}
-          />
-        )
-      )}
-    </View>
+      </View>
+    </>
   );
 };
 
