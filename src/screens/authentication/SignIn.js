@@ -26,8 +26,10 @@ const SignIn = ({ navigation }) => {
   const { loading, loginError } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const handleLogin = (data) => {
-    dispatch(userLogin(data));
+  const handleLogin = async (data) => {
+    const loginData = await dispatch(userLogin(data));
+    console.log('loginData', loginData);
+    // await userLogin(data);
   };
   return (
     <>

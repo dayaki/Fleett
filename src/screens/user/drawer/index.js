@@ -48,7 +48,7 @@ const DrawerMenu = ({ navigation }) => {
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.navItem}
-            onPress={() => navigation.navigate('Home')}>
+            onPress={() => navigation.navigate('user_home')}>
             <View style={styles.navIcon}>
               <MenuTracking />
             </View>
@@ -57,7 +57,7 @@ const DrawerMenu = ({ navigation }) => {
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.navItem}
-            onPress={() => navigation.navigate('History')}>
+            onPress={() => navigation.navigate('user_history')}>
             <View style={styles.navIcon}>
               <MenuHistory />
             </View>
@@ -72,7 +72,7 @@ const DrawerMenu = ({ navigation }) => {
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.navItem}
-            onPress={() => navigation.navigate('About')}>
+            onPress={() => navigation.navigate('user_about')}>
             <View style={styles.navIcon}>
               <MenuHelp />
             </View>

@@ -11,12 +11,12 @@ const Drawer = createDrawerNavigator();
 const UserStack = () => {
   return (
     <Drawer.Navigator
-      initialRouteName="home"
+      initialRouteName="user_home"
       screenOptions={{ headerShown: false }}
       drawerContent={(props) => <SideMenu {...props} />}>
-      <Drawer.Screen name="Home" component={Home} />
-      <Drawer.Screen name="History" component={History} />
-      <Drawer.Screen name="About" component={About} />
+      <Drawer.Screen name="user_home" component={Home} />
+      <Drawer.Screen name="user_history" component={History} />
+      <Drawer.Screen name="user_about" component={About} />
     </Drawer.Navigator>
   );
 };

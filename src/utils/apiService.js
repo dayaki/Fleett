@@ -22,7 +22,7 @@ const apiService = (url, type, data, headers) => {
   };
 
   return new Promise((resolve, reject) => {
-    console.log('URL =>', `${LOCALHOST}${url}`);
+    console.log('URL =>', `${BASE_URL}${url}`);
     axios({
       method: type,
       url: `${BASE_URL}${url}`,

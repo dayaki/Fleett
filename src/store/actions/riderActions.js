@@ -19,7 +19,7 @@ export const riderLogin = (loginData) => (dispatch) => {
         type: RIDER_LOGIN,
         payload: data,
       });
-      navigate('dashboard');
+      navigate('rider_dashboard');
     })
     .catch((error) => {
       console.log('login err', error);

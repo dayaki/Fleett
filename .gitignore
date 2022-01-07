@@ -21,7 +21,6 @@ DerivedData
 *.ipa
 *.xcuserstate
 
-.env
 *.hprof
 android/*.hprof
 

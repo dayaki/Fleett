@@ -19,25 +19,45 @@ import {
 } from './types';
 import { showToast } from '../../common';
 
-export const userLogin = (user) => (dispatch) => {
+export const userLogin = (user) => async (dispatch) => {
   dispatch({ type: LOGIN_USER });
-  apiService('user/login', 'POST', user)
-    .then((res) => {
-      console.log('login', res);
-      dispatch({
-        type: LOGIN_USER_SUCCESS,
-        payload: res.data,
-      });
-      navigate('home');
-    })
-    .catch((error) => {
-      console.log('login err', error);
-      dispatch({
-        type: LOGIN_USER_ERROR,
-        payload: error.message,
-      });
+  try {
+    const response = await apiService('user/login', 'POST', user);
+    console.log('login', response);
+    dispatch({
+      type: LOGIN_USER_SUCCESS,
+      payload: response.data,
     });
+    return Promise.resolve(response);
+  } catch (error) {
+    console.log('login err', error);
+    dispatch({
+      type: LOGIN_USER_ERROR,
+      payload: error.message,
+    });
+    return Promise.reject(error);
+  }
 };
+
+// export const userLogin = (user) => (dispatch) => {
+//   dispatch({ type: LOGIN_USER });
+//   apiService('user/login', 'POST', user)
+//     .then((res) => {
+//       console.log('login', res);
+//       dispatch({
+//         type: LOGIN_USER_SUCCESS,
+//         payload: res.data,
+//       });
+//       navigate('user_home');
+//     })
+//     .catch((error) => {
+//       console.log('login err', error);
+//       dispatch({
+//         type: LOGIN_USER_ERROR,
+//         payload: error.message,
+//       });
+//     });
+// };
 
 export const createAccount = (user) => (dispatch) => {
   dispatch({ type: CREATE_ACCOUNT });
