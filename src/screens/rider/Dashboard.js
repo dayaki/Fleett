@@ -506,7 +506,7 @@ const Dashboard = ({ navigation }) => {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" animated={true} />
+      <StatusBar barStyle="dark-content" />
       <View style={styles.container}>
         <MapView
           style={styles.map}
