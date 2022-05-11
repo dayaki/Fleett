@@ -9,12 +9,12 @@
     "test": "jest",
     "lint": "eslint ./src --fix",
     "precommit": "npm run lint",
-    "clean": "cd android && ./gradlew clean && cd ..",
-    "build-apk": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
-    "build-android": "cd android && ./gradlew clean && ./gradlew assembleRelease && ./gradlew bundleRelease && cd ..",
     "pod-update": "npm install && cd ios && pod install && cd ..",
     "postinstall": "patch-package",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "clean": "cd android && ./gradlew clean && cd ..",
+    "build-apk": "cd android && ./gradlew clean && cd .. && npx jetify && cd android && ./gradlew assembleRelease && cd ..",
+    "build-android": "cd android && ./gradlew clean && ./gradlew bundleRelease && cd .."
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.14",
@@ -22,6 +22,7 @@
     "@react-navigation/drawer": "^6.1.8",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/stack": "^6.0.11",
+    "@sentry/react-native": "^3.4.2",
     "add": "^2.0.6",
     "axios": "^0.24.0",
     "formik": "^2.2.9",
@@ -48,7 +49,7 @@
     "react-native-modal": "^13.0.0",
     "react-native-onesignal": "^4.3.3",
     "react-native-raw-bottom-sheet": "^2.2.0",
-    "react-native-reanimated": "2.2.4",
+    "react-native-reanimated": "2.8.0",
     "react-native-responsive-screen": "^1.4.2",
     "react-native-root-siblings": "^4.1.1",
     "react-native-root-toast": "^3.3.0",
@@ -94,5 +95,6 @@
       "node_modules/(?!(jest-)?react-native)"
     ],
     "automock": false
-  }
+  },
+  "packageManager": "yarn@3.2.0"
 }

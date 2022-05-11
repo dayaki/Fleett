@@ -506,7 +506,10 @@ const Dashboard = ({ navigation }) => {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar
+        backgroundColor={Platform.OS === 'android' ? 'white' : 'black'}
+        barStyle="dark-content"
+      />
       <View style={styles.container}>
         <MapView
           style={styles.map}
@@ -515,7 +518,7 @@ const Dashboard = ({ navigation }) => {
           showsMyLocationButton={false}
           showsUserLocation={true}
           followsUserLocation={true}
-          loadingEnabled={true}
+          loadingEnabled={false}
           showsTraffic={true}
           ref={mapView}>
           {hasTrip && (

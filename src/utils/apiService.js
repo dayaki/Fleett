@@ -34,8 +34,10 @@ const apiService = (url, type, data, headers) => {
       })
       // eslint-disable-next-line consistent-return
       .catch((error) => {
-        console.log('error', error);
+        // console.log('error', error);
+
         if (error && !error.response) {
+          alert(`Could not connect to the server: ${BASE_URL}${url}`);
           console.log(
             'Could not connect to the server, please check your internet connection',
           );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Image, TextInput } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -24,7 +24,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const handleLogin = (data) => {
-    console.log('login data', data);
+    // console.log('login data', data);
     dispatch(riderLogin(data));
   };
 

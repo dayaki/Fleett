@@ -45,8 +45,23 @@ export const loginStyles = StyleSheet.create({
     borderBottomColor: 'rgba(0,0,0,0.1)',
     borderBottomWidth: 1,
   },
+  // button: {
+  //   marginTop: hp(55)
+  // },
   button: {
     marginTop: hp(55),
+    backgroundColor: Colors.Black,
+    borderRadius: 5,
+    width: wp(280),
+    height: hp(60),
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  buttonText: {
+    color: Colors.White,
+    fontFamily: 'TTNormsPro-Bold',
+    fontSize: hp(18),
   },
   errorView: {
     marginBottom: hp(10),

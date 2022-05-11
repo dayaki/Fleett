@@ -7,11 +7,19 @@ import Geolocation from 'react-native-geolocation-service';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { PersistGate } from 'redux-persist/integration/react';
 import { NavigationContainer } from '@react-navigation/native';
+import * as Sentry from '@sentry/react-native';
 import axios from 'axios';
 import OneSignal from 'react-native-onesignal';
 import { navigationRef } from './navigation/navigationService';
 import MainStack from './navigation';
 import { persistor, store } from './store';
+
+Sentry.init({
+  dsn: 'https://43e7b4a932354bf1993133e03f1a4d82@o1242260.ingest.sentry.io/6396977',
+  // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+  // We recommend adjusting this value in production.
+  tracesSampleRate: 1.0,
+});
 
 const customTextProps = {
   style: {
@@ -52,9 +60,10 @@ const App = () => {
     OneSignal.setLogLevel(6, 0);
     OneSignal.setAppId('1f2468aa-1ffd-496d-a94b-3b4eabbb8c4e');
 
-    OneSignal.promptForPushNotificationsWithUserResponse((response) => {
-      console.log('Prompt response:', response);
-    });
+    Platform.OS === 'ios' &&
+      OneSignal.promptForPushNotificationsWithUserResponse((response) => {
+        console.log('Prompt response:', response);
+      });
 
     OneSignal.setNotificationWillShowInForegroundHandler(
       (notificationReceivedEvent) => {
@@ -66,22 +75,22 @@ const App = () => {
         console.log('notification: ', notification);
         const data = notification.additionalData;
         console.log('additionalData: ', data);
-        const button1 = {
-          text: 'Cancel',
-          onPress: () => {
-            notificationReceivedEvent.complete();
-          },
-          style: 'cancel',
-        };
-        const button2 = {
-          text: 'Complete',
-          onPress: () => {
-            notificationReceivedEvent.complete(notification);
-          },
-        };
-        Alert.alert('Complete notification?', 'Test', [button1, button2], {
-          cancelable: true,
-        });
+        // const button1 = {
+        //   text: 'Cancel',
+        //   onPress: () => {
+        //     notificationReceivedEvent.complete();
+        //   },
+        //   style: 'cancel',
+        // };
+        // const button2 = {
+        //   text: 'Complete',
+        //   onPress: () => {
+        //     notificationReceivedEvent.complete(notification);
+        //   },
+        // };
+        // Alert.alert('Complete notification?', 'Test', [button1, button2], {
+        //   cancelable: true,
+        // });
       },
     );
 
@@ -90,7 +99,7 @@ const App = () => {
     });
 
     const deviceState = await OneSignal.getDeviceState();
-    console.log('Device state', deviceState);
+    // console.log('Device state', deviceState);
   };
 
   const locationPermission = async () => {
@@ -125,4 +134,5 @@ const App = () => {
   );
 };
 
-export default App;
+export default Sentry.wrap(App);
+// export default App;

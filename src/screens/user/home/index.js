@@ -308,7 +308,7 @@ const Home = () => {
           region={region}
           showsUserLocation={true}
           showsMyLocationButton={false}
-          loadingEnabled={true}
+          loadingEnabled={false}
           minZoomLevel={10}
           ref={mapView}>
           {hasOrder && (
